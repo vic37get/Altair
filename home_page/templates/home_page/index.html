@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <div class="col mb-5">
+        <div class="card h-100">
+            <!-- Ppreview aqui-->
+            <img class="card-img-top" src={%static "assets/lic_img_add.png" %} alt="..." />
+            <!-- detalhes simples-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- titulo-->
+                    <h5 class="fw-bolder">Sem Titulo</h5>
+                    <!-- algum dado a escolha-->
+                    ultima modificação:
+                </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" method = "post" href='#'>Nova Licitacao</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for licitacao in licitacoes%}
+    <div class="col mb-5">
+        <div class="card h-100">
+            <!-- Ppreview aqui-->
+            <img class="card-img-top" src={%static "assets/lic_img_demo2.png" %}  alt="..." />
+            <!-- detalhes simples-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- titulo-->
+                    <h5 class="fw-bolder">{{licitacao.nome_arquivo}}</h5>
+                    <!-- algum dado a escolha-->
+                    ultima modificação: {{licitacao.ultima_modificacao}}
+                </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <a class="btn btn-outline-dark mt-auto" href='#'>Abrir/Editar</a>
+                    <form action="{% url 'subaru:delete' licitacao.id %}" method="post">
+                        {% csrf_token %}
+                        <input class="delete-form btn btn-outline-dark mt-auto" type="submit" value="Excluir">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
