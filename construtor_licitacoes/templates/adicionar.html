@@ -7,7 +7,8 @@
   <button type="button" class="btn btn-secondary" style="margin-left: 0.25vw;">Preview</button>
   </div>
   <div class="float-right" style="width: 15%; display: flex; justify-content: right;">
-    <button type="button" class="btn btn-secondary" style="right: 0;" onclick="myFunction()" >Salvar</button>
+    <button type="button" class="btn btn-secondary" style="right: 0;" onclick="myFunction2()" >Adicionar Sessão</button>
+    <button type="button" class="btn btn-secondary" style="right: 0; margin-left: 0.25vw;" onclick="myFunction()" >Salvar</button>
   </div>
 </div>
 <!--{% for i in range %}
@@ -15,7 +16,10 @@
   <form class='secion-form'>{{ formset }}</form>
   
 {% endfor %}-->
-<textarea class="lic-title" id="txtArea1"> </textarea>
+<div id="divTextos">
+  <textarea class="lic-title" id="txtArea1"> </textarea>
+  
+</div>
 <script>
     tinymce.init({
       selector: '.lic-title',
@@ -36,8 +40,19 @@
       tinycomments_author: 'Author name',
     });
 
+    
+
     function myFunction(){
-      console.log(document.getElementById("txtArea1").value)
+      console.log(tinymce.activeEditor.execCommand('mcePrint'))
+    }
+
+    function myFunction2(){
+      g = document.createElement('textarea');
+      g.setAttribute("id", "txtArea1");
+      g.setAttribute("class", "lic-title");
+      var element = document.getElementById("divTextos");
+      element.appendChild(g)
+      tinyMCE.execCommand("mceRepaint");
     }
     
 
