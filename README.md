@@ -1,5 +1,20 @@
 # Altair
 
+### Criando venv caso já não tenha
+```
+sudo apt install python3.8-venv
+python3 -m venv altair_venv
+```
+Ativando venv
+```
+source altair_venv/bin/activate
+```
+
+### Instalando depêndencias
+```
+pip install -r requirements.txt
+```
+
 ### Rode esse comando para ativar o mongodb local para testes
 ```
 docker-compose up -d
