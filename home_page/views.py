@@ -14,3 +14,7 @@ def index(request):
         'usuarios':users
     }
     return HttpResponse(template.render(context, request))
+
+def modelo(request):
+    template = loader.get_template('construtor_licitacoes/modelos.html')
+    return  HttpResponse(template.render({}, request))
