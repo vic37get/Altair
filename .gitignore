@@ -126,3 +126,4 @@ venv
 env
 db.sqlite3
 db copy.sqlite3
+altair_venv/*
