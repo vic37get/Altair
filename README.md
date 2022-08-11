@@ -5,7 +5,7 @@
 sudo apt install python3.8-venv
 python3 -m venv altair_venv
 ```
-Ativando venv
+### Ativando venv
 ```
 source altair_venv/bin/activate
 ```

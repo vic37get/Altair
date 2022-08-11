@@ -7,8 +7,8 @@
   <button type="button" class="btn btn-secondary" style="margin-left: 0.25vw;">Preview</button>
   </div>
   <div class="float-right" style="width: 15%; display: flex; justify-content: right;">
-    <button type="button" class="btn btn-secondary" style="right: 0;" onclick="myFunction2()" >Adicionar Sessão</button>
-    <button type="button" class="btn btn-secondary" style="right: 0; margin-left: 0.25vw;" onclick="myFunction()" >Salvar</button>
+    <button type="button" class="btn btn-secondary" style="right: 0;" onclick="myFunction()" >Adicionar Sessão</button>
+    <button type="button" class="btn btn-secondary" style="right: 0; margin-left: 0.25vw;" onclick="myFunction3()" >Salvar</button>
   </div>
 </div>
 <!--{% for i in range %}
@@ -18,7 +18,7 @@
 {% endfor %}-->
 <div id="divTextos">
   <textarea class="lic-title" id="txtArea1"> </textarea>
-  
+  <textarea class="form-control" rows="7" id="txtArea2" style="margin-top: 0.5vh;" readonly> </textarea>
 </div>
 <script>
     tinymce.init({
@@ -53,6 +53,12 @@
       var element = document.getElementById("divTextos");
       element.appendChild(g)
       tinyMCE.execCommand("mceRepaint");
+    }
+
+    function myFunction3(){
+     var texto = tinymce.get("txtArea1").getContent()
+     console.log(texto)
+     document.getElementById("txtArea2").value = texto
     }
     
 
