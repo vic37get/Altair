@@ -1,0 +1,11 @@
+.remove {
+    display: none;
+}
+
+.box-folha {
+    box-shadow: 0 0 16px rgb(0 0 0 / 56%);
+}
+
+#principal {
+    width: 100%;
+}

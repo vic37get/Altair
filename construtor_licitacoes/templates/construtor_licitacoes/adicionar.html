@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 {%load static%}
 {% block content %}
+<link href={%static "construtor_licitacoes/css/estilo_adicionar.css" %} rel="stylesheet" referrerpolicy="origin"></script>
 <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%; display: flex; justify-content: space-between;">
     <div style="width: 30%;">
     <button type="button" class="btn btn-secondary" onclick="getText()">Editar</button>
     </div>
   </div>
-  <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha" style="box-shadow: 0 0 20px rgb(0 0 0 / 56%);">
-    <div id="divTextos">
-      <textarea class="lic-title" id="txtArea1"> </textarea>
+  
+  <div id="principal">
+    <div id="menu_botoes">
+      <h1>Menu Lateral</h1>
+    </div>
+    <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha";>
+      <div id="divTextos">
+        <textarea class="lic-title" id="txtArea1"> </textarea>
+      </div>
     </div>
   </div>
   <script>
@@ -18,7 +25,7 @@
     var div_interna = document.getElementById('corpo_interno');
     var body = document.getElementById('main_body');
     header.style.display = "none";
-    secao.style.cssText = "padding-top:0rem !important;background:#dbdbdbe6 !important;";
+    //secao.style.cssText = "padding-top:0rem !important;background:#dbdbdbe6 !important;";
     //barra_inferior.style.cssText = "padding-top:1.5rem !important";
     div_interna.style.cssText = "margin-top:2rem !important";
     body.style.cssText = "background:#dbdbdbe6 !important";
