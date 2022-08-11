@@ -9,3 +9,12 @@
 #principal {
     width: 100%;
 }
+
+.menu{
+    box-shadow: 0 0 2px black;
+    background-color: rgb(236, 236, 236);
+}
+
+.rodape{
+    box-shadow: 0 0 2px black;
+}
