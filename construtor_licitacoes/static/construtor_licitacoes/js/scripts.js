@@ -1,7 +1,8 @@
 
 tinymce.init({
     selector: '.lic-title',
-    height : '10.3rem',
+    height : '20 rem',
+    plugin: 'pagebreak',
     menubar: false,
     statusbar: false,
     style_formats: [

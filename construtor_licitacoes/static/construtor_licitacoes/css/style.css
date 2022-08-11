@@ -1,0 +1,7 @@
+.remove {
+    display: none;
+}
+
+.box-folha {
+    box-shadow: 0 0 20px rgb(0 0 0 / 56%);
+}

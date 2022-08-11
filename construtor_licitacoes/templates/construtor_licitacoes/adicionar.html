@@ -6,12 +6,21 @@
     <button type="button" class="btn btn-secondary" onclick="getText()">Editar</button>
     </div>
   </div>
-
-  <div id="divTextos">
-    <textarea class="lic-title" id="txtArea1"> </textarea>
-    
+  <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha" style="box-shadow: 0 0 20px rgb(0 0 0 / 56%);">
+    <div id="divTextos">
+      <textarea class="lic-title" id="txtArea1"> </textarea>
+    </div>
   </div>
   <script>
-
+    var header = document.getElementById('header');
+    var secao = document.getElementById('corpo_principal');
+    var barra_inferior = document.getElementById('barra_inferior');
+    var div_interna = document.getElementById('corpo_interno');
+    var body = document.getElementById('main_body');
+    header.style.display = "none";
+    secao.style.cssText = "padding-top:0rem !important;background:#dbdbdbe6 !important;";
+    //barra_inferior.style.cssText = "padding-top:1.5rem !important";
+    div_interna.style.cssText = "margin-top:2rem !important";
+    body.style.cssText = "background:#dbdbdbe6 !important";
   </script>
 {% endblock %}
