@@ -1,6 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
-from django.http import HttpResponse
 from pymongo import MongoClient
 from utils import connectMongo
 
@@ -16,5 +16,10 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 def modelo(request):
-    template = loader.get_template('construtor_licitacoes/modelos.html')
-    return  HttpResponse(template.render({}, request))
+    modelo = loader.get_template('construtor_licitacoes/modelos.html')
+    collection = db_client['template']
+    templates = collection.find({})
+    context = {
+        'templates':templates
+    }
+    return  HttpResponse(modelo.render(context, request))
