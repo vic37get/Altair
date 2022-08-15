@@ -4,7 +4,7 @@ from django.template import loader
 from pymongo import MongoClient
 from utils import connectMongo
 
-db_client = connectMongo('sample_mflix')
+db_client = connectMongo('Altair')
 
 def index(request):
     template = loader.get_template('home_page/index.html')
