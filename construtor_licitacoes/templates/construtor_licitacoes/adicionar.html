@@ -4,7 +4,7 @@
 <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%; display: flex; justify-content: space-between;">
     <div style="width: 30%;">
     <button type="button" class="btn btn-secondary" onclick="getText()">Editar</button>
-    <button type="button" class="btn btn-secondary" style="right: 0;" onclick="addSecao()">Adicionar Sessão</button>
+    <button type="button" class="btn btn-secondary" style="right: 0;" onclick="novaInstanciaTinyMCE()">Adicionar Sessão</button>
     <button type="button" class="btn btn-secondary" style="right: 0; margin-left: 0.25vw;" onclick="save()" >Salvar</button>
     </div>
   </div>
@@ -13,7 +13,8 @@
     <textarea class="lic-title" id="txtArea1"> </textarea>
     <textarea class="form-control" rows="7" id="txtArea2" style="margin-top: 0.5vh;" readonly> </textarea> 
   </div>
-  <script>
-
+  <div id="div_secoes"></div>
+  <script type="text/javascript">
+    var prefixo = "{{template.prefixo_secoes}}";
   </script>
 {% endblock %}

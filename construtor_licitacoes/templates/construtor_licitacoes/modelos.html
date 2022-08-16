@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {%load static%}
+{%load tagger%}
 {% block content %}
 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    {% for template in templates%}
     <div class="col mb-5">
         <div class="card h-100">
             <!-- Ppreview aqui-->
@@ -10,16 +12,21 @@
             <div class="card-body p-4">
                 <div class="text-center">
                     <!-- titulo-->
-                    <h5 class="fw-bolder">SEÇÃO</h5>
+                    <h5 class="fw-bolder">{{template.nome}}</h5>
                     <!-- algum dado a escolha-->
                 </div>
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                    <a class="btn btn-outline-dark mt-auto" method = "post" href={% url 'construtor_licitacoes:adicionar' %}>Criar com esse template</a>
+                    <form action="{% url 'construtor_licitacoes:adicionar' template|private:'_id' %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-outline-dark mt-auto" type="submit" value="Criar com esse template">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    {% endfor %}
+</div>
 {% endblock %}
