@@ -125,6 +125,8 @@ tinymce.init({
     var numeracao = document.createElement("h5");
     numeracao.setAttribute('id', 'secao_titulo')
     
+    var secao_completa = document.createElement('div')
+    secao_completa.setAttribute('class','secoesSemNome');
     if (secoes_lista.length == 0){
       if (prefixo == "SEÇÃO"){
         numeracao.innerHTML = padraoSecaoEditavel(prefixo, count)
@@ -136,18 +138,16 @@ tinymce.init({
         numeracao.innerHTML = padraoNumericoEditavel(count)
       }
 
-      var secao_completa = document.createElement('div')
       var secao_titulo = document.createElement("textarea");
       secao_titulo.setAttribute('class','titulo_secoes');
       secao_completa.appendChild(numeracao)
       secao_completa.appendChild(secao_titulo)
-      secao_completa.style.float = "left";
       secoes.appendChild(secao_completa)
 
       tinymce.init({
         selector: '.titulo_secoes',
-        height : '3.3rem',
-        content_style: "margin: 0px; padding: 0px;",
+        height : '4.1rem',
+        width: '100%',
         toolbar: false,
         menubar: false,
         statusbar: false,
@@ -179,9 +179,8 @@ tinymce.init({
       }
       count ++;
       secoes_lista.shift();
+      secoes.appendChild(secao_titulo);
     }
-    secoes.appendChild(secao_titulo);
-    instanceMCE();
     var conteudo = document.createElement("textarea");
     conteudo.setAttribute('class','secoes');
     secoes.appendChild(conteudo);

@@ -3,6 +3,16 @@
     font-weight: bold;
     font-size: 12;
     padding-left: 30px;
-    margin: 10px 0px 10px;
+    margin-top: 0.8rem;
+    margin-right: 0.8rem;
+    white-space: nowrap;
+}
+
+.secoesSemNome{
+    margin-top: 0.8rem;
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
 }
 
