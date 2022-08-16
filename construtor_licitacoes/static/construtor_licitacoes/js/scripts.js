@@ -17,9 +17,7 @@ tinymce.init({
     tinycomments_author: 'Author name',
   });
 
-
   function addSecao(){
-    console.log("okj")
     tinymce.init({
       selector: '#sessao',
       height : '10.3rem',
@@ -42,7 +40,6 @@ tinymce.init({
 
   function save(){
    var texto = tinymce.get("txtArea1").getContent()
-   console.log(texto)
    document.getElementById("txtArea2").value = texto
   }
 
@@ -67,70 +64,143 @@ tinymce.init({
       tinycomments_mode: 'embedded',
       tinycomments_author: 'Author name',
     });
-  
-    tinymce.init({
-      selector: '.titulo_secoes',
-      height : '3.3rem',
-      content_style: "margin: 0px; padding: 0px;",
-      toolbar: false,
-      menubar: false,
-      statusbar: false,
-      style_formats: [
-        // Adds the h1 format defined above to style_formats
-        { title: 'Titulo 1', format: 'h1' },
-        { title: 'Titulo 2', format: 'h2' },
-        { title: 'Titulo 3', format: 'h3' },
-        { title: 'Titulo 4', format: 'h4' },
-        ],
-      language: 'pt_BR',
-      language_url: '{%static "js/langs/pt_BR.js" %}',
-      branding: false,
-      tinycomments_mode: 'embedded',
-      tinycomments_author: 'Author name',
-    });
   }
-  
-  var secoes_lista = ["DO OBJETO","DO JULGAMENTO","DAS CONDIÇÕES DE PARTICIPAÇÃO"];
-  
-  function myFunction(){
-    console.log(tinymce.activeEditor.execCommand('mcePrint'));
+
+  function integer_to_roman(num) {
+    if (typeof num !== 'number'){ 
+      return false; 
+    }
+    var digits = String(+num).split(""),
+    key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+    "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+    "","I","II","III","IV","V","VI","VII","VIII","IX"],
+    roman_num = "",
+    i = 3;
+    while (i--)
+    roman_num = (key[+digits.pop() + (i * 10)] || "") + roman_num;
+    return Array(+digits.join("") + 1).join("M") + roman_num;
   }
+
+  function padraoSecao(numeracao, secoes_lista){
+    numeracao = integer_to_roman(numeracao)
+    secao_titulo = prefixo + " " + numeracao + " - "  + secoes_lista[0];
+    return secao_titulo
+  }
+
+  function padraoCapitulo(numeracao, secoes_lista){
+    numeracao = integer_to_roman(numeracao)
+    secao_titulo = prefixo + " " + numeracao + " - "  + secoes_lista[0];
+    return secao_titulo
+  }
+
+  function padraoNumerico(numeracao, secoes_lista){
+    secao_titulo  = numeracao + ". "  + secoes_lista[0];
+    return secao_titulo
+  }
+
+  function padraoSecaoEditavel(prefixo, count){
+    count = integer_to_roman(count)
+    numeracao = prefixo + " " + count + " - ";
+    return numeracao
+  }
+
+  function padraoCapituloEditavel(prefixo, count){
+    count = integer_to_roman(count)
+    numeracao = prefixo + " " + count + " - ";
+    return numeracao
+  }
+
+  function padraoNumericoEditavel(count){
+    numeracao = count + ". ";
+    return numeracao
+  }
+
+
+  var secoes_lista = ["DO OBJETO","DO JULGAMENTO","DAS CONDIÇÕES DE PARTICIPAÇÃO", "DA HABILITAÇÃO", "DO CREDENCIAMENTO"];
   var count = 1;
+
+
   function novaInstanciaTinyMCE(){
     var secoes = document.getElementById('div_secoes');
+    var numeracao = document.createElement("h5");
+    numeracao.setAttribute('id', 'secao_titulo')
     
-    var numeracao = document.createElement("h3");
-    numeracao.setAttribute('id', 'numeracao_titulo')
-    numeracao.innerHTML = count;
     if (secoes_lista.length == 0){
+      if (prefixo == "SEÇÃO"){
+        numeracao.innerHTML = padraoSecaoEditavel(prefixo, count)
+      }
+      else if (prefixo == 'CAPÍTULO'){
+        numeracao.innerHTML = padraoCapituloEditavel(prefixo, count)
+      }
+      else {
+        numeracao.innerHTML = padraoNumericoEditavel(count)
+      }
+
+      var secao_completa = document.createElement('div')
       var secao_titulo = document.createElement("textarea");
       secao_titulo.setAttribute('class','titulo_secoes');
-      secoes.appendChild(numeracao);
+      secao_completa.appendChild(numeracao)
+      secao_completa.appendChild(secao_titulo)
+      secao_completa.style.float = "left";
+      secoes.appendChild(secao_completa)
+
+      tinymce.init({
+        selector: '.titulo_secoes',
+        height : '3.3rem',
+        content_style: "margin: 0px; padding: 0px;",
+        toolbar: false,
+        menubar: false,
+        statusbar: false,
+        style_formats: [
+          // Adds the h1 format defined above to style_formats
+          { title: 'Titulo 1', format: 'h1' },
+          { title: 'Titulo 2', format: 'h2' },
+          { title: 'Titulo 3', format: 'h3' },
+          { title: 'Titulo 4', format: 'h4' },
+          ],
+        language: 'pt_BR',
+        language_url: '{%static "js/langs/pt_BR.js" %}',
+        branding: false,
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+      });
       count ++;
     }else{
-      var secao_titulo = document.createElement("h3");
-      secao_titulo.innerHTML = count + " " +prefixo+" "+secoes_lista[0];
+      var secao_titulo = document.createElement("h5");
+      secao_titulo.setAttribute('id', 'secao_titulo')
+      if (prefixo == "SEÇÃO"){
+        secao_titulo.innerHTML = padraoSecao(count, secoes_lista)
+      }
+      else if (prefixo == 'CAPÍTULO'){
+        secao_titulo.innerHTML = padraoCapitulo(count, secoes_lista)
+      }
+      else {
+        secao_titulo.innerHTML = padraoNumerico(count, secoes_lista)
+      }
       count ++;
-      //console.log(secao_titulo);
       secoes_lista.shift();
     }
     secoes.appendChild(secao_titulo);
     instanceMCE();
-    secoes.appendChild(document.createElement("br"));
     var conteudo = document.createElement("textarea");
     conteudo.setAttribute('class','secoes');
     secoes.appendChild(conteudo);
     instanceMCE();
   }
+
   
   function myFunction3(){
    var texto = tinymce.get("txtArea1").getContent()
-   console.log(texto)
    tinymce.activeEditor.hide();
    document.getElementById("txtArea2").value = tinymce.activeEditor.getContent();
   }
+
   
   function handler( event ) {
     var target = $( event.target );
-    console.log(target)
+  }
+
+
+  function ImprimeDocumento(){
+    tinymce.activeEditor.execCommand('mcePrint');
   }
