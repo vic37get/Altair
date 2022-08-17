@@ -1,14 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
-from pymongo import MongoClient
 from utils import connectMongo
-from fpdf import FPDF
-
-import io
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import cm
-from reportlab.lib.pagesizes import letter
 
 db_client = connectMongo('Altair')
 

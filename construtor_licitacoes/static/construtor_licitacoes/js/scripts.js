@@ -41,12 +41,6 @@ tinymce.init({
   function save(){
    var texto = tinymce.get("txtArea1").getContent()
    document.getElementById("txtArea2").value = texto
-
-   //var texto1 = "";
-   //var textareaList = document.querySelectorAll("textarea");
-   //for(var i = 0; i < textareaList.length; i++){
-   //   texto1 = texto1+' '+textareaList[i];
-   //}
   }
 
 
@@ -194,19 +188,12 @@ tinymce.init({
     instanceMCE();
   }
 
-  
   function myFunction3(){
    var texto = tinymce.get("txtArea1").getContent()
    tinymce.activeEditor.hide();
    document.getElementById("txtArea2").value = tinymce.activeEditor.getContent();
   }
 
-  
   function handler( event ) {
     var target = $( event.target );
-  }
-
-
-  function ImprimeDocumento(){
-    tinymce.activeEditor.execCommand('mcePrint');
   }
