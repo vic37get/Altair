@@ -1,6 +1,7 @@
 
 tinymce.init({
     selector: '.lic-title',
+    weight : '80%',
     height : '20 rem',
     plugin: 'pagebreak',
     menubar: false,
@@ -18,3 +19,14 @@ tinymce.init({
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
   });
+
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "20%";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
+

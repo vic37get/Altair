@@ -1,13 +1,24 @@
 .remove {
     display: none;
 }
+#corpo_interno{
+    box-sizing: content-box;
+    display: contents;
+}
 
 .box-folha {
     box-shadow: 0 0 16px rgb(0 0 0 / 56%);
+    width: 88%;
+    box-sizing: content-box;
+    margin: auto;
 }
 
 #principal {
-    width: 100%;
+    width: 90%;
+    margin-left: 0%;
+    margin-right: 0%;
+    box-sizing: content-box !important;
+    /*display: flex;*/
 }
 
 .menu{
@@ -18,3 +29,85 @@
 .rodape{
     box-shadow: 0 0 2px black;
 }
+
+.tox-tinymce{
+    border: 3px solid #0000001f !important;
+}
+
+.menu {
+    background-color: #0b5351 !important;
+    box-shadow: 0 0 15px black !important;
+    border-bottom: 1px solid #212529 !important;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white !important;
+}
+
+#barra_inferior {
+    background-color: #0b5351;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+  }
+  
+  .openbtn:hover {
+    background-color: #444;
+  }
+  
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
