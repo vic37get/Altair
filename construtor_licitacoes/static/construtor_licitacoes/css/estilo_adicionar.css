@@ -7,7 +7,7 @@
 }
 
 .box-folha {
-    box-shadow: 0 0 16px rgb(0 0 0 / 56%);
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
     width: 88%;
     box-sizing: content-box;
     margin: auto;
@@ -38,6 +38,9 @@
     background-color: #0b5351 !important;
     box-shadow: 0 0 15px black !important;
     border-bottom: 1px solid #212529 !important;
+    position: fixed !important;
+    width: 100%;
+    z-index: 2;
 }
 
 .navbar-brand {
@@ -52,34 +55,35 @@
     background-color: #0b5351;
     position: relative;
     width: 100%;
+    height: 10%;
     bottom: 0;
 }
-
 .sidebar {
-    height: 100%;
-    width: 0;
     position: fixed;
-    z-index: 1;
-    /*top: 0;*/
+    width: 0;
+    z-index: 3;
+    height: 100%;
     margin-top: 8px;
-    left: 0;
-    background-color: #111;
+    background-color: #0b5351;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    border: 1px solid #212529 !important;
   }
   
-  .sidebar a {
+  .sidebar button {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    font-size: 20px;
+    color: white;
     display: block;
     transition: 0.3s;
+    background: none;
+    border: none;
   }
   
-  .sidebar a:hover {
-    color: #f1f1f1;
+  .sidebar button:hover {
+    color: black;
   }
   
   .sidebar .closebtn {
@@ -91,16 +95,35 @@
   }
   
   .openbtn {
+    z-index: 3;
+    position: fixed;
     font-size: 20px;
     cursor: pointer;
-    background-color: #111;
+    background-color: #0b5351;
     color: white;
     padding: 10px 15px;
     border: none;
     margin-top: 8px;
-    margin-right: 8px;
-    left: 0;
     height: fit-content;
+  }
+
+  #btnLeft{
+    left: 0;
+    margin-right: 8px;
+  }
+
+  #btnRight{
+    right: 0;
+    margin-left: 8px;
+    
+  }
+
+  #mySidebarRight{
+    right: 0;
+  }
+
+  #mySidebarLeft{
+    left: 0;
   }
   
   .openbtn:hover {
@@ -109,7 +132,9 @@
   
   #main {
     transition: margin-left .5s;
+    transition: margin-right .5s;
     padding: 16px 16px 16px 0px;
+    height: 90%;
   }
 
   @media screen and (max-height: 450px) {
@@ -121,3 +146,16 @@
     display: flex;
     flex-direction: row;
   }
+  
+  /*ICONE NOVA LICITAÇÃO*/
+  .fa-file-circle-plus{
+    font-size: 60px;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  /*CARD DE NOVA LICITAÇÃO*/
+  .p-4{
+    text-align: center;
+  }
+

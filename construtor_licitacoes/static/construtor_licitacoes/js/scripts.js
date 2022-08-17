@@ -20,13 +20,27 @@ tinymce.init({
     tinycomments_author: 'Author name',
   });
 
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "20%";
-    document.getElementById("main").style.marginLeft = "270px";
+  function openNavLeft() {
+    document.getElementsByClassName('openbtn')[0].style.display = "none";
+    document.getElementById("mySidebarLeft").style.width = "20%";
+    document.getElementById("main").style.marginLeft = "20%";
   }
 
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
+  function closeNavLeft() {
+    document.getElementsByClassName('openbtn')[0].style.display = "flex";
+    document.getElementById("mySidebarLeft").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
+  }
+
+  function openNavRight() {
+    document.getElementsByClassName('openbtn')[0].style.display = "none";
+    document.getElementById("mySidebarRight").style.width = "40%";
+    document.getElementById("main").style.marginRight = "40%";
+  }
+
+  function closeNavRight() {
+    document.getElementsByClassName('openbtn')[0].style.display = "flex";
+    document.getElementById("mySidebarRight").style.width = "0";
+    document.getElementById("main").style.marginRight= "0";
   }
 
