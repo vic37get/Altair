@@ -40,6 +40,11 @@ tinymce.init({
 
   function save(){
    var texto = tinymce.get("txtArea1").getContent()
+   //var texto1 = "";
+   //var textareaList = document.querySelectorAll("textarea");
+   //for(var i = 0; i < textareaList.length; i++){
+   //   texto1 = texto1+' '+textareaList[i];
+   //}
    document.getElementById("txtArea2").value = texto
   }
 
@@ -147,7 +152,7 @@ tinymce.init({
 
       tinymce.init({
         selector: '.titulo_secoes',
-        height : '4.1rem',
+        height : '3.0rem',
         width: '100%',
         toolbar: false,
         menubar: false,
