@@ -60,7 +60,8 @@
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 0;
+    /*top: 0;*/
+    margin-top: 8px;
     left: 0;
     background-color: #111;
     overflow-x: hidden;
@@ -96,6 +97,10 @@
     color: white;
     padding: 10px 15px;
     border: none;
+    margin-top: 8px;
+    margin-right: 8px;
+    left: 0;
+    height: fit-content;
   }
   
   .openbtn:hover {
@@ -104,10 +109,15 @@
   
   #main {
     transition: margin-left .5s;
-    padding: 16px;
+    padding: 16px 16px 16px 0px;
   }
 
   @media screen and (max-height: 450px) {
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
+  }
+
+  .content_menu_folha{
+    display: flex;
+    flex-direction: row;
   }

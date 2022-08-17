@@ -22,7 +22,7 @@ tinymce.init({
 
   function openNav() {
     document.getElementById("mySidebar").style.width = "20%";
-    document.getElementById("main").style.marginLeft = "250px";
+    document.getElementById("main").style.marginLeft = "270px";
   }
 
   function closeNav() {
