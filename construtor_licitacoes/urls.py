@@ -4,4 +4,5 @@ from . import views
 app_name='construtor_licitacoes'
 urlpatterns = [
     path('novaLicitacao/',views.nova_licitacao,name='adicionar'),
+    path('baixarPdf',views.baixarPdf,name='baixarPdf'),
 ]

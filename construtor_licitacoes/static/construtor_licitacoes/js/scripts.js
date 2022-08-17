@@ -1,4 +1,3 @@
-
 tinymce.init({
     selector: '.lic-title',
     height : '10.3rem',
@@ -44,4 +43,9 @@ tinymce.init({
    var texto = tinymce.get("txtArea1").getContent()
    console.log(texto)
    document.getElementById("txtArea2").value = texto
+  }
+
+  function baixarPdf(){
+    document.getElementById("Button").addEventListener('click', analyzeText());
+
   }
