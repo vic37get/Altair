@@ -2,7 +2,7 @@
 {%load static%}
 {% block content %}
 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-    <div class="col mb-5">
+    <div class="col mb-3 mt-5">
         <div class="card h-100">
             <!-- Ppreview aqui-->
             <!-- detalhes simples-->
@@ -24,7 +24,7 @@
         </div>
     </div>
     {% for licitacao in licitacoes%}
-    <div class="col mb-5">
+    <div class="col mb-3 mt-5">
         <div class="card h-100">
             <!-- Ppreview aqui-->
             <img class="card-img-top" src={%static "assets/lic_img_demo2.png" %}  alt="..." />
