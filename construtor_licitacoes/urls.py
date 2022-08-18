@@ -1,7 +1,9 @@
-from django.urls import path,include
+from django.urls import include, path
+
 from . import views
 
 app_name='construtor_licitacoes'
 urlpatterns = [
     path('novaLicitacao/',views.nova_licitacao,name='adicionar'),
+    path('novaLicitacao/<pk>',views.nova_licitacao,name='adicionar'),
 ]
