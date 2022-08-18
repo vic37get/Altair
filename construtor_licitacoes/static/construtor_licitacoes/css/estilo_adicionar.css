@@ -8,9 +8,10 @@
 
 .box-folha {
   box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
-    width: 88%;
-    box-sizing: content-box;
-    margin: auto;
+  width: 85%;
+  box-sizing: content-box;
+  margin: auto;
+  height: 1000px;
 }
 
 #principal {
@@ -40,7 +41,7 @@
     border-bottom: 1px solid #212529 !important;
     position: fixed !important;
     width: 100%;
-    z-index: 2;
+    z-index: 4;
 }
 
 .navbar-brand {
@@ -52,18 +53,20 @@
 }
 
 #barra_inferior {
-    background-color: #0b5351;
-    position: fixed;
+    background-color: #106d6a;
+    position: relative;
     width: 100%;
-    /*height: 10%;*/
     bottom: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 3;
 }
 .sidebar {
+    margin-top: 8px;
     position: fixed;
     width: 0;
     z-index: 3;
     height: 100%;
-    margin-top: 8px;
     background-color: #0b5351;
     overflow-x: hidden;
     transition: 0.5s;
@@ -72,9 +75,9 @@
   }
   
   .sidebar button {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 12px 8px 12px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 22px;
     color: white;
     display: block;
     transition: 0.3s;
@@ -89,9 +92,15 @@
   .sidebar .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    font-size: 30px;
+  }
+
+  #closeRight{
+    left: 0;
+  }
+
+  #closeLeft{
+    right: 0;
   }
   
   .openbtn {
@@ -103,19 +112,16 @@
     color: white;
     padding: 10px 15px;
     border: none;
-    margin-top: 8px;
     height: fit-content;
   }
 
   #btnLeft{
     left: 0;
-    margin-right: 8px;
   }
 
   #btnRight{
     right: 0;
-    margin-left: 8px;
-    
+    font-size: 18px;
   }
 
   #mySidebarRight{
@@ -129,11 +135,35 @@
   .openbtn:hover {
     background-color: #444;
   }
+
+  .menu_lateral{
+    margin-top: 8px;
+    z-index: 3;
+    position: fixed;
+    font-size: 20px;
+    background-color: #106d6a;
+    color: white;
+    border: none;
+    height: 100%;
+    width: 50px;
+    
+  }
+
+  #menuLateralEsquerdo{
+    left: 0;
+  }
+
+  #menuLateralDireito{
+    right: 0;
+  }
+
+
+
   
   #main {
     transition: margin-left .5s;
     transition: margin-right .5s;
-    padding: 16px 16px 16px 0px;
+    padding: 16px 0px 16px 0px;
     height: 90%;
   }
 

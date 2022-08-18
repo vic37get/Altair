@@ -9,38 +9,32 @@
 
 <div id="main">
   <div id="mySidebarLeft" class="sidebar">
-    <button href="javascript:void(0)" class="closebtn" onclick="closeNavLeft()">×</button>
+    <button href="javascript:void(0)" class="closebtn" id="closeLeft" onclick="closeNavLeft()"><i class="fa-regular fa-circle-xmark"></i></button>
     <button>Adicionar Seção <i class="fa-solid fa-square-plus"></i></button>
     <button>Adicionar Subseção <i class="fa-solid fa-square-plus"></i></button>
     <button>Salvar <i class="fa-solid fa-file-pdf"></i></button>
     <button>Preview <i class="fa-solid fa-eye"></i></button>
   </div>
-
-  <div id="mySidebarRight" class="sidebar">
-    <button href="javascript:void(0)" class="closebtn" onclick="closeNavRight()">×</button>
+  <div class="menu_lateral" id="menuLateralEsquerdo">
+    <button class="openbtn" id="btnLeft" onclick="openNavLeft()">☰</button>
   </div>
 
-  <div class="content_menu_folha" >
+  <div id="mySidebarRight" class="sidebar">
+    <button href="javascript:void(0)" class="closebtn" id="closeRight" onclick="closeNavRight()"><i class="fa-regular fa-circle-xmark"></i></button>
+  </div>
+  <div class="menu_lateral" id="menuLateralDireito">
     <button class="openbtn" id="btnRight" onclick="openNavRight()"><i class="fa-solid fa-eye"></i></button>  
+  </div>
+  
+  <div class="content_menu_folha">
     <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha";>
       <div id="divTextos">
         <textarea class="lic-title" id="txtArea1"> </textarea>
       </div>
     </div>
-    <button class="openbtn" id="btnLeft" onclick="openNavLeft()">☰</button> 
-  </div>
   </div>
 </div>
+
   <script>
-    var header = document.getElementById('header');
-    var secao = document.getElementById('corpo_principal');
-    var barra_inferior = document.getElementById('barra_inferior');
-    var div_interna = document.getElementById('corpo_interno');
-    var body = document.getElementById('main_body');
-    header.style.display = "none";
-    //secao.style.cssText = "padding-top:0rem !important;background:#dbdbdbe6 !important;";
-    //barra_inferior.style.cssText = "padding-top:1.5rem !important";
-    //div_interna.style.cssText = "margin-top:2rem !important;margin-left:0 !important;padding-left:0 !important";
-    body.style.cssText = "background:#dbdbdb4f !important";
   </script>
 {% endblock %}
