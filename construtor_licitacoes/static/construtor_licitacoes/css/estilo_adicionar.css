@@ -1,0 +1,191 @@
+.remove {
+    display: none;
+}
+#corpo_interno{
+    box-sizing: content-box;
+    display: contents;
+}
+
+.box-folha {
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+  width: 85%;
+  box-sizing: content-box;
+  margin: auto;
+  height: 1000px;
+}
+
+#principal {
+    width: 90%;
+    margin-left: 0%;
+    margin-right: 0%;
+    box-sizing: content-box !important;
+    /*display: flex;*/
+}
+
+.menu{
+    box-shadow: 0 0 2px black;
+    background-color: rgb(236, 236, 236);
+}
+
+.rodape{
+    box-shadow: 0 0 2px black;
+}
+
+.tox-tinymce{
+    border: 3px solid #0000001f !important;
+}
+
+.menu {
+    background-color: #0b5351 !important;
+    box-shadow: 0 0 15px black !important;
+    border-bottom: 1px solid #212529 !important;
+    position: fixed !important;
+    width: 100%;
+    z-index: 4;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white !important;
+}
+
+#barra_inferior {
+    background-color: #106d6a;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 3;
+}
+.sidebar {
+    margin-top: 8px;
+    position: fixed;
+    width: 0;
+    z-index: 3;
+    height: 100%;
+    background-color: #0b5351;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    border: 1px solid #212529 !important;
+  }
+  
+  .sidebar button {
+    padding: 8px 12px 8px 12px;
+    text-decoration: none;
+    font-size: 22px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    background: none;
+    border: none;
+  }
+  
+  .sidebar button:hover {
+    color: black;
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    font-size: 30px;
+  }
+
+  #closeRight{
+    left: 0;
+  }
+
+  #closeLeft{
+    right: 0;
+  }
+  
+  .openbtn {
+    z-index: 3;
+    position: fixed;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #0b5351;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    height: fit-content;
+  }
+
+  #btnLeft{
+    left: 0;
+  }
+
+  #btnRight{
+    right: 0;
+    font-size: 18px;
+  }
+
+  #mySidebarRight{
+    right: 0;
+  }
+
+  #mySidebarLeft{
+    left: 0;
+  }
+  
+  .openbtn:hover {
+    background-color: #444;
+  }
+
+  .menu_lateral{
+    margin-top: 8px;
+    z-index: 3;
+    position: fixed;
+    font-size: 20px;
+    background-color: #106d6a;
+    color: white;
+    border: none;
+    height: 100%;
+    width: 50px;
+    
+  }
+
+  #menuLateralEsquerdo{
+    left: 0;
+  }
+
+  #menuLateralDireito{
+    right: 0;
+  }
+
+
+
+  
+  #main {
+    transition: margin-left .5s;
+    transition: margin-right .5s;
+    padding: 16px 0px 16px 0px;
+    height: 90%;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+
+  .content_menu_folha{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  /*ICONE NOVA LICITAÇÃO*/
+  .fa-file-circle-plus{
+    font-size: 60px;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  /*CARD DE NOVA LICITAÇÃO*/
+  .p-4{
+    text-align: center;
+  }
+
