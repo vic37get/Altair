@@ -296,6 +296,18 @@ tinymce.init({
       stringpdf += element
     });
     console.log(stringpdf)
+
+    var doc = new jsPDF();
+    doc.fromHTML(stringpdf, // page element which you want to print as PDF
+    15,
+    15, 
+    {
+      'width': 170
+    },
+    function(a) 
+    {
+      doc.save("edital.pdf","../");
+    });
   }
 
   function preview(){
