@@ -262,7 +262,11 @@ tinymce.init({
 
   function getAllContent(){
     var ids = getAllIds();
+    var divconteudo = []
     var divs_secoes = document.getElementsByClassName('tituloCaptura');
+
+    divs_secoes[0].childNodes[0]
+
     for (let index = 0; index < divs_secoes.length; index++) {
       var div_conteudo = document.createElement('div');
       div_conteudo.setAttribute('class','w-100')
@@ -279,12 +283,19 @@ tinymce.init({
           var conteudo = tinymce.get(elemento.id).getContent();
           div_conteudo.innerHTML = conteudo;
           divs_secoes[index].appendChild(div_conteudo)
+          divconteudo.push((divs_secoes[index].childNodes[0]).outerHTML)
+          divconteudo.push(conteudo)
         }
         if(elemento.className.match(/.*tox-tinymce.*/i) != null){
           divs_secoes[index].removeChild(elemento);
         }
       }
     }
+    var stringpdf;
+    divconteudo.forEach(element => {
+      stringpdf += element
+    });
+    console.log(stringpdf)
   }
 
   function preview(){
