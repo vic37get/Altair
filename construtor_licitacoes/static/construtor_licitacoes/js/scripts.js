@@ -149,10 +149,10 @@ tinymce.init({
   function novaInstanciaTinyMCE(){
     var secoes = document.getElementById('div_secoes');
     var numeracao = document.createElement("h5");
-    numeracao.setAttribute('id', 'secao_titulo')
+    numeracao.setAttribute('class', 'secao_titulo');
     
     var secao_completa = document.createElement('div')
-    secao_completa.setAttribute('class','secoesSemNome');
+    secao_completa.setAttribute('class','tituloCaptura secoesSemNome');
     if (secoes_lista.length == 0){
       if (prefixo == "SEÇÃO"){
         numeracao.innerHTML = padraoSecaoEditavel(prefixo, count)
@@ -165,9 +165,12 @@ tinymce.init({
       }
 
       var secao_titulo = document.createElement("textarea");
+      var titulo_secaoSemNome = document.createElement("div");
+      titulo_secaoSemNome.setAttribute('class','d-flex flex-row w-100 pb-2');
       secao_titulo.setAttribute('class','titulo_secoes');
-      secao_completa.appendChild(numeracao)
-      secao_completa.appendChild(secao_titulo)
+      titulo_secaoSemNome.appendChild(numeracao);
+      titulo_secaoSemNome.appendChild(secao_titulo);
+      secao_completa.appendChild(titulo_secaoSemNome);
       secoes.appendChild(secao_completa)
 
       tinymce.init({
@@ -193,7 +196,7 @@ tinymce.init({
       count ++;
     }else{
       var secao_titulo = document.createElement("h5");
-      secao_titulo.setAttribute('id', 'secao_titulo')
+      secao_titulo.setAttribute('class', 'secao_titulo');
       if (prefixo == "SEÇÃO"){
         secao_titulo.innerHTML = padraoSecao(count, secoes_lista)
       }
@@ -205,12 +208,33 @@ tinymce.init({
       }
       count ++;
       secoes_lista.shift();
-      secoes.appendChild(secao_titulo);
+      secao_completa.appendChild(secao_titulo);
+      secoes.appendChild(secao_completa)
     }
     var conteudo = document.createElement("textarea");
     conteudo.setAttribute('class','secoes');
-    secoes.appendChild(conteudo);
-    instanceMCE();
+    secao_completa.appendChild(conteudo);
+    tinymce.init({
+      selector: '.secoes',
+      width: '100%',
+      plugins: 'autoresize',
+      autoresize_bottom_margin: 10,
+      max_height: 500,
+      menubar: false,
+      statusbar: false,
+      style_formats: [
+        // Adds the h1 format defined above to style_formats
+        { title: 'Titulo 1', format: 'h1' },
+        { title: 'Titulo 2', format: 'h2' },
+        { title: 'Titulo 3', format: 'h3' },
+        { title: 'Titulo 4', format: 'h4' },
+        ],
+      language: 'pt_BR',
+      language_url: '{%static "js/langs/pt_BR.js" %}',
+      branding: false,
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+    });
   }
 
   function myFunction3(){
@@ -219,6 +243,50 @@ tinymce.init({
    document.getElementById("txtArea2").value = tinymce.activeEditor.getContent();
   }
 
-  function handler( event ) {
-    var target = $( event.target );
+  function filterTinyMce(textarea){
+    if(textarea.id.match(/mce_.*/i) != null){
+      return textarea
+    }
+  }
+
+  function mapTinyMce(textarea){
+    return textarea.id
+  }
+  function getAllIds(){
+    var lista_textAreas = document.getElementsByTagName('textarea');
+    lista_textAreas = Array.prototype.slice.call(lista_textAreas);
+    lista_textAreas = lista_textAreas.filter(filterTinyMce);
+    lista_textAreas = lista_textAreas.map(mapTinyMce);
+    return lista_textAreas
+  }
+
+  function getAllContent(){
+    var ids = getAllIds();
+    var divs_secoes = document.getElementsByClassName('tituloCaptura');
+    for (let index = 0; index < divs_secoes.length; index++) {
+      var div_conteudo = document.createElement('div');
+      div_conteudo.setAttribute('class','w-100')
+      var filhos = divs_secoes[index].childNodes;
+      if(filhos[0].tagName == 'DIV'){
+        var titulo = tinymce.get(filhos[0].childNodes[1].id).getContent();
+        div_conteudo.innerHTML = titulo;
+        filhos[0].appendChild(div_conteudo)
+        filhos[0].removeChild(filhos[0].childNodes[2]);
+      }
+      for (let j = 1; j < filhos.length; j++) {
+        var elemento = filhos[j];
+        if(elemento.id.match(/mce_.*/i)!=null){
+          var conteudo = tinymce.get(elemento.id).getContent();
+          div_conteudo.innerHTML = conteudo;
+          divs_secoes[index].appendChild(div_conteudo)
+        }
+        if(elemento.className.match(/.*tox-tinymce.*/i) != null){
+          divs_secoes[index].removeChild(elemento);
+        }
+      }
+    }
+  }
+
+  function preview(){
+
   }
