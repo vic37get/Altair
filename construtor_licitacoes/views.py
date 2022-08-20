@@ -13,3 +13,13 @@ def nova_licitacao(request,pk):
         'template':dict(template)
     }
     return HttpResponse(modelo.render(context, request))
+from django.views.decorators.csrf import csrf_exempt
+import json
+@csrf_exempt
+def salvar(request):
+    if request.method == 'POST':
+        collection_template = db_client['licitacao']
+        data = json.loads(request.body.decode('utf-8'))
+        collection_template.insert_one(data)
+        print(data['secoes'])
+    return HttpResponse()
