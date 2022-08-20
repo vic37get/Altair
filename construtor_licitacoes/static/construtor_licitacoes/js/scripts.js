@@ -19,6 +19,8 @@ tinymce.init({
     tinycomments_author: 'Author name',
   });
 
+  
+
   function openNavLeft() {
     document.getElementById('menuLateralEsquerdo').style.display = "none";
     document.getElementById("mySidebarLeft").style.width = "20%";
@@ -105,6 +107,7 @@ tinymce.init({
       tinycomments_author: 'Author name',
     });
   }
+  
 
   function integer_to_roman(num) {
     if (typeof num !== 'number'){ 
@@ -159,19 +162,23 @@ tinymce.init({
     var menu = document.getElementById('menuSecoesFeitas');
     menu.innerHTML = ""
     lista = getTitulo()
-    console.log(lista)
     lista.forEach(element => {
-      console.log(element)
       elemento = $(element)[0];
+      if (elemento.tagName == "DIV"){
+        p = $(elemento.getElementsByTagName("p"))[0];
+        elemento = $(elemento.getElementsByTagName("H5"))[0];
+        try {
+          elemento.innerHTML = elemento.innerHTML + p.innerHTML.toUpperCase();
+        } catch (error) {
+        }
+      }
       elemento.setAttribute('class', 'tituloSecaoFeita');
       menu.appendChild(elemento);
     });
   }
-
-
+  
   var secoes_lista = ["DO OBJETO","DO JULGAMENTO","DAS CONDIÇÕES DE PARTICIPAÇÃO", "DA HABILITAÇÃO", "DO CREDENCIAMENTO"];
   var count = 1;
-
 
   function novaInstanciaTinyMCE(){
     var secoes = document.getElementById('div_secoes');
@@ -190,7 +197,6 @@ tinymce.init({
       else {
         numeracao.innerHTML = padraoNumericoEditavel(count)
       }
-
       var secao_titulo = document.createElement("textarea");
       var titulo_secaoSemNome = document.createElement("div");
       titulo_secaoSemNome.setAttribute('class','d-flex flex-row w-100 pb-2 tituloCaptura');
@@ -386,3 +392,5 @@ tinymce.init({
     }
     return conteudosAll;
   }
+
+
