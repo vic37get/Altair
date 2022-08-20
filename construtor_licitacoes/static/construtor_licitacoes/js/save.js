@@ -1,4 +1,4 @@
-function createJSON() {
+function createJSON(id) {
     var json = {};
     var titulos = getTitulo();
     var conteudos = getConteudo();
@@ -6,11 +6,12 @@ function createJSON() {
     for (let i = 0; i < titulos.length; i++) {
         json['secoes'].push({'titulo':titulos[i],'conteudo':conteudos[i]})
     }
-    return JSON.stringify(json);
+    var output = {'json':json,'_id':id};
+    return JSON.stringify(output);
 }
 
-function saveJSON(){
-    var dataJSON = createJSON();
+function saveJSON(id){
+    var dataJSON = createJSON(id);
     $.ajax({
       type: 'POST',
       url: '/construcao/salvar',

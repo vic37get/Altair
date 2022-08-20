@@ -8,9 +8,12 @@ db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
     modelo = loader.get_template('construtor_licitacoes/adicionar.html')
     collection_template = db_client['template']
+    collection_licitacao = db_client['licitacao']
+    id = collection_licitacao.insert_one({})
     template = collection_template.find_one({"_id":ObjectId(pk)})
     context = {
-        'template':dict(template)
+        'template':dict(template),
+        'id_licitacao':id.inserted_id
     }
     return HttpResponse(modelo.render(context, request))
 from django.views.decorators.csrf import csrf_exempt
@@ -18,8 +21,9 @@ import json
 @csrf_exempt
 def salvar(request):
     if request.method == 'POST':
-        collection_template = db_client['licitacao']
+        collection_licitacao = db_client['licitacao']
         data = json.loads(request.body.decode('utf-8'))
-        collection_template.insert_one(data)
-        print(data['secoes'])
+        collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
+        print(data['json'])
+        print(data['_id'])
     return HttpResponse()

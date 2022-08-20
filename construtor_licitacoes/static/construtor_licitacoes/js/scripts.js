@@ -351,8 +351,7 @@ tinymce.init({
       var secao_filhos = secao.children;
       for (let j = 0; j < secao_filhos.length; j++) {
         if(secao_filhos[j].tagName == 'TEXTAREA'){
-          conteudo = $(tinymce.get(secao_filhos[j].id).getContent())[0];
-          conteudos.push(conteudo.outerHTML);
+          conteudos.push(tinymce.get(secao_filhos[j].id).getContent());
         }
       }
       conteudosAll.push(conteudos);
