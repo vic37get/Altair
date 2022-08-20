@@ -1,8 +1,11 @@
+from multiprocessing import context
 from bson.objectid import ObjectId
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from utils import connectMongo
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
@@ -16,8 +19,16 @@ def nova_licitacao(request,pk):
         'id_licitacao':id.inserted_id
     }
     return HttpResponse(modelo.render(context, request))
-from django.views.decorators.csrf import csrf_exempt
-import json
+
+def editar(request,pk):
+    collection_licitacao = db_client['licitacao']
+    licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    context = {
+        'licitacao':dict(licitacao)
+    }
+    modelo = loader.get_template('construtor_licitacoes/adicionar.html')
+    return HttpResponse(modelo.render(context, request))
+
 @csrf_exempt
 def salvar(request):
     if request.method == 'POST':
