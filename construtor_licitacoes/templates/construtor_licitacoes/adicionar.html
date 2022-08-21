@@ -12,7 +12,7 @@
     <button href="javascript:void(0)" class="closebtn" id="closeLeft" onclick="closeNavLeft()"><i class="fa-regular fa-circle-xmark"></i></button>
     <button onclick="novaInstanciaTinyMCE()">Adicionar Seção <i class="fa-solid fa-square-plus"></i></button>
     <button>Adicionar Subseção <i class="fa-solid fa-square-plus"></i></button>
-    <button >Salvar <i class="fa-solid fa-file-pdf"></i></button>
+    <button  onclick="saveJSON('{{id_licitacao}}')">Salvar <i class="fa-solid fa-floppy-disk"></i></button>
     <button onclick="baixarPdf()">Baixar Licitação <i class="fa-solid fa-file-pdf"></i></button>
     <button onclick="getAllContent()">Preview <i class="fa-solid fa-eye"></i></button>
   </div>
@@ -22,7 +22,7 @@
 
   <div id="mySidebarRight" class="sidebar">
     <button href="javascript:void(0)" class="closebtn" id="closeRight" onclick="closeNavRight()"><i class="fa-regular fa-circle-xmark"></i></button>
-    <embed src="../../static/construtor_licitacoes/pdf/edital.pdf#view=FitH" type="application/pdf" width="100%" height="100%">
+    <embed src="" type="application/pdf" width="100%" height="100%">
   </div>
   <div class="menu_lateral" id="menuLateralDireito">
     <button class="openbtn" id="btnRight" onclick="openNavRight()"><i class="fa-solid fa-eye"></i></button>  

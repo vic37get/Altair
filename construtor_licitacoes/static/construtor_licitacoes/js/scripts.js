@@ -260,7 +260,8 @@ tinymce.init({
     return lista_textAreas
   }
 
-  function getAllContent(){
+  function getAllContent(id){
+    var preview = createJSON(id);
     var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
@@ -351,8 +352,7 @@ tinymce.init({
       var secao_filhos = secao.children;
       for (let j = 0; j < secao_filhos.length; j++) {
         if(secao_filhos[j].tagName == 'TEXTAREA'){
-          conteudo = $(tinymce.get(secao_filhos[j].id).getContent())[0];
-          conteudos.push(conteudo.outerHTML);
+          conteudos.push(tinymce.get(secao_filhos[j].id).getContent());
         }
       }
       conteudosAll.push(conteudos);
@@ -362,7 +362,7 @@ tinymce.init({
 
 
   
-  function baixarPdf(){
+  function baixarPdf(salvar){
     var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
@@ -411,6 +411,9 @@ tinymce.init({
     },
     function(a) 
     {
-      doc.save("edital "+ dataAtual.toString()+".pdf","../");
+      if(salvar==true)
+        doc.save("edital "+ dataAtual.toString()+".pdf","../");
+      else
+        return doc.output('datauri');
     });
   }
