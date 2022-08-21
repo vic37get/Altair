@@ -274,20 +274,14 @@ tinymce.init({
       if(filhos[0].tagName == 'DIV'){
         var titulo = tinymce.get(filhos[0].childNodes[1].id).getContent();
         div_conteudo.innerHTML = titulo;
-        filhos[0].appendChild(div_conteudo)
-        filhos[0].removeChild(filhos[0].childNodes[2]);
       }
       for (let j = 1; j < filhos.length; j++) {
         var elemento = filhos[j];
         if(elemento.id.match(/mce_.*/i)!=null){
           var conteudo = tinymce.get(elemento.id).getContent();
           div_conteudo.innerHTML = conteudo;
-          divs_secoes[index].appendChild(div_conteudo)
           divconteudo.push((divs_secoes[index].childNodes[0]).outerHTML)
           divconteudo.push(conteudo)
-        }
-        if(elemento.className.match(/.*tox-tinymce.*/i) != null){
-          divs_secoes[index].removeChild(elemento);
         }
       }
     }
