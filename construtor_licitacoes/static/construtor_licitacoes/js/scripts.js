@@ -367,7 +367,8 @@ tinymce.init({
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
     var textoInicial = tinymce.get('txtArea1').getContent();
-    divs_secoes[0].childNodes[0]
+    if(divs_secoes.length>0)
+      divs_secoes[0].childNodes[0]
 
     for (let index = 0; index < divs_secoes.length; index++) {
       var div_conteudo = document.createElement('div');
@@ -395,7 +396,7 @@ tinymce.init({
     divconteudo.forEach(element => {
       stringpdf += element
     });
-    console.log(stringpdf)
+    //console.log(stringpdf)
 
     var doc = new jsPDF();
     var data = new Date();
@@ -411,9 +412,6 @@ tinymce.init({
     },
     function(a) 
     {
-      if(salvar==true)
         doc.save("edital "+ dataAtual.toString()+".pdf","../");
-      else
-        return doc.output('datauri');
     });
   }
