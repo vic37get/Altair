@@ -306,7 +306,8 @@ tinymce.init({
     },
     function(a) 
     {
-      doc.save("edital.pdf","../");
+      var file = document.getElementById("embedpreview")
+      file.src = doc.output('datauristring') + "#view=FitH"
     });
   }
 
