@@ -1,7 +1,8 @@
 tinymce.init({
-    selector: '.lic-title',
+    selector: '.lic-title1',
     weight : '80%',
-    height : '20 rem',
+    height : '200',
+    max_height: 500,
     plugin: 'pagebreak',
     menubar: false,
     statusbar: false,
@@ -18,6 +19,7 @@ tinymce.init({
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
   });
+
 
   function openNavLeft() {
     document.getElementById('menuLateralEsquerdo').style.display = "none";
@@ -63,10 +65,7 @@ tinymce.init({
     });
   }
 
-  function save(){
-   var texto = tinymce.get("txtArea1").getContent()
-   document.getElementById("txtArea2").value = texto
-  }
+
 
 
   function instanceMCE(){
@@ -265,8 +264,6 @@ tinymce.init({
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
 
-    divs_secoes[0].childNodes[0]
-
     for (let index = 0; index < divs_secoes.length; index++) {
       var div_conteudo = document.createElement('div');
       div_conteudo.setAttribute('class','w-100')
@@ -285,10 +282,15 @@ tinymce.init({
         }
       }
     }
-    var stringpdf;
+
+    var stringpdf = "";
     divconteudo.forEach(element => {
       stringpdf += element
     });
+    var textoHeader = tinymce.get("txtArea1").getContent();
+    
+
+    stringpdf = textoHeader + stringpdf
     console.log(stringpdf)
 
     var doc = new jsPDF();
