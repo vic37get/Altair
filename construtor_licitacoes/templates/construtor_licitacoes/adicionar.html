@@ -13,21 +13,19 @@
     <button onclick="novaInstanciaTinyMCE()">Adicionar Seção <i class="fa-solid fa-square-plus"></i></button>
     <button>Adicionar Subseção <i class="fa-solid fa-square-plus"></i></button>
     <button>Salvar <i class="fa-solid fa-file-pdf"></i></button>
-    <button onclick="getAllContent()">Preview <i class="fa-solid fa-eye"></i></button>
   </div>
   <div class="menu_lateral" id="menuLateralEsquerdo">
     <button class="openbtn" id="btnLeft" onclick="openNavLeft()">☰</button>
   </div>
 
   <div id="mySidebarRight" class="sidebar">
+    <button class="closebtn" id="atualizarPreview" onclick="getAllContent();"><i class="fa-solid fa-arrow-rotate-right"></i></button>
     <button href="javascript:void(0)" class="closebtn" id="closeRight" onclick="closeNavRight()"><i class="fa-regular fa-circle-xmark"></i></button>
-    <embed src="" id="embedpreview" style="
-    height: 100%;
-    width: 100%;
-"><!--</iframe>-->
+    <embed src="" id="embedpreview">
   </div>
   <div class="menu_lateral" id="menuLateralDireito">
-    <button class="openbtn" id="btnRight" onclick="openNavRight()"><i class="fa-solid fa-eye"></i></button>  
+    <button class="openbtn" id="btnRight" onclick="openNavRight();getAllContent();"><i class="fa-solid fa-eye"></i></button>
+
   </div>
   
   <div class="content_menu_folha">

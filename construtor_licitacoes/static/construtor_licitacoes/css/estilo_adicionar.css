@@ -191,3 +191,12 @@
     text-align: center;
   }
 
+  #embedpreview{
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  #atualizarPreview{
+    left: 0;
+    padding-left: 6vh;
+  }
