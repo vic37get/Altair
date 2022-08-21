@@ -287,7 +287,8 @@ tinymce.init({
     return lista_textAreas
   }
 
-  function getAllContent(){
+  function getAllContent(id){
+    var preview = createJSON(id);
     var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
@@ -384,8 +385,7 @@ tinymce.init({
       var secao_filhos = secao.children;
       for (let j = 0; j < secao_filhos.length; j++) {
         if(secao_filhos[j].tagName == 'TEXTAREA'){
-          conteudo = $(tinymce.get(secao_filhos[j].id).getContent())[0];
-          conteudos.push(conteudo.outerHTML);
+          conteudos.push(tinymce.get(secao_filhos[j].id).getContent());
         }
       }
       conteudosAll.push(conteudos);
@@ -396,12 +396,13 @@ tinymce.init({
 
 
   
-  function baixarPdf(){
+  function baixarPdf(salvar){
     var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
     var textoInicial = tinymce.get('txtArea1').getContent();
-    divs_secoes[0].childNodes[0]
+    if(divs_secoes.length>0)
+      divs_secoes[0].childNodes[0]
 
     for (let index = 0; index < divs_secoes.length; index++) {
       var div_conteudo = document.createElement('div');
@@ -429,7 +430,7 @@ tinymce.init({
     divconteudo.forEach(element => {
       stringpdf += element
     });
-    console.log(stringpdf)
+    //console.log(stringpdf)
 
     var doc = new jsPDF();
     var data = new Date();
@@ -445,7 +446,7 @@ tinymce.init({
     },
     function(a) 
     {
-      doc.save("edital "+ dataAtual.toString()+".pdf","../");
+        doc.save("edital "+ dataAtual.toString()+".pdf","../");
     });
   }
 

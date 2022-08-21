@@ -7,10 +7,10 @@ db_client = connectMongo('Altair')
 
 def index(request):
     template = loader.get_template('home_page/index.html')
-    collection = db_client['comments']
-    users = collection.find({})
+    collection_licitacao = db_client['licitacao']
+    licitacoes = collection_licitacao.find({})
     context = {
-        'usuarios':users
+        'licitacoes':licitacoes
     }
     return HttpResponse(template.render(context, request))
 
