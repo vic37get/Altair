@@ -1,11 +1,13 @@
 from multiprocessing import context
 from bson.objectid import ObjectId
+import bson.json_util as json_util
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from utils import connectMongo
 from django.views.decorators.csrf import csrf_exempt
 import json
+
 
 db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
@@ -24,7 +26,8 @@ def editar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
     context = {
-        'licitacao':dict(licitacao)
+        'licitacao':json_util.dumps(licitacao),
+        'id_licitacao':licitacao['_id']
     }
     modelo = loader.get_template('construtor_licitacoes/adicionar.html')
     return HttpResponse(modelo.render(context, request))

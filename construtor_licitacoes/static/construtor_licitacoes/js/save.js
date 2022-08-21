@@ -4,7 +4,7 @@ function createJSON(id) {
     var conteudos = getConteudo();
     json['secoes'] = [];
     for (let i = 0; i < titulos.length; i++) {
-        json['secoes'].push({'titulo':titulos[i],'conteudo':conteudos[i]})
+        json['secoes'].push({'titulo':titulos[i].replace(/"/g, "'"),'conteudo':conteudos[i].map(rep)})
     }
     var output = {'json':json,'_id':id};
     return JSON.stringify(output);
@@ -24,3 +24,37 @@ function saveJSON(id){
       }
     });
   }
+
+function loadJSON(json){
+    var jsonDecoded = JSON.parse(decodeEntity(json).replace(/\n\r?/g, ''));
+    for (let index = 0; index < jsonDecoded.secoes.length; index++) {novaInstanciaTinyMCE();}
+    console.log(jsonDecoded);
+    setTimeout(function(){
+        setConteudo(jsonDecoded);
+    },2000);
+}
+
+function decodeEntity(inputStr) {
+    var textarea = document.createElement("textarea");
+    textarea.innerHTML = inputStr;
+    return textarea.value;
+}
+
+function rep(string){
+    return string.replace(/"/g, "'");
+}
+
+function setConteudo(jsonDecoded){
+    var divs_secoes = document.getElementsByClassName('conteudoCaptura');
+    for (let index = 0; index < divs_secoes.length; index++) {
+    var secao = divs_secoes[index];
+    var secao_filhos = secao.children;
+    for (let j = 0; j < secao_filhos.length; j++) {
+        if(secao_filhos[j].tagName == 'TEXTAREA'){
+            console.log(secao_filhos[j].id);
+            console.log(jsonDecoded.secoes[index].conteudo[0]);
+            tinymce.get(secao_filhos[j].id).setContent(jsonDecoded.secoes[index].conteudo[0]);
+        }
+    }
+    }
+}
