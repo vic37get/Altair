@@ -152,7 +152,7 @@ tinymce.init({
     numeracao.setAttribute('class', 'secao_titulo');
     
     var secao_completa = document.createElement('div')
-    secao_completa.setAttribute('class','tituloCaptura secoesSemNome');
+    secao_completa.setAttribute('class','conteudoCaptura secoesSemNome');
     if (secoes_lista.length == 0){
       if (prefixo == "SEÇÃO"){
         numeracao.innerHTML = padraoSecaoEditavel(prefixo, count)
@@ -166,7 +166,7 @@ tinymce.init({
 
       var secao_titulo = document.createElement("textarea");
       var titulo_secaoSemNome = document.createElement("div");
-      titulo_secaoSemNome.setAttribute('class','d-flex flex-row w-100 pb-2');
+      titulo_secaoSemNome.setAttribute('class','d-flex flex-row w-100 pb-2 tituloCaptura');
       secao_titulo.setAttribute('class','titulo_secoes');
       titulo_secaoSemNome.appendChild(numeracao);
       titulo_secaoSemNome.appendChild(secao_titulo);
@@ -196,7 +196,7 @@ tinymce.init({
       count ++;
     }else{
       var secao_titulo = document.createElement("h5");
-      secao_titulo.setAttribute('class', 'secao_titulo');
+      secao_titulo.setAttribute('class', 'secao_titulo tituloCaptura');
       if (prefixo == "SEÇÃO"){
         secao_titulo.innerHTML = padraoSecao(count, secoes_lista)
       }
@@ -263,7 +263,7 @@ tinymce.init({
   function getAllContent(){
     var ids = getAllIds();
     var divconteudo = []
-    var divs_secoes = document.getElementsByClassName('tituloCaptura');
+    var divs_secoes = document.getElementsByClassName('conteudoCaptura');
 
     divs_secoes[0].childNodes[0]
 
@@ -311,6 +311,52 @@ tinymce.init({
     });
   }
 
-  function preview(){
+  function getTitulo(){
+    var titulos = document.getElementsByClassName('tituloCaptura');
+    var titulos_prontos = [];
+    for (let i = 0; i < titulos.length; i++) {
+      var tituloCompleto = '';
+      var titulo = titulos[i];
+      if(titulo.tagName=='DIV'){
+        filhos_divTitulo = titulo.children;
+        var prefixo;
+        var tituloCaixa;
+        for (let j = 0; j < filhos_divTitulo.length; j++) {
+          var filho = filhos_divTitulo[j];
+          if(filho.tagName == 'H5'){
+            prefixo = filho;
+          }else{
+            if(filho.tagName == 'TEXTAREA'){
+              tituloCaixa = $(tinymce.get(filho.id).getContent())[0];
+            }
+          }
+        }
+        tituloCompleto = document.createElement('div');
+        tituloCompleto.appendChild(prefixo.cloneNode(true));
+        tituloCompleto.appendChild(tituloCaixa);
+      }
+      else{
+        tituloCompleto = titulo;
+      }
+      titulos_prontos.push(tituloCompleto.outerHTML);
+    }
+    return titulos_prontos;
+  }
 
+  function getConteudo(){
+    var divs_secoes = document.getElementsByClassName('conteudoCaptura');
+    var conteudosAll = [];
+    for (let index = 0; index < divs_secoes.length; index++) {
+      var conteudos = []
+      var secao = divs_secoes[index];
+      var secao_filhos = secao.children;
+      for (let j = 0; j < secao_filhos.length; j++) {
+        if(secao_filhos[j].tagName == 'TEXTAREA'){
+          conteudo = $(tinymce.get(secao_filhos[j].id).getContent())[0];
+          conteudos.push(conteudo.outerHTML);
+        }
+      }
+      conteudosAll.push(conteudos);
+    }
+    return conteudosAll;
   }
