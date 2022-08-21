@@ -26,7 +26,6 @@ function saveJSON(id){
 function loadJSON(json){
     var jsonDecoded = JSON.parse(decodeEntity(json).replace(/\n\r?/g, ''));
     var sleep = 1500+jsonDecoded.secoes.length*350;
-    /*console.log(jsonDecoded);*/
     setConteudo(jsonDecoded);
 }
 
@@ -42,19 +41,17 @@ function rep(string){
 
 function setConteudo(jsonDecoded){
     for (let index = 0; index < jsonDecoded.secoes.length; index++) {
-        /*console.log(secao_filhos[j].id);*/
         /*$(jsonDecoded.secoes[index].titulo)[0].children[1].outerHTML*/
-        var title = '';
-        if($(jsonDecoded.secoes[index].titulo)[0].tagName == 'DIV'){title = $(jsonDecoded.secoes[index].titulo)[0].children[1].outerHTML}        
-        loadInstanciaTinyMCE(jsonDecoded.secoes[index].conteudo[0],title);
+        /*console.log(jsonDecoded.secoes[index].conteudo[0]);*/
+        /*jsonDecoded.secoes[index].conteudo[0],title*/
+        loadInstanciaTinyMCE(jsonDecoded);
     }
 }
 
-function loadInstanciaTinyMCE(json,title){
+function loadInstanciaTinyMCE(jsonDecoded){
     var secoes = document.getElementById('div_secoes');
     var numeracao = document.createElement("h5");
     numeracao.setAttribute('class', 'secao_titulo');
-    
     var secao_completa = document.createElement('div')
     secao_completa.setAttribute('class','conteudoCaptura secoesSemNome');
     if (secoes_lista.length == 0){
@@ -81,7 +78,14 @@ function loadInstanciaTinyMCE(json,title){
         selector: '.titulo_secoes',
         setup: function (editor) {
             editor.on('init', function (e) {
-              editor.setContent(title);
+                var divs_secoes = document.getElementsByClassName('conteudoCaptura');
+                for (let index = 0; index < divs_secoes.length; index++) {
+                    var secao = divs_secoes[index];
+                    var secao_filhos = secao.children;
+                    if(secao_filhos[0].tagName == 'DIV'){
+                        tinymce.get(secao_filhos[0].children[1].id).setContent($(jsonDecoded.secoes[index].titulo)[0].children[1].outerHTML);
+                    }
+                } 
             });
           },
         height : '3.0rem',
@@ -127,7 +131,23 @@ function loadInstanciaTinyMCE(json,title){
       selector: '.secoes',
       setup: function (editor) {
         editor.on('init', function (e) {
-          editor.setContent(json);
+            var divs_secoes = document.getElementsByClassName('conteudoCaptura');
+            for (let index = 0; index < divs_secoes.length; index++) {
+                var secao = divs_secoes[index];
+                var secao_filhos = secao.children;
+                /*
+                if(secao_filhos[0].tagName == 'DIV'){
+                    tinymce.get(secao_filhos[0].children[1].id).setContent($(jsonDecoded.secoes[index].titulo)[0].children[1].outerHTML);
+                }
+                */
+                for (let j = 0; j < secao_filhos.length; j++) {
+                    if(secao_filhos[j].tagName == 'TEXTAREA'){
+                        /*console.log(secao_filhos[j].id);
+                        console.log(jsonDecoded.secoes[index].conteudo[0]);*/
+                        tinymce.get(secao_filhos[j].id).setContent(jsonDecoded.secoes[index].conteudo[0]);
+                    }
+                }
+            }
         });
       },
       width: '100%',

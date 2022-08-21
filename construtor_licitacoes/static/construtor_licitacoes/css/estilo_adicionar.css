@@ -222,17 +222,11 @@ footer {
 }
 
 /*ICONE NOVA LICITAÇÃO*/
-.fa-file-circle-plus{
+.ico-size{
   font-size: 60px;
   text-align: center;
   padding-bottom: 10px;
 }
-
-/*CARD DE NOVA LICITAÇÃO*/
-.p-4{
-  text-align: center;
-}
-
 .h-100{
   background-color: white;
   border: 1px solid rgb(129, 129, 129);
