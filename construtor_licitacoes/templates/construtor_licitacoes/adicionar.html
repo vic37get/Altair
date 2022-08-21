@@ -2,9 +2,6 @@
 {%load static%}
 {% block content %}
 <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%; display: flex; justify-content: space-between;">
-    <!--div style="width: 30%;">
-    <button type="button" class="btn btn-secondary" onclick="getText()">Editar</button>
-    </div!-->
 </div>
 
 <div id="main">
@@ -16,14 +13,24 @@
     <button onclick="saveJSON('{{id_licitacao}}')">Salvar <i class="fa-solid fa-floppy-disk"></i></button>
     <button onclick="getAllContent()">Preview <i class="fa-solid fa-eye"></i></button>
   </div>
+
   <div class="menu_lateral" id="menuLateralEsquerdo">
     <button class="openbtn" id="btnLeft" onclick="openNavLeft()">☰</button>
+    <button class="openbtn" id="btnLeftSecoes" onclick="menuSecoesFeitas();openNavLeftSecoes();"><i class="fa-solid fa-clipboard-list"></i></button>
+  </div>
+
+  <div id="mySidebarLeftSecoes" class="sidebar">
+    <h1 id="sumario"> Sumário </h1>
+    <button href="javascript:void(0)" class="closebtn" id="closeLeftSecoes" onclick="closeNavLeftSecoes()"><i class="fa-regular fa-circle-xmark"></i></button>
+    <div id="menuSecoesFeitas">
+    </div>
   </div>
 
   <div id="mySidebarRight" class="sidebar">
     <button href="javascript:void(0)" class="closebtn" id="closeRight" onclick="closeNavRight()"><i class="fa-regular fa-circle-xmark"></i></button>
     <embed src="" type="application/pdf" width="100%" height="100%">
   </div>
+
   <div class="menu_lateral" id="menuLateralDireito">
     <button class="openbtn" id="btnRight" onclick="openNavRight()"><i class="fa-solid fa-eye"></i></button>  
   </div>
@@ -39,29 +46,11 @@
 </div>
 
   <script>
-    var header = document.getElementById('header');
-    var secao = document.getElementById('corpo_principal');
-    var barra_inferior = document.getElementById('barra_inferior');
-    var div_interna = document.getElementById('corpo_interno');
-    var body = document.getElementById('main_body');
-    header.style.display = "none";
-    //secao.style.cssText = "padding-top:0rem !important;background:#dbdbdbe6 !important;";
-    //barra_inferior.style.cssText = "padding-top:1.5rem !important";
-    //div_interna.style.cssText = "margin-top:2rem !important;margin-left:0 !important;padding-left:0 !important";
-    body.style.cssText = "background:#dbdbdb4f !important";
+
   </script>
-    <!--div style="width: 30%;">
-    <link href={% static "construtor_licitacoes/css/estilo_construtor.css" %} rel="stylesheet" referrerpolicy="origin"></script>
-    <button type="button" class="btn btn-secondary" onclick="getText()">Editar</button>
-    <button type="button" class="btn btn-secondary" style="right: 0;" onclick="novaInstanciaTinyMCE()">Adicionar Sessão</button>
-    <button type="button" class="btn btn-secondary" style="right: 0; margin-left: 0.25vw;" onclick="save()" >Salvar</button>
-    </div-->
+
 </div>
 
-  <!--div id="divTextos">
-    <textarea class="lic-title" id="txtArea1"> </textarea>
-    <textarea class="form-control" name="area_texto" rows="7" id="txtArea2" style="margin-top: 0.5vh;" readonly> </textarea> 
-  </div-->
   <script type="text/javascript">
     loadJSON("{{licitacao}}");
     var prefixo = "{{template.prefixo_secoes}}";
