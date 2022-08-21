@@ -19,10 +19,8 @@ function saveJSON(id){
       dataType : 'json',
       contentType: 'application/json; charset=utf-8',
       cache: false,
-      success: function(data) {
-          alert('O Documento foi Salvo.'+data.ajax_resp);
-      }
     });
+    alert('O Documento foi Salvo.');
   }
 
 function loadJSON(json){
