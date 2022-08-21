@@ -19,10 +19,12 @@ tinymce.init({
     tinycomments_author: 'Author name',
   });
 
+  
+
   function openNavLeft() {
     document.getElementById('menuLateralEsquerdo').style.display = "none";
     document.getElementById("mySidebarLeft").style.width = "20%";
-    document.getElementById("main").style.marginLeft = "20%";
+    document.getElementById("main").style.marginLeft = "16%";
   }
 
   function closeNavLeft() {
@@ -34,7 +36,7 @@ tinymce.init({
   function openNavRight() {
     document.getElementById('menuLateralDireito').style.display = "none";
     document.getElementById("mySidebarRight").style.width = "40%";
-    document.getElementById("main").style.marginRight = "40%";
+    document.getElementById("main").style.marginRight = "38%";
   }
 
   function closeNavRight() {
@@ -42,6 +44,20 @@ tinymce.init({
     document.getElementById("mySidebarRight").style.width = "0";
     document.getElementById("main").style.marginRight= "0";
   }
+
+  function openNavLeftSecoes() {
+    document.getElementById('menuLateralEsquerdo').style.display = "none";
+    document.getElementById("mySidebarLeftSecoes").style.width = "20%";
+    document.getElementById("main").style.marginLeft = "16%";
+    menuSecoesFeitas();
+  }
+
+  function closeNavLeftSecoes() {
+    document.getElementById('menuLateralEsquerdo').style.display = "flex";
+    document.getElementById("mySidebarLeftSecoes").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+  }
+
   function addSecao(){
     tinymce.init({
       selector: '#sessao',
@@ -91,6 +107,7 @@ tinymce.init({
       tinycomments_author: 'Author name',
     });
   }
+  
 
   function integer_to_roman(num) {
     if (typeof num !== 'number'){ 
@@ -141,10 +158,27 @@ tinymce.init({
     return numeracao
   }
 
-
+  function menuSecoesFeitas(){
+    var menu = document.getElementById('menuSecoesFeitas');
+    menu.innerHTML = ""
+    lista = getTitulo()
+    lista.forEach(element => {
+      elemento = $(element)[0];
+      if (elemento.tagName == "DIV"){
+        p = $(elemento.getElementsByTagName("p"))[0];
+        elemento = $(elemento.getElementsByTagName("H5"))[0];
+        try {
+          elemento.innerHTML = elemento.innerHTML + p.innerHTML.toUpperCase();
+        } catch (error) {
+        }
+      }
+      elemento.setAttribute('class', 'tituloSecaoFeita');
+      menu.appendChild(elemento);
+    });
+  }
+  
   var secoes_lista = ["DO OBJETO","DO JULGAMENTO","DAS CONDIÇÕES DE PARTICIPAÇÃO", "DA HABILITAÇÃO", "DO CREDENCIAMENTO"];
   var count = 1;
-
 
   function novaInstanciaTinyMCE(){
     var secoes = document.getElementById('div_secoes');
@@ -163,7 +197,6 @@ tinymce.init({
       else {
         numeracao.innerHTML = padraoNumericoEditavel(count)
       }
-
       var secao_titulo = document.createElement("textarea");
       var titulo_secaoSemNome = document.createElement("div");
       titulo_secaoSemNome.setAttribute('class','d-flex flex-row w-100 pb-2 tituloCaptura');
@@ -235,12 +268,6 @@ tinymce.init({
       tinycomments_mode: 'embedded',
       tinycomments_author: 'Author name',
     });
-  }
-
-  function myFunction3(){
-   var texto = tinymce.get("txtArea1").getContent()
-   tinymce.activeEditor.hide();
-   document.getElementById("txtArea2").value = tinymce.activeEditor.getContent();
   }
 
   function filterTinyMce(textarea){
@@ -331,9 +358,15 @@ tinymce.init({
             }
           }
         }
+        if (tituloCaixa == undefined){
+          tituloCompleto = document.createElement('div');
+          tituloCompleto.appendChild(prefixo.cloneNode(true));
+        }
+        else{
         tituloCompleto = document.createElement('div');
         tituloCompleto.appendChild(prefixo.cloneNode(true));
         tituloCompleto.appendChild(tituloCaixa);
+        }
       }
       else{
         tituloCompleto = titulo;
@@ -359,6 +392,7 @@ tinymce.init({
     }
     return conteudosAll;
   }
+
 
 
   
@@ -415,3 +449,4 @@ tinymce.init({
         doc.save("edital "+ dataAtual.toString()+".pdf","../");
     });
   }
+
