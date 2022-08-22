@@ -7,4 +7,5 @@ urlpatterns = [
     path('novaLicitacao/<pk>',views.nova_licitacao,name='adicionar'),
     path('editarLicitacao/<pk>',views.editar,name='editar'),
     path('salvar',views.salvar,name='salvar'),
+    path('excluirLicitacao/<pk>',views.excluir,name='excluir'),
 ]
