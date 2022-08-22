@@ -13,7 +13,6 @@
                     <!-- titulo-->
                     <h5 class="fw-bolder">Sem Titulo</h5>
                     <!-- algum dado a escolha-->
-                    ultima modificação:
                 </div>
             </div>
             <!-- Product actions-->
@@ -34,9 +33,22 @@
                 <i class="fa-solid fa-file-lines ico-size"></i>
                 <div class="text-center">
                     <!-- titulo-->
-                    <h5 class="fw-bolder">{{licitacao.nome_arquivo}}</h5>
-                    <!-- algum dado a escolha-->
-                    ultima modificação: {{licitacao.ultima_modificacao}}
+                    <input id="inputTitleHomePage{{licitacao|private:'_id'}}" class="fw-bolder text-center border-0" value="{{licitacao.tituloArquivo}}"></input>
+                    <script>
+                        $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
+                            var titulo = {'tituloArquivo':$(this).val()}
+                            $.ajax({
+                                type: 'POST',
+                                url: '/construcao/editarTitulo',
+                                data: JSON.stringify({'json':titulo,'_id':"{{licitacao|private:'_id'}}"}),
+                                dataType : 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                cache: false,
+                            });
+                        });
+                    </script>
+                    <!-- algum dado a escolha-- {{licitacao.nome_arquivo}}-->
+                    ultima modificação:<br>{{licitacao.dataModificacao}}
                 </div>
             </div>
             <!-- Product actions-->

@@ -1,17 +1,20 @@
-function createJSON(id) {
+function createJSON(id,id_template) {
     var json = {};
     var titulos = getTitulo();
     var conteudos = getConteudo();
+    json['dataModificacao'] = getStringDate();
     json['secoes'] = [];
+    json['id_template'] = id_template;
     for (let i = 0; i < titulos.length; i++) {
         json['secoes'].push({'titulo':titulos[i].replace(/"/g, "'"),'conteudo':conteudos[i].map(rep)})
     }
     var output = {'json':json,'_id':id};
+    console.log(JSON.stringify(output));
     return JSON.stringify(output);
 }
 
 function saveJSON(id){
-    var dataJSON = createJSON(id);
+    var dataJSON = createJSON(id,id_template);
     $.ajax({
       type: 'POST',
       url: '/construcao/salvar',
@@ -171,3 +174,11 @@ function loadInstanciaTinyMCE(jsonDecoded){
     conteudo.setAttribute('class','secoes');
     secao_completa.appendChild(conteudo);
   }
+
+  function getStringDate(){
+    var dataAtual = new Date();
+    var dataAtualPortugues = dataAtual.getDate()+'/'+(dataAtual.getMonth()+1)+'/'+dataAtual.getFullYear()+' '+dataAtual.getHours()+':'+dataAtual.getMinutes();
+    return dataAtualPortugues
+  }
+
+  

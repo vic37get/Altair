@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {%load static%}
+{%load tagger%}
 {% block content %}
 <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%; display: flex; justify-content: space-between;">
 </div>
@@ -52,7 +53,8 @@
 </div>
 
   <script type="text/javascript">
-    loadJSON("{{licitacao}}");
+    var id_template = "{{template|private:'_id'}}";
     var prefixo = "{{template.prefixo_secoes}}";
+    loadJSON("{{licitacao}}");
   </script>
 {% endblock %}
