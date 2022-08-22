@@ -2,7 +2,7 @@ from multiprocessing import context
 from bson.objectid import ObjectId
 import bson.json_util as json_util
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.template import loader
 from utils import connectMongo
 from django.views.decorators.csrf import csrf_exempt
@@ -41,3 +41,11 @@ def salvar(request):
         #print(data['json'])
         #print(data['_id'])
     return HttpResponse()
+
+def excluir(request,pk):
+    collection_licitacao = db_client['licitacao']
+    if request.method == 'POST':
+        collection_licitacao.delete_one({"_id":ObjectId(pk)})
+        context = {  
+        }
+        return redirect('/')

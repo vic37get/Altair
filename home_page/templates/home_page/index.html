@@ -19,7 +19,10 @@
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
-                    <a class="btn btn-outline-dark mt-auto" method = "post" href={% url 'home_page:template' %}>Nova Licitacao</a>
+                    <form class="my-1" action="{% url 'home_page:template' %} " method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Nova Licitacao">
+                    </form>
                 </div>
             </div>
         </div>
@@ -38,11 +41,14 @@
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                    <a class="btn btn-outline-dark mt-auto" href="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}">Editar</a>
-                    <form action="#" method="post">
+                <div class="text-center d-flex justify-content-center">
+                    <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input class="delete-form btn btn-outline-dark mt-auto" type="submit" value="Excluir">
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Editar ">
+                    </form>
+                    <form class="m-1" action="{% url 'construtor_licitacoes:excluir' licitacao|private:'_id' %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Excluir">
                     </form>
                 </div>
             </div>
