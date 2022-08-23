@@ -367,8 +367,6 @@
       if(filhos[0].tagName == 'DIV'){
         var titulo = tinymce.get(filhos[0].childNodes[1].id).getContent();
         div_conteudo.innerHTML = titulo;
-        filhos[0].appendChild(div_conteudo)
-        filhos[0].removeChild(filhos[0].childNodes[2]);
       }
 
       for (let j = 1; j < filhos.length; j++) {
