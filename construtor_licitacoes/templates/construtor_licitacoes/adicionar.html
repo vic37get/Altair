@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {%load static%}
+{%load tagger%}
 {% block content %}
 <div class="btn-group" role="group" aria-label="Basic example" style="width: 100%; display: flex; justify-content: space-between;">
 </div>
@@ -38,21 +39,36 @@
   <div class="content_menu_folha">
     <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha";>
       <div id="divTextos">
-        <textarea class="lic-title" id="txtArea1"> </textarea>
+        <h3 class='cabecalho'>Cabeçalho</h3>
+        <textarea class="lic-title" id="cabecalho"> </textarea>
       </div>
       <div id="div_secoes"></div>
     </div>
   </div>
 </div>
-
-  <script>
-
-  </script>
-
-</div>
-
-  <script type="text/javascript">
-    loadJSON("{{licitacao}}");
-    var prefixo = "{{template.prefixo_secoes}}";
-  </script>
+<script type="text/javascript">
+  var id_template = "{{template|private:'_id'}}";
+  var prefixo = "{{template.prefixo_secoes}}";
+  loadJSON("{{licitacao}}");
+  tinymce.init({
+    selector: '#cabecalho',
+    weight : '80%',
+    height : '16rem',
+    plugin: 'pagebreak',
+    menubar: false,
+    statusbar: false,
+    style_formats: [
+      // Adds the h1 format defined above to style_formats
+      { title: 'Titulo 1', format: 'h1' },
+      { title: 'Titulo 2', format: 'h2' },
+      { title: 'Titulo 3', format: 'h3' },
+      { title: 'Titulo 4', format: 'h4' },
+      ],
+    language: 'pt_BR',
+    language_url: '{%static "js/langs/pt_BR.js" %}',
+    branding: false,
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+  });
+</script>
 {% endblock %}

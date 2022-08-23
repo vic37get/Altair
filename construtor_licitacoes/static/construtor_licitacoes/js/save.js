@@ -1,17 +1,22 @@
-function createJSON(id) {
+function createJSON(id,id_template) {
     var json = {};
+    var cabecalho = getHeader();
     var titulos = getTitulo();
     var conteudos = getConteudo();
+    json['dataModificacao'] = getStringDate();
+    json['cabecalho'] = cabecalho;
     json['secoes'] = [];
+    json['id_template'] = id_template;
     for (let i = 0; i < titulos.length; i++) {
         json['secoes'].push({'titulo':titulos[i].replace(/"/g, "'"),'conteudo':conteudos[i].map(rep)})
     }
     var output = {'json':json,'_id':id};
+    console.log(JSON.stringify(output));
     return JSON.stringify(output);
 }
 
 function saveJSON(id){
-    var dataJSON = createJSON(id);
+    var dataJSON = createJSON(id,id_template);
     $.ajax({
       type: 'POST',
       url: '/construcao/salvar',
@@ -41,11 +46,34 @@ function rep(string){
 
 function setConteudo(jsonDecoded){
     for (let index = 0; index < jsonDecoded.secoes.length; index++) {
-        /*$(jsonDecoded.secoes[index].titulo)[0].children[1].outerHTML*/
-        /*console.log(jsonDecoded.secoes[index].conteudo[0]);*/
-        /*jsonDecoded.secoes[index].conteudo[0],title*/
         loadInstanciaTinyMCE(jsonDecoded);
     }
+    tinymce.init({
+      selector: '#cabecalho',
+      setup: function (editor) {
+        editor.on('init', function (e) {
+          console.log('gfg');
+          tinymce.get('cabecalho').setContent(jsonDecoded.cabecalho);
+        });
+      },
+      weight : '80%',
+      height : '16rem',
+      plugin: 'pagebreak',
+      menubar: false,
+      statusbar: false,
+      style_formats: [
+        // Adds the h1 format defined above to style_formats
+        { title: 'Titulo 1', format: 'h1' },
+        { title: 'Titulo 2', format: 'h2' },
+        { title: 'Titulo 3', format: 'h3' },
+        { title: 'Titulo 4', format: 'h4' },
+        ],
+      language: 'pt_BR',
+      language_url: '{%static "js/langs/pt_BR.js" %}',
+      branding: false,
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+    });
     tinymce.init({
       selector: '.titulo_secoes',
       setup: function (editor) {
@@ -171,3 +199,11 @@ function loadInstanciaTinyMCE(jsonDecoded){
     conteudo.setAttribute('class','secoes');
     secao_completa.appendChild(conteudo);
   }
+
+  function getStringDate(){
+    var dataAtual = new Date();
+    var dataAtualPortugues = dataAtual.getDate()+'/'+(dataAtual.getMonth()+1)+'/'+dataAtual.getFullYear()+' '+dataAtual.getHours()+':'+dataAtual.getMinutes();
+    return dataAtualPortugues
+  }
+
+  

@@ -7,14 +7,14 @@ from django.template import loader
 from utils import connectMongo
 from django.views.decorators.csrf import csrf_exempt
 import json
-
+from datetime import datetime
 
 db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
     modelo = loader.get_template('construtor_licitacoes/adicionar.html')
     collection_template = db_client['template']
     collection_licitacao = db_client['licitacao']
-    id = collection_licitacao.insert_one({})
+    id = collection_licitacao.insert_one({'tituloArquivo':'SemTitulo','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
     template = collection_template.find_one({"_id":ObjectId(pk)})
     context = {
         'template':dict(template),
@@ -25,7 +25,10 @@ def nova_licitacao(request,pk):
 def editar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    collection_template = db_client['template']
+    template = collection_template.find_one({"_id":ObjectId(licitacao['id_template'])})
     context = {
+        'template':dict(template),
         'licitacao':json_util.dumps(licitacao),
         'id_licitacao':licitacao['_id']
     }
@@ -49,3 +52,13 @@ def excluir(request,pk):
         context = {  
         }
         return redirect('/')
+
+@csrf_exempt
+def editarTitulo(request):
+    if request.method == 'POST':
+        collection_licitacao = db_client['licitacao']
+        data = json.loads(request.body.decode('utf-8'))
+        collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
+        #print(data['json'])
+        #print(data['_id'])
+    return HttpResponse()
