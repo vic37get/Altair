@@ -1,0 +1,245 @@
+#corpo_interno{
+  box-sizing: content-box;
+  display: contents;
+}
+
+.box-folha {
+box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+width: 85%;
+box-sizing: content-box;
+margin: auto;
+height: auto;
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: rgb(224, 224, 224);
+}
+
+footer {
+  background-color: #0b5351;
+  position: fixed !important;
+  width: 100%;
+  bottom: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 3;
+}
+.row-cols-xl-4{
+  padding-top: 5vh;
+}
+
+#principal {
+  width: 90%;
+  margin-left: 0%;
+  margin-right: 0%;
+  box-sizing: content-box !important;
+}
+
+.tox-tinymce{
+  border: 3px solid #0000001f !important;
+}
+
+.menu {
+  background-color: #0b5351 !important;
+  box-shadow: 0 0 15px black !important;
+  border-bottom: 1px solid #b9b9b9 !important;
+  position: fixed !important;
+  width: 100%;
+  z-index: 4;
+}
+
+.navbar-brand {
+  color: rgb(255, 255, 255) !important;
+  text-shadow: 1px 1px 1px black;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: white !important;
+  text-shadow: 1px 1px 1px black;
+}
+
+
+.sidebar {
+    margin-top: 8px;
+    position: fixed;
+    width: 0;
+    z-index: 3;
+    height: 100%;
+    background-color: #0b5351;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    border: 1px solid #212529 !important;
+  }
+  
+  .sidebar button {
+    padding: 8px 12px 8px 12px;
+    text-decoration: none;
+    font-size: 22px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    background: none;
+    border: none;
+  }
+  
+  .sidebar button:hover {
+    color: black;
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    font-size: 30px;
+  }
+
+#closeRight{
+  left: 0;
+}
+
+#closeLeft{
+  right: 0;
+}
+
+#closeLeftSecoes{
+  right: 0;
+}
+
+.openbtn {
+  z-index: 3;
+  width: 48px;
+  cursor: pointer;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  height: fit-content;
+  margin-bottom: 3px;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#btnLeft{
+  background-color: #0b5351;
+  left: 0;
+}
+
+#btnLeftSecoes{
+  background-color: #0b5351;
+  left: 0;
+}
+
+#btnRight{
+  background-color: #413e3e;
+  right: 0;
+}
+
+#mySidebarRight{
+  background-color: #4e4a4a;
+  right: 0;
+}
+
+#mySidebarLeft{
+  left: 0;
+}
+
+#mySidebarLeftSecoes{
+  left: 0;
+}
+
+#menuSecoesFeitas{
+  align-content: center;
+
+}
+
+.tituloSecaoFeita{
+  text-shadow: 1px 1px 1px black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.6vh;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  padding-left: 4vh;
+  padding-right: 1vh;
+  padding-bottom: 1vh;
+}
+
+#sumario{
+  text-shadow: 1px 1px 1px black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2vh;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding-bottom: 2vh;
+}
+
+.menu_lateral{
+  margin-top: 8px;
+  z-index: 3;
+  position: fixed;
+  font-size: 15px;
+  color: white;
+  border: none;
+  height: 100%;
+  width: 48px;
+}
+
+#menuLateralEsquerdo{
+  background-color: #106d6a;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#menuLateralDireito{
+  background-color: #4e4a4a;
+  right: 0;
+}
+
+#main {
+  transition: margin-left .5s;
+  transition: margin-right .5s;
+  padding: 16px 0px 16px 0px;
+  height: 90%;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+.content_menu_folha{
+  display: flex;
+  flex-direction: row;
+}
+
+/*ICONE NOVA LICITAÇÃO*/
+.ico-size{
+  font-size: 60px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.h-100{
+  background-color: white;
+  border: 1px solid rgb(129, 129, 129);
+}
+
+.colorButton{
+  background-color: #0b5351;
+  color: white;
+}
+
+  #embedpreview{
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  #atualizarPreview{
+    left: 0;
+    padding-left: 6vh;
+  }
