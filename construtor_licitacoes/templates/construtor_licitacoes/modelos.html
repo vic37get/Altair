@@ -6,11 +6,9 @@
     {% for template in templates%}
     <div class="col mb-5 mt-5">
         <div class="card h-100">
-            <!-- Ppreview aqui
-            <img class="card-img-top" src={%static "home_page/assets/template_secao_exemplo.png" %} alt="..." />
-            -->
-            <!-- detalhes simples-->
-            <div class="card-body p-4">
+
+            <div class="card-body p-4 text-center">
+                <i class="fa-regular fa-file-lines ico-size"></i>
                 <div class="text-center">
                     <!-- titulo-->
                     <h5 class="fw-bolder">{{template.nome}}</h5>
@@ -22,7 +20,7 @@
                 <div class="text-center">
                     <form action="{% url 'construtor_licitacoes:adicionar' template|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark mt-auto" type="submit" value="Criar com esse template">
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Criar com esse template">
                     </form>
                 </div>
             </div>

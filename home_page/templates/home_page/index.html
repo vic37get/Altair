@@ -11,7 +11,7 @@
                 <i class="fa-solid fa-file-circle-plus ico-size"></i>
                 <div class="text-center">
                     <!-- titulo-->
-                    <h5 class="fw-bolder">Sem Titulo</h5>
+                    <h5 class="fw-bolder">Sem Título</h5>
                     <!-- algum dado a escolha-->
                 </div>
             </div>
@@ -20,7 +20,7 @@
                 <div class="text-center">
                     <form class="my-1" action="{% url 'home_page:template' %} " method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Nova Licitacao">
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Nova Licitação">
                     </form>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                         });
                     </script>
                     <!-- algum dado a escolha-- {{licitacao.nome_arquivo}}-->
-                    ultima modificação:<br>{{licitacao.dataModificacao}}
+                    Última modificação:<br>{{licitacao.dataModificacao}}
                 </div>
             </div>
             <!-- Product actions-->
@@ -56,7 +56,7 @@
                 <div class="text-center d-flex justify-content-center">
                     <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Editar ">
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Editar">
                     </form>
                     <form class="m-1" action="{% url 'construtor_licitacoes:excluir' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
