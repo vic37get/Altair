@@ -246,13 +246,10 @@
     return lista_textAreas
   }
 
-  function getAllContent(id){
-    var preview = createJSON(id);
+  function getAllContent(){
     var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
-
-    divs_secoes[0].childNodes[0]
 
     for (let index = 0; index < divs_secoes.length; index++) {
       var div_conteudo = document.createElement('div');
@@ -261,27 +258,26 @@
       if(filhos[0].tagName == 'DIV'){
         var titulo = tinymce.get(filhos[0].childNodes[1].id).getContent();
         div_conteudo.innerHTML = titulo;
-        filhos[0].appendChild(div_conteudo)
-        filhos[0].removeChild(filhos[0].childNodes[2]);
       }
       for (let j = 1; j < filhos.length; j++) {
         var elemento = filhos[j];
         if(elemento.id.match(/mce_.*/i)!=null){
           var conteudo = tinymce.get(elemento.id).getContent();
           div_conteudo.innerHTML = conteudo;
-          divs_secoes[index].appendChild(div_conteudo)
           divconteudo.push((divs_secoes[index].childNodes[0]).outerHTML)
           divconteudo.push(conteudo)
         }
-        if(elemento.className.match(/.*tox-tinymce.*/i) != null){
-          divs_secoes[index].removeChild(elemento);
-        }
       }
     }
-    var stringpdf;
+
+    var stringpdf = "";
     divconteudo.forEach(element => {
       stringpdf += element
     });
+    var textoHeader = tinymce.get("cabecalho").getContent();
+    
+
+    stringpdf = textoHeader + stringpdf
     console.log(stringpdf)
 
     var doc = new jsPDF();
@@ -293,7 +289,8 @@
     },
     function(a) 
     {
-      doc.save("edital.pdf","../");
+      var file = document.getElementById("embedpreview")
+      file.src = doc.output('datauristring') + "#view=FitH"
     });
   }
 
@@ -359,7 +356,7 @@
     var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
-    var textoInicial = tinymce.get('txtArea1').getContent();
+    var textoInicial = tinymce.get('cabecalho').getContent();
     if(divs_secoes.length>0)
       divs_secoes[0].childNodes[0]
 
