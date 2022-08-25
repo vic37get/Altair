@@ -137,14 +137,14 @@ footer {
 }
 
 #menuLateralEsquerdo{
-  background-color: #0b534fcc;
+  background-color: #0b534fab;
   left: 0;
   display: flex;
   flex-direction: column;
 }
 
 #menuLateralDireito{
-  background-color: #413e3ece;
+  background-color: #413e3eab;
   right: 0;
 }
 
@@ -159,7 +159,7 @@ footer {
 }
 
 #btnRight{
-  background-color: #413e3e;
+  background-color: #4d4a4a;
   right: 0;
 }
 

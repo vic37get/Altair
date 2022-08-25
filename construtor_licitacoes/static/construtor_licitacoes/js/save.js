@@ -11,7 +11,6 @@ function createJSON(id,id_template) {
         json['secoes'].push({'titulo':titulos[i].replace(/"/g, "'"),'conteudo':conteudos[i].map(rep)})
     }
     var output = {'json':json,'_id':id};
-    console.log(JSON.stringify(output));
     return JSON.stringify(output);
 }
 
@@ -47,12 +46,11 @@ function rep(string){
 function setConteudo(jsonDecoded){
     for (let index = 0; index < jsonDecoded.secoes.length; index++) {
         loadInstanciaTinyMCE(jsonDecoded);
-    }
+}
     tinymce.init({
       selector: '#cabecalho',
       setup: function (editor) {
         editor.on('init', function (e) {
-          console.log('gfg');
           tinymce.get('cabecalho').setContent(jsonDecoded.cabecalho);
         });
       },
@@ -204,6 +202,4 @@ function loadInstanciaTinyMCE(jsonDecoded){
     var dataAtual = new Date();
     var dataAtualPortugues = dataAtual.getDate()+'/'+(dataAtual.getMonth()+1)+'/'+dataAtual.getFullYear()+' '+dataAtual.getHours()+':'+dataAtual.getMinutes();
     return dataAtualPortugues
-  }
-
-  
+  }  
