@@ -13,11 +13,10 @@
         { title: 'Titulo 3', format: 'h3' },
         { title: 'Titulo 4', format: 'h4' },
         ],
-      language: 'pt_BR',
-      language_url: '{%static "js/langs/pt_BR.js" %}',
       branding: false,
       tinycomments_mode: 'embedded',
       tinycomments_author: 'Author name',
+      
     });
   }
   
@@ -52,20 +51,11 @@
 
       tinymce.init({
         selector: '.titulo_secoes',
-        height : '3.0rem',
+        height : '2.5rem',
         width: '100%',
         toolbar: false,
         menubar: false,
         statusbar: false,
-        style_formats: [
-          // Adds the h1 format defined above to style_formats
-          { title: 'Titulo 1', format: 'h1' },
-          { title: 'Titulo 2', format: 'h2' },
-          { title: 'Titulo 3', format: 'h3' },
-          { title: 'Titulo 4', format: 'h4' },
-          ],
-        language: 'pt_BR',
-        language_url: '{%static "js/langs/pt_BR.js" %}',
         branding: false,
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
@@ -106,8 +96,6 @@
         { title: 'Titulo 3', format: 'h3' },
         { title: 'Titulo 4', format: 'h4' },
         ],
-      language: 'pt_BR',
-      language_url: '{%static "js/langs/pt_BR.js" %}',
       branding: false,
       tinycomments_mode: 'embedded',
       tinycomments_author: 'Author name',

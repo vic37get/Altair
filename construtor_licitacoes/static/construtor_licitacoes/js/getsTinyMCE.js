@@ -11,7 +11,6 @@ function getAllIds(){
   }
 
   function getAllContent(){
-    var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
 
@@ -32,7 +31,6 @@ function getAllIds(){
           divconteudo.push(conteudo)
         }
       }
-      console.log(div_conteudo)
     }
     
     var stringpdf = "";
