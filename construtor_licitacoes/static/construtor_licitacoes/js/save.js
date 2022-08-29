@@ -44,8 +44,10 @@ function rep(string){
 }
 
 function setConteudo(jsonDecoded){
+  if (jsonDecoded.secoes != null){
     for (let index = 0; index < jsonDecoded.secoes.length; index++) {
-        loadInstanciaTinyMCE(jsonDecoded);
+      loadInstanciaTinyMCE(jsonDecoded);
+  }
 }
     tinymce.init({
       selector: '#cabecalho',

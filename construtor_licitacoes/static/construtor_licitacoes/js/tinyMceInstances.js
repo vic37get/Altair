@@ -51,7 +51,7 @@
 
       tinymce.init({
         selector: '.titulo_secoes',
-        height : '2.5rem',
+        height:'3rem',
         width: '100%',
         toolbar: false,
         menubar: false,
@@ -79,6 +79,7 @@
       secoes.appendChild(secao_completa)
     }
     var conteudo = document.createElement("textarea");
+    conteudo.placeholder = "Digite aqui o conteúdo da seção";
     conteudo.setAttribute('class','secoes');
     secao_completa.appendChild(conteudo);
     tinymce.init({

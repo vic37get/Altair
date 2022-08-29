@@ -14,7 +14,7 @@ def nova_licitacao(request,pk):
     modelo = loader.get_template('construtor_licitacoes/adicionar.html')
     collection_template = db_client['template']
     collection_licitacao = db_client['licitacao']
-    id = collection_licitacao.insert_one({'tituloArquivo':'SemTitulo','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
+    id = collection_licitacao.insert_one({'tituloArquivo':'SemTitulo','id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
     template = collection_template.find_one({"_id":ObjectId(pk)})
     context = {
         'template':dict(template),
