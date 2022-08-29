@@ -1,1 +1,1 @@
-web: gunicorn altair.wsgi --log-file -
+web: gunicorn altair.wsgi
