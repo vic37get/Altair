@@ -8,7 +8,7 @@
   text-shadow: 1px 1px 1px black;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.1vw;
+  font-size: 14px;
   padding: 0 !important;
   margin: 0.5vh !important;
 }
@@ -91,7 +91,7 @@ footer {
     width: 0;
     z-index: 3;
     height: 100%;
-    background-color: #0b5351;
+    background-color: #00684a;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 5.5vh;
@@ -236,9 +236,9 @@ footer {
 
 /*ICONE NOVA LICITAÇÃO*/
 .ico-size{
-  font-size: 3vw;
+  font-size: 45px;
   text-align: center;
-  padding-bottom: 1vh;
+  padding-bottom: 1.5vh;
 }
 
 .h-100{
@@ -251,6 +251,7 @@ footer {
 .colorButton{
   background-color: #00684a;
   color: white;
+  box-shadow: 0 0 0.1cm rgba(0, 0, 0, 0.5);
   text-shadow: 1px 1px 1px black;
 }
 
