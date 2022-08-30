@@ -1,3 +1,8 @@
+
+:root {
+  --fonte: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 #corpo_interno{
   box-sizing: content-box;
   display: contents;
@@ -7,8 +12,8 @@
   color: white;
   text-shadow: 1px 1px 1px black;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.1vw;
+  font-family: var(--fonte);
+  font-size: 14px;
   padding: 0 !important;
   margin: 0.5vh !important;
 }
@@ -53,6 +58,7 @@ footer {
 }
 #corpo_principal{
   flex: 1;
+  margin: 0;
 }
 
 #principal {
@@ -91,7 +97,7 @@ footer {
     width: 0;
     z-index: 3;
     height: 100%;
-    background-color: #0b5351;
+    background-color: #00684a;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 5.5vh;
@@ -100,7 +106,7 @@ footer {
   
   .sidebar button {
     text-shadow: 1px 1px 1px black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--fonte);
     padding-bottom: 0.5vh;
     font-size: 1.1vw;
     color: white;
@@ -199,7 +205,7 @@ footer {
 
 .tituloSecaoFeita{
   text-shadow: 1px 1px 1px black;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--fonte);
   font-size: 0.8vw;
   font-weight: bold;
   color: rgb(255, 255, 255);
@@ -210,7 +216,7 @@ footer {
 
 #sumario{
   text-shadow: 1px 1px 1px black;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--fonte);
   font-size: 1.2vw;
   font-weight: bold;
   color: rgb(255, 255, 255);
@@ -236,9 +242,24 @@ footer {
 
 /*ICONE NOVA LICITAÇÃO*/
 .ico-size{
-  font-size: 3vw;
+  font-size: 45px;
   text-align: center;
-  padding-bottom: 1vh;
+  padding-bottom: 1.5vh;
+}
+
+.cardNew{
+  color: #fff;
+  background-color: #00684a !important;
+  box-shadow: 0 0 0.1cm rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgb(255, 255, 255) !important;
+}
+
+.buttonNew{
+  background-color: #fff !important;
+  color: #00553d !important;
+  font-weight: bold;
+  text-shadow: none !important;
+  
 }
 
 .h-100{
@@ -251,6 +272,7 @@ footer {
 .colorButton{
   background-color: #00684a;
   color: white;
+  box-shadow: 0 0 0.1cm rgba(0, 0, 0, 0.5);
   text-shadow: 1px 1px 1px black;
 }
 
