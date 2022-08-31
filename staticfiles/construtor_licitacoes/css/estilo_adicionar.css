@@ -1,6 +1,8 @@
 
 :root {
   --fonte: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --cor_principal: #00684a;
+  --cor_principal_contraste: #00684bb2;
 }
 
 #corpo_interno{
@@ -40,11 +42,11 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: rgb(224, 224, 224);
+  background-color: rgb(230, 230, 230);
 }
 
 footer {
-  background-color: #00684a;
+  background-color: var(--cor_principal);
   position: relative !important;
   width: 100%;
   height: fit-content;
@@ -73,7 +75,7 @@ footer {
 }
 
 .menu {
-  background-color: #00684a !important;
+  background-color: var(--cor_principal) !important;
   box-shadow: 0 0 1vh black !important;
   border-bottom: 0.2vh solid #ffffff !important;
   position: fixed !important;
@@ -97,7 +99,7 @@ footer {
     width: 0;
     z-index: 3;
     height: 100%;
-    background-color: #00684a;
+    background-color: var(--cor_principal);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 5.5vh;
@@ -159,7 +161,7 @@ footer {
 }
 
 #menuLateralEsquerdo{
-  background-color: #00684bb2;
+  background-color: var(--cor_principal_contraste);
   left: 0;
   display: flex;
   flex-direction: column;
@@ -171,12 +173,12 @@ footer {
 }
 
 #btnLeft{
-  background-color: #00684a;
+  background-color: var(--cor_principal);
   left: 0;
 }
 
 #btnLeftSecoes{
-  background-color: #00684a;
+  background-color: var(--cor_principal);
   left: 0;
 }
 
@@ -201,6 +203,15 @@ footer {
 #menuSecoesFeitas{
   align-content: center;
 
+}
+
+.tituloEditavel input:hover{
+  border: 1px solid rgb(75, 75, 75) !important;
+  border-radius: 5px;
+  width: auto !important;
+  height: fit-content !important;
+  padding: 0;
+  margin: 0;
 }
 
 .tituloSecaoFeita{
@@ -249,7 +260,7 @@ footer {
 
 .cardNew{
   color: #fff;
-  background-color: #00684a !important;
+  background-color: var(--cor_principal) !important;
   box-shadow: 0 0 0.1cm rgba(0, 0, 0, 0.5) !important;
   border: 1px solid rgb(255, 255, 255) !important;
 }
@@ -257,7 +268,7 @@ footer {
 .buttonNew{
   background-color: #fff !important;
   color: #00553d !important;
-  font-weight: bold;
+  font-weight: bold !important;
   text-shadow: none !important;
   
 }
@@ -270,7 +281,7 @@ footer {
 }
 
 .colorButton{
-  background-color: #00684a;
+  background-color: var(--cor_principal);
   color: white;
   box-shadow: 0 0 0.1cm rgba(0, 0, 0, 0.5);
   text-shadow: 1px 1px 1px black;
