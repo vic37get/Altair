@@ -5,3 +5,4 @@ dnspython==2.2.1
 FPDF==1.7.2
 pdfkit==1.0.0
 gunicorn
+regex
