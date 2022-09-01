@@ -2,16 +2,16 @@
 {%load static%}
 {%load tagger%}
 {% block content %}
-<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+<div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-4 m-0 justify-content-center">
     <div class="col mb-3 mt-5">
-        <div class="card h-100">
+        <div class="card h-100 cardNew">
             <!-- Ppreview aqui-->
             <!-- detalhes simples-->
             <div class="card-body p-4 text-center">
                 <i class="fa-solid fa-file-circle-plus ico-size"></i>
                 <div class="text-center">
                     <!-- titulo-->
-                    <h5 class="fw-bolder">Sem Titulo</h5>
+                    <h5 class="fw-bolder">Sem Título</h5>
                     <!-- algum dado a escolha-->
                 </div>
             </div>
@@ -20,7 +20,7 @@
                 <div class="text-center">
                     <form class="my-1" action="{% url 'home_page:template' %} " method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Nova Licitacao">
+                        <input class="btn btn-outline-dark colorButton buttonNew" type="submit" value="Nova Licitação">
                     </form>
                 </div>
             </div>
@@ -31,9 +31,9 @@
         <div class="card h-100">
             <div class="card-body p-4 text-center">
                 <i class="fa-solid fa-file-lines ico-size"></i>
-                <div class="text-center d-flex flex-column">
+                <div class="text-center d-flex flex-column tituloEditavel">
                     <!-- titulo-->
-                    <input id="inputTitleHomePage{{licitacao|private:'_id'}}" class="fw-bolder text-center border-0" value="{{licitacao.tituloArquivo}}"></input>
+                    <input id="inputTitleHomePage{{licitacao|private:'_id'}}" class="fw-bolder text-center border-0 " value="{{licitacao.tituloArquivo}}"></input>
                     <script>
                         $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
                             var titulo = {'tituloArquivo':$(this).val()}
@@ -47,8 +47,8 @@
                             });
                         });
                     </script>
-                    <!-- algum dado a escolha-- {{licitacao.nome_arquivo}}-->
-                    ultima modificação:<br>{{licitacao.dataModificacao}}
+                    <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
+                    Última modificação:<br>{{licitacao.dataModificacao}}
                 </div>
             </div>
             <!-- Product actions-->
@@ -56,7 +56,7 @@
                 <div class="text-center d-flex justify-content-center">
                     <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Editar ">
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Editar">
                     </form>
                     <form class="m-1" action="{% url 'construtor_licitacoes:excluir' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}

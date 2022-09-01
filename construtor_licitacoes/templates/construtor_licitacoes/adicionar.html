@@ -2,17 +2,16 @@
 {%load static%}
 {%load tagger%}
 {% block content %}
-<div class="btn-group" role="group" aria-label="Basic example" style="width: 100%; display: flex; justify-content: space-between;">
-</div>
 
 <div id="main">
   <div id="mySidebarLeft" class="sidebar">
     <button href="javascript:void(0)" class="closebtn" id="closeLeft" onclick="closeNavLeft()"><i class="fa-regular fa-circle-xmark"></i></button>
-    <button onclick="novaInstanciaTinyMCE()">Adicionar Seção <i class="fa-solid fa-square-plus"></i></button>
-    <button>Adicionar Subseção <i class="fa-solid fa-square-plus"></i></button>
-    <button onclick="baixarPdf(true)">Baixar Licitação <i class="fa-solid fa-file-pdf"></i></button>
-    <button onclick="saveJSON('{{id_licitacao}}')">Salvar <i class="fa-solid fa-floppy-disk"></i></button>
-    <!--button onclick="getAllContent()">Preview <i class="fa-solid fa-eye"></i></button-->
+    <div class="botoesBarraEsquerda">
+      <button onclick="novaInstanciaTinyMCE()">Adicionar Seção <i class="fa-solid fa-square-plus"></i></button>
+      <button>Adicionar Subseção <i class="fa-solid fa-square-plus"></i></button>
+      <button onclick="baixarPdf(true)">Baixar Licitação <i class="fa-solid fa-file-pdf"></i></button>
+      <button onclick="saveJSON('{{id_licitacao}}')">Salvar <i class="fa-solid fa-floppy-disk"></i></button>
+    </div>
   </div>
 
   <div class="menu_lateral" id="menuLateralEsquerdo">
@@ -21,7 +20,7 @@
   </div>
 
   <div id="mySidebarLeftSecoes" class="sidebar">
-    <h1 id="sumario"> Sumário </h1>
+    <h1 id="sumario">Sumário</h1>
     <button href="javascript:void(0)" class="closebtn" id="closeLeftSecoes" onclick="closeNavLeftSecoes()"><i class="fa-regular fa-circle-xmark"></i></button>
     <div id="menuSecoesFeitas">
     </div>
@@ -42,12 +41,13 @@
     <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha";>
       <div id="divTextos">
         <h3 class='cabecalho'>Cabeçalho</h3>
-        <textarea class="lic-title" id="cabecalho"> </textarea>
+        <textarea class="lic-title" id="cabecalho" placeholder="Digite o cabeçalho aqui"></textarea>
       </div>
       <div id="div_secoes"></div>
     </div>
   </div>
 </div>
+
 <script type="text/javascript">
   var id_template = "{{template|private:'_id'}}";
   var prefixo = "{{template.prefixo_secoes}}";
@@ -66,8 +66,6 @@
       { title: 'Titulo 3', format: 'h3' },
       { title: 'Titulo 4', format: 'h4' },
       ],
-    language: 'pt_BR',
-    language_url: '{%static "js/langs/pt_BR.js" %}',
     branding: false,
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
