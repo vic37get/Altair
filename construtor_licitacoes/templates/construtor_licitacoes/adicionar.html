@@ -8,9 +8,10 @@
     <button href="javascript:void(0)" class="closebtn" id="closeLeft" onclick="closeNavLeft()"><i class="fa-regular fa-circle-xmark"></i></button>
     <div class="botoesBarraEsquerda">
       <button onclick="novaInstanciaTinyMCE()">Adicionar Seção <i class="fa-solid fa-square-plus"></i></button>
-      <button>Adicionar Subseção <i class="fa-solid fa-square-plus"></i></button>
       <button onclick="baixarPdf(true)">Baixar Licitação <i class="fa-solid fa-file-pdf"></i></button>
       <button onclick="saveJSON('{{id_licitacao}}')">Salvar <i class="fa-solid fa-floppy-disk"></i></button>
+      
+      <button onclick="{% url 'home_page:template' %}">Enviar <i class="fa-solid fa-paper-plane"></i></button>
     </div>
   </div>
 
