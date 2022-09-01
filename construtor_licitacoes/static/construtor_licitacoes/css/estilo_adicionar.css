@@ -147,7 +147,7 @@ footer {
 
 .openbtn {
   z-index: 3;
-  width: 2.5vw;
+  width: 2.6vw;
   cursor: pointer;
   color: white;
   padding: 1vh;
@@ -243,7 +243,7 @@ footer {
   color: white;
   border: none;
   height: 100%;
-  width: 2.5vw;
+  width: 2.6vw;
 }
 
 .content_menu_folha{
