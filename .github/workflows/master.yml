@@ -1,8 +1,8 @@
-name: MASTER - Build & deploy
+name: MAIN - Build & deploy
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -28,18 +28,14 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Run migrations
-      run: |
-          python manage.py makemigrations --noinput
-          python manage.py migrate --noinput
     - name: Run Tests
       run: |
           python manage.py test
     - name: Add remote origin
-      if: github.ref == 'refs/heads/master' && job.status == 'success' #we specify that this action will ONLY run if everything up to now is successful- so if theres a fail in the tests, then this will not be deployed.
+      if: github.ref == 'refs/heads/main' && job.status == 'success' #we specify that this action will ONLY run if everything up to now is successful- so if theres a fail in the tests, then this will not be deployed.
       run: |
         git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
     
     - name: Deploy to Heroku
       run: |
-        git push heroku HEAD:master -f
+        git push heroku HEAD:main -f
