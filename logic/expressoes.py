@@ -53,3 +53,28 @@ compactador_manual = ('compactador_manual', re.compile(r'(((compactador).{0,50}(
 transporte_manual = ('transporte_manual', re.compile(r'(((transporte).{0,50}((manual)|(gerica)|(jerica)|(jirica)|(girica)|(carro.{0,10}m[aã]o)|(carrinho)))|((lan[cç]ado).{0,50}((manual)|(gerica)|(jerica)|(jirica)|(girica)|(carro.{0,10}m[aã]o)|(carrinho)))|((concretagem).{0,50}((manual)|(gerica)|(jerica)|(jirica)|(girica)|(carro.{0,10}m[aã]o)|(carrinho)))|(concreto.{0,20}lançamento.{0,20}manual)|(concreto.{0,20}central.{0,20}dosadora.{0,10}30.{0,10}M3)|(escava[cç][aã]o.{0,20}tunnel)|(concreto.{0,20}poroso.{0,20}tubo)|(confecç[aã]o.{0,20}tubo.{0,20}concreto)|(estaca.{0,20}raiz.{0,20}perfurada)|(sub.{0,5}base.{0,5}concreto))', flags=re.IGNORECASE|re.S))
 roçagem_poda_corte_manual = ('roçagem_poda_corte_manual', re.compile(r'(((corte).{0,20}((foice)|(oxiacetileno)|(trilho)|([aá]reas.{0,10}gramadas)|(corte.{0,20}remo[cç][aã]o.{0,20}[aá]rvores)))|(preparo.{0,20}manual.{0,20}terreno)|(raspagem.{0,20}superficial.{0,20}terreno)|((poda).{0,20}((cerca viva)|(altura.{0,20}[aá]rvore)))|(demoli[cç][aã]o.{0,20}martelete)|(ro[cç]ada)|(capina)|(poda))', flags=re.IGNORECASE|re.S))
 alvenaria_deitada = ('alvenaria_deitada', re.compile(r'(((alvenaria).{0,20}((deitada)|(uma vez)|(tijolo.{0,10}deitado)|(concreto.{0,10}deitado)))|(tijolo.{0,10}deitado))', flags=re.IGNORECASE|re.S))
+
+certificado_registro_cadastral = ('certificado_registro_cadastral', re.compile(r'((cert.{0,20}(registr)).{0,10}(cadastr))', flags=re.IGNORECASE|re.S))
+doc_firma_reconhecida_cartorio = ('doc_firma_reconhecida_cartorio', re.compile(r'((document).{0,20}(firma).{0,10}(reconhec).{0,10}cart[oó]rio)', flags=re.IGNORECASE|re.S))
+certificado_boas_praticas = ('certificado_boas_praticas', re.compile(r'(((certificado[s]?)|(atestado[s]?)|(certid[aã]o)).{0,20}(boa[s]?.{0,5}pr[aá]tica[s]?))', flags=re.IGNORECASE|re.S))
+exigencia_posse_previa = ('exigencia_posse_previa', re.compile(r'(((propriedade)|(posse)|(localiza[cç][aã]o)).{0,20}((ve[ií]culo[s]?)|(m[aá]quina[s]?)|(equipamento[s]?)))', flags=re.IGNORECASE|re.S))
+licenca_ambiental = ('licenca_ambiental', re.compile(r'((licen[cç]a).{0,20}(ambiental))', flags=re.IGNORECASE|re.S))
+vinculo_empregaticio = ('vinculo_empregaticio', re.compile(r'((v[ií]nculo).{0,20}(empreg).{0,20}((CTPS)|(carteira.{0,5}trabalho)|(carteira.{0,5}profissional)))', flags=re.IGNORECASE|re.S))
+cadastro_previo = ('cadastro_previo', re.compile(r'(((cadastr).{0,20}(pr[ée]vio)))', flags=re.IGNORECASE|re.S))
+certificado_qualidade = ('certificado_qualidade', re.compile(r'(((certifi)|(atestado)|(certid)|(declara)|(qualidade)).{0,20}((ABNT)|(ABIC)|(\sISO)))', flags=re.IGNORECASE|re.S))
+comprovacao_atividade = ('comprovacao_atividade', re.compile(r'((comprova|confirma|prova|garantia).{1,10}(atividade|aptid[aã]o|compet[êe]ncia|habilidade|capacidade|propriedade).{1,10}(prazo|dia[s]?|periodo|mese[s]|ano[s]))', flags=re.IGNORECASE|re.S))
+vedacao_documento = ('vedacao_documento', re.compile(r'((documento[s]?).{0,20}((postal)|(email)|(fax)))', flags=re.IGNORECASE|re.S))
+
+'''
+lista_geral = [alimentos_caros,bebidas_alcoolicas,comida_japonesa, itens_caros, garantia_cs_ou_pl,
+                       vedacao_impugnacao,preferencia_prod_nacionais,atestado_compactador,atestado_aterro,atestado_demolicao,atestado_lastro,recomposicao,atestado_regularizacao,atestado_remendo,atestado_escavacao,atestado_carga,atestado_corte,
+                       atestado_terraplanagem,atestado_sondagem_manual,atestado_sondagem,atestado_transporte,atestado_apicoamento,atestado_remocao,atestado_argamassa,atestado_concreto,atestado_base_ou_leito,atestado_desobstrucao,atestado_limpeza,carregadeira_pneus,rocha3a,
+                       trator_esteiras,trator_esteiras_laminas,areia_comercial,brita_comercial,compactador_manual,transporte_manual,roçagem_poda_corte_manual,alvenaria_deitada]
+
+lista_habilitacao = [certidao_protesto, certidao_corregedor, integralizado, idoneidade_financeira, 
+certidao_quitacao, carta_credenciamento, filiacao_abav_iata, visto_registro_profissional, 
+comprovante_localizacao, usina_asfalto_cbuq, amostra_prototipo, n_min_max_limitacao_atestados,
+ temp_exp_profissional, quadro_permanente, certificado_registro_cadastral, doc_firma_reconhecida_cartorio, certificado_boas_praticas,
+exigencia_posse_previa, licenca_ambiental, vinculo_empregaticio, cadastro_previo, certificado_qualidade,
+comprovacao_atividade, vedacao_documento]
+'''
