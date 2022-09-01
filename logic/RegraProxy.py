@@ -1,9 +1,9 @@
-from regraInterface import RegraInterface
-from Regra import Regra
+from logic import regraInterface as i
+from logic import Regra
 
-class ProxyRegra(RegraInterface):
+class RegraProxy(i.RegraInterface):
     def __init__(self,nome,regra):
-        self._Regra = Regra(nome,regra)
+        self._Regra = Regra.Regra(nome,regra)
 
     def getNome(self):
         return self._Regra.getNome()
@@ -30,7 +30,7 @@ class ProxyRegra(RegraInterface):
         negativos = []
         if len(self._Regra.getRegexNegativos()) >0:
             for i in self._Regra.getRegexNegativos():
-                negativos.append(self._Regra._search(i,texto))
+                negativos.append(self._Regra.search(i,texto))
         positivo = self._Regra.search(self._Regra.getRegexPositivo(),texto)
         #questão do positivo e negativo
         return positivo,all([positivo,not(any(negativos))])
@@ -38,4 +38,4 @@ class ProxyRegra(RegraInterface):
         return self._Regra.toJson()
 
 if __name__ == '__main__':
-    ProxyRegra('*','*regra')
+    RegraProxy('*','*regra')

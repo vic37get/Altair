@@ -1,7 +1,7 @@
-from regraInterface import RegraInterface
+from logic import regraInterface as i
 import re
 
-class Regra(RegraInterface):
+class Regra(i.RegraInterface):
     def __init__(self,nome,regra):
         self._regexPositivo = regra
         self._regexNegativos = []
