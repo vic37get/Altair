@@ -1,5 +1,5 @@
 from logic import regraInterface as i
-import re
+import re,json
 
 class Regra(i.RegraInterface):
     def __init__(self,nome,regra):
@@ -32,4 +32,12 @@ class Regra(i.RegraInterface):
         return re.search(regra,texto)
 
     def toJson(self):
-        pass
+        retorno = dict()
+        for key,value in self.__dict__.items():
+            retorno[key] = str(value)
+        return retorno
+
+    def loadJson(self,json):
+        self._nome = json['_nome']
+        self._regexPositivo = eval(json['_regexPositivo'])
+        self._regexNegativos = eval(json['_regexNegativos'])
