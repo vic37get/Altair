@@ -2,7 +2,7 @@ from logic import regraInterface as i
 from logic import Regra
 
 class RegraProxy(i.RegraInterface):
-    def __init__(self,nome,regra):
+    def __init__(self,nome='Null',regra=None):
         self._Regra = Regra.Regra(nome,regra)
 
     def getNome(self):
@@ -36,6 +36,9 @@ class RegraProxy(i.RegraInterface):
         return positivo,all([positivo,not(any(negativos))])
     def toJson(self):
         return self._Regra.toJson()
+
+    def loadJson(self,json):
+        return self._Regra.loadJson(json)
 
 if __name__ == '__main__':
     RegraProxy('*','*regra')
