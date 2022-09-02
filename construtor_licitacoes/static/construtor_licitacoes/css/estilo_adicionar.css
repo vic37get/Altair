@@ -296,3 +296,8 @@ footer {
     left: 0;
     padding-left: 3vw;
   }
+
+  #formLic{
+    margin-top: 30px !important;
+    width: 60%;
+  }

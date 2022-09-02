@@ -40,32 +40,33 @@
 
     </head>
 
+    <nav class="navbar navbar-expand-lg navbar-light menu">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href={% url 'home_page:index' %}><i class="fa-brands fa-artstation"></i> Altair</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Modulos</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Construção de Licitacao</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="#!">Verificação de Fraudes</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="#!">Simplificação de Leitura</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href={% url 'home_page:index' %}>Minhas Licitações</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
     <body id="main_body">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light menu">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href={% url 'home_page:index' %}><i class="fa-brands fa-artstation"></i> Altair</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Modulos</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">Construção de Licitacao</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Verificação de Fraudes</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Simplificação de Leitura</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href={% url 'home_page:index' %}>Minhas Licitações</a></li>
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
-
         <!-- Section-->
         <section class="py-5" id="corpo_principal">
             <div class="container px-4 px-lg-5 mt-5" id="corpo_interno" >        
@@ -73,11 +74,9 @@
                 {% endblock %}
             </div>
         </section>
-    
-    <footer>
-            <div class="foot">Copyright &copy; www.altair.com 2022</div>
-    </footer>
-
     </body>
+    <footer>
+        <div class="foot">Copyright &copy; www.altair.com 2022</div>
+    </footer>
     
 </html>

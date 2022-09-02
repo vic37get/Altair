@@ -9,4 +9,5 @@ urlpatterns = [
     path('salvar',views.salvar,name='salvar'),
     path('editarTitulo',views.editarTitulo,name='editarTitulo'),
     path('excluirLicitacao/<pk>',views.excluir,name='excluir'),
+    path('enviar/<pk>', views.enviar, name='enviar')
 ]

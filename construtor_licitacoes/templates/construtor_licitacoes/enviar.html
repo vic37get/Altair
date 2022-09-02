@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+
+<div id="formLic"class="bg-white mt-2 pt-5 px-4 pb-5 box-folha";>
+    <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Órgão</label>
+            <input type="email" class="form-control" id="inputEmail4" placeholder="Órgão">
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">Município</label>
+                <input type="text" class="form-control" id="inputCity" placeholder="Município">
+                <label for="inputCity">Estado</label>
+                <input class="form-control" type="text" placeholder="Piauí" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Tipo do Objeto</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="Tipo do Objeto">
+        </div>
+        <div class="form-group pb-2">
+          <label for="inputAddress2">Objeto</label>
+          <input type="text" class="form-control overflow-auto" id="inputAddress2" placeholder="Objeto">
+        </div>
+        <button type="submit" class="btn btn-outline-dark colorButton">Enviar</button>
+      </form>
+</div>
+{% endblock %}

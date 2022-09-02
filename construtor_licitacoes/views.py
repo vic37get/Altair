@@ -63,3 +63,7 @@ def editarTitulo(request):
         #print(data['json'])
         #print(data['_id'])
     return HttpResponse()
+
+def enviar(request, pk):
+    modelo = loader.get_template('construtor_licitacoes/enviar.html')
+    return HttpResponse(modelo.render())
