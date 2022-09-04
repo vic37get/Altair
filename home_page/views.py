@@ -22,3 +22,12 @@ def modelo(request):
         'templates':templates
     }
     return  HttpResponse(modelo.render(context, request))
+
+def enviar(request):
+    modelo = loader.get_template('home_page/enviar.html')
+    collection_licitacao = db_client['licitacao']
+    licitacoes = collection_licitacao.find({})
+    context = {
+        'licitacoes':licitacoes
+    }
+    return HttpResponse(modelo.render(context, request))

@@ -1,13 +1,14 @@
-from multiprocessing import context
-from bson.objectid import ObjectId
-import bson.json_util as json_util
-from django.http import HttpResponse
-from django.shortcuts import render,redirect
-from django.template import loader
-from utils import connectMongo
-from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import datetime
+from multiprocessing import context
+
+import bson.json_util as json_util
+from bson.objectid import ObjectId
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template import loader
+from django.views.decorators.csrf import csrf_exempt
+from utils import connectMongo
 
 db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
