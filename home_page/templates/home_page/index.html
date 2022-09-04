@@ -3,15 +3,20 @@
 {%load tagger%}
 {% block content %}
 
-
 <div class=" row gx-4 gx-lg-5 menu_index d-flex">
     <div class="input-group rounded w-75 m-0 m-auto">
-        <select class="form-select rounded filtroTipo me-3">
+        <select class="form-select rounded filtroTipo me-3 border-secondary">
+            <option selected>Todos os modelos</option>
+            <option value="1">Capítulos</option>
+            <option value="2">Seções</option>
+            <option value="2">Numérico</option>
+          </select>
+        <select class="form-select rounded filtroTipo me-3 border-secondary">
             <option selected>Todas</option>
             <option value="1">Pendentes</option>
             <option value="2">Submetidas</option>
           </select>
-        <input type="search" class="form-control rounded" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="search-addon" />
+        <input type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
         <form action="" method="post">
             {% csrf_token %}
             <input class="btn btn-outline-dark colorButton ms-1" type="submit" value="Filtrar">
