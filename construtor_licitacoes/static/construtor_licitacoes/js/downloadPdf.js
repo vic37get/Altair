@@ -1,4 +1,4 @@
-function baixarPdf(salvar){
+function baixarPdf(salvar, isSave){
     var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
@@ -53,4 +53,8 @@ function baixarPdf(salvar){
         console.log('error')
       },
     });
+
+    var bs4 = doc.output('datauristring')
+    var saidabs4 = bs4.split(',')
+    return saidabs4[1]
   }

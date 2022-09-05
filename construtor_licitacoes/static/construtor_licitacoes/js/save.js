@@ -5,6 +5,8 @@ function createJSON(id,id_template) {
     var conteudos = getConteudo();
     json['dataModificacao'] = getStringDate();
     json['cabecalho'] = cabecalho;
+    json['status'] = "pending"
+    json['base64'] = ""
     json['secoes'] = [];
     json['id_template'] = id_template;
     for (let i = 0; i < titulos.length; i++) {
