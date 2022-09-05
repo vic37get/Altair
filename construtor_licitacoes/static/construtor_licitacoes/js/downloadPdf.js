@@ -26,26 +26,31 @@ function baixarPdf(salvar){
        
       }
     }
-    var stringpdf = "<h4>Preambulo</h4>"+textoInicial;
+    var stringpdf = "";
     divconteudo.forEach(element => {
       stringpdf += element
     });
-    //console.log(stringpdf)
-
-    var doc = new jsPDF();
-    var data = new Date();
-    
-    var dataAtual = new Date();
-    var dataAtual = dataAtual.getDate()+'-'+(dataAtual.getMonth()+1)+'-'+dataAtual.getFullYear();
-
-    doc.fromHTML(stringpdf, // page element which you want to print as PDF
-    15,
-    15, 
-    {
-      'width': 170
-    },
-    function(a) 
-    {
-        doc.save("edital "+ dataAtual.toString()+".pdf","../");
+    var textoHeader = tinymce.get("cabecalho").getContent();
+    stringpdf = textoHeader + stringpdf
+    console.log(stringpdf)
+    var dataPDf = {};
+    dataPDf['contentPDF'] = stringpdf;
+    dataPDf = JSON.stringify(dataPDf);
+    $.ajax({
+      type: 'POST',
+      url: '/construcao/toPDF',
+      data: dataPDf,
+      contentType: 'application/json; charset=utf-8',
+      cache: false,
+      success: function(data){
+        var file = document.createElement('a');
+        file.style.display='none';
+        file.href = "data:application/pdf;base64,"+data;
+        file.download = "filename.pdf";
+        file.click();
+      },
+      error: function () {
+        console.log('error')
+      },
     });
   }
