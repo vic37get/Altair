@@ -8,5 +8,6 @@ urlpatterns = [
     path('editarLicitacao/<pk>',views.editar,name='editar'),
     path('salvar',views.salvar,name='salvar'),
     path('editarTitulo',views.editarTitulo,name='editarTitulo'),
-    path('excluirLicitacao/<pk>',views.excluir,name='excluir')
+    path('excluirLicitacao/<pk>',views.excluir,name='excluir'),
+    path('toPDF',views.toPDF,name='toPDF'),
 ]

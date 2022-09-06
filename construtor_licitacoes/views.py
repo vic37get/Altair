@@ -4,6 +4,7 @@ from multiprocessing import context
 
 import bson.json_util as json_util
 from bson.objectid import ObjectId
+from bson.binary import Binary
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
@@ -42,6 +43,7 @@ def salvar(request):
     if request.method == 'POST':
         collection_licitacao = db_client['licitacao']
         data = json.loads(request.body.decode('utf-8'))
+        data['json']['base64'] = Binary(data['json']['base64'].encode())
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
         #print(data['json'])
         #print(data['_id'])
@@ -64,3 +66,19 @@ def editarTitulo(request):
         #print(data['json'])
         #print(data['_id'])
     return HttpResponse()
+
+import weasyprint
+#sudo apt-get install libpangocairo-1.0-0
+import base64
+#pip install django-easy-pdf
+#django-easy-pdf>=0.2.0 and WeasyPrint>=0.34
+@csrf_exempt
+def toPDF(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        pdf = weasyprint.HTML(string=data['contentPDF']).write_pdf()
+        pdf = base64.b64encode(pdf)
+        #open(os.path.join(os.getcwd(),'construtor_licitacoes','tests','google.pdf'), 'wb').write(pdf)
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = "attachment; filename=sample_pdf.pdf"
+        return response
