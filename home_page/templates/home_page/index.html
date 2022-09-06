@@ -48,6 +48,7 @@
         </div>
     </div>
     {% for licitacao in licitacoes%}
+    {% if licitacao.status != "pending" %}
     <div class="col mb-3 mt-5">
         <div class="card h-100">
             <div class="card-body p-4 text-center">
@@ -69,7 +70,8 @@
                         });
                     </script>
                     <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
-                    Última modificação:<br>{{licitacao.dataModificacao}}
+                    Última modificação:<br>{{licitacao.dataModificacao}}<br>
+                    Status:<br>{{licitacao.status}}
                 </div>
             </div>
             <!-- Product actions-->
@@ -87,6 +89,7 @@
             </div>
         </div>
     </div>
+    {% end if %}
     {% endfor %}
 </div>
 {% endblock %}
