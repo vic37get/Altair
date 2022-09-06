@@ -12,9 +12,9 @@
             <option value="2">Numérico</option>
           </select>
         <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected>Todas</option>
-            <option value="1">Pendentes</option>
-            <option value="2">Submetidas</option>
+            <option selected value="all">Todas</option>
+            <option value="pedding">Pendentes</option>
+            <option value="submit">Submetidas</option>
           </select>
         <input type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
         <form action="" method="post">
@@ -47,8 +47,11 @@
             </div>
         </div>
     </div>
+    <script>
+        var selectedValue = $('#aioConceptName').find(":selected").val();
+    </script>
     {% for licitacao in licitacoes%}
-    {% if licitacao.status != "pending" %}
+    {% if licitacao.status != selectedValue %}
     <div class="col mb-3 mt-5">
         <div class="card h-100">
             <div class="card-body p-4 text-center">
