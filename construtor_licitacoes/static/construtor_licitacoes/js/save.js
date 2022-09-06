@@ -6,7 +6,7 @@ function createJSON(id,id_template) {
     json['dataModificacao'] = getStringDate();
     json['cabecalho'] = cabecalho;
     json['status'] = "pending"
-    json['base64'] = ""
+    json['base64'] = baixarPdf(false);
     json['secoes'] = [];
     json['id_template'] = id_template;
     for (let i = 0; i < titulos.length; i++) {
@@ -22,11 +22,11 @@ function saveJSON(id){
       type: 'POST',
       url: '/construcao/salvar',
       data: dataJSON,
-      dataType : 'json',
       contentType: 'application/json; charset=utf-8',
       cache: false,
+      success: function(data){alert('O Documento foi Salvo.');},
+      error: function () {alert('Ocorreu um problema ao salvar o documento');}
     });
-    alert('O Documento foi Salvo.');
   }
 
 function loadJSON(json){

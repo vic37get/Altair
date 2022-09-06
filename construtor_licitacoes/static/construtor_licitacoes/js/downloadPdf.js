@@ -1,4 +1,4 @@
-function baixarPdf(salvar, isSave){
+function baixarPdf(button){
     var ids = getAllIds();
     var divconteudo = []
     var divs_secoes = document.getElementsByClassName('conteudoCaptura');
@@ -31,8 +31,8 @@ function baixarPdf(salvar, isSave){
       stringpdf += element
     });
     var textoHeader = tinymce.get("cabecalho").getContent();
+    var b64 = "data:application/pdf;base64,"
     stringpdf = textoHeader + stringpdf
-    console.log(stringpdf)
     var dataPDf = {};
     dataPDf['contentPDF'] = stringpdf;
     dataPDf = JSON.stringify(dataPDf);
@@ -40,21 +40,22 @@ function baixarPdf(salvar, isSave){
       type: 'POST',
       url: '/construcao/toPDF',
       data: dataPDf,
+      async: false,
       contentType: 'application/json; charset=utf-8',
       cache: false,
       success: function(data){
-        var file = document.createElement('a');
-        file.style.display='none';
-        file.href = "data:application/pdf;base64,"+data;
-        file.download = "filename.pdf";
-        file.click();
+        if(button == true){
+          var file = document.createElement('a');
+          file.style.display='none';
+          file.href = "data:application/pdf;base64,"+data;
+          file.download = "filename.pdf";
+          file.click();
+        }
+        b64 = b64 + data;
       },
       error: function () {
         console.log('error')
       },
     });
-
-    var bs4 = doc.output('datauristring')
-    var saidabs4 = bs4.split(',')
-    return saidabs4[1]
+    return b64;
   }
