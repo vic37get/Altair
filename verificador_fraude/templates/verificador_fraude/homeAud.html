@@ -12,9 +12,9 @@
             <option value="2">Numérico</option>
           </select>
         <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected value="all">Todas</option>
-            <option value="pedding">Pendentes</option>
-            <option value="submit">Submetidas</option>
+            <option selected value="all">Ordenar por data</option>
+            <option value="pedding">Cresecente</option>
+            <option value="submit">Decrescente</option>
           </select>
         <input type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
         <form action="" method="post">
@@ -23,19 +23,19 @@
         </form>
     </div>
 </div>
-<div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-2 m-0 justify-content-center">
+<div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-1 m-0 justify-content-center">
     <script>
         var selectedValue = $('#aioConceptName').find(":selected").val();
     </script>
     {% for licitacao in licitacoes%}
     {% if licitacao.status == "submetido" %}
-    <div class="col mb-3 mt-5">
-        <div class="card h-100">
-            <div class="card-body p-4 text-center">
-                <i class="fa-solid fa-file-lines ico-size"></i>
-                <div class="text-center d-flex flex-column tituloEditavel">
+    <div class="col mb-3 mt-5 cardAud">
+        <div class="card h-100" >
+            <div class="card-body">
+                <!--<i class="fa-solid fa-file-lines ico-size"></i> -->
+                <div class="d-flex flex-row tituloEditavel">
                     <!-- titulo-->
-                    <input id="inputTitleHomePage{{licitacao|private:'_id'}}" class="fw-bolder text-center border-0 " value="{{licitacao.tituloArquivo}}"></input>
+                    Nome da licitação: {{licitacao.tituloArquivo}}<br>
                     <script>
                         $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
                             var titulo = {'tituloArquivo':$(this).val()}
@@ -50,16 +50,16 @@
                         });
                     </script>
                     <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
-                    Última modificação:<br>{{licitacao.dataModificacao}}<br>
-                    Status:<br>{{licitacao.status}}
+                    Data de envio: {{licitacao.dataModificacao}}<br>
+                    Status: {{licitacao.status}}
                 </div>
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center d-flex justify-content-center">
+                <div class="d-flex">
                     <form class="m-1" action="{% url 'verificador_fraude:avaliar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Avaliar">
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Abrir">
                     </form>
                     </form>
                 </div>
