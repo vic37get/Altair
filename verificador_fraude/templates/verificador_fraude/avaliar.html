@@ -1,0 +1,17 @@
+{% extends 'base2.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+
+<div id="" class="w-50 h-100">
+    <embed src="" id="embedavaliar" type='application/pdf' class="w-100 h-100">
+</div>
+
+<script type="text/javascript">
+  var jsonDecoded = JSON.parse(decodeEntity("{{licitacao}}").replace(/\n\r?/g, ''));
+  var elemento = document.getElementById("embedavaliar");
+  var bin = atob(jsonDecoded.base64.$binary);
+  elemento.src = bin + "#view=FitH"
+
+</script>
+{% endblock %}

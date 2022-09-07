@@ -57,7 +57,7 @@
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center d-flex justify-content-center">
-                    <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
+                    <form class="m-1" action="{% url 'verificador_fraude:avaliar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
                         <input class="btn btn-outline-dark colorButton" type="submit" value="Avaliar">
                     </form>
