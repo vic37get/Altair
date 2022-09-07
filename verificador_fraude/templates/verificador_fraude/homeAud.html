@@ -35,6 +35,7 @@
                 <!--<i class="fa-solid fa-file-lines ico-size"></i> -->
                 <div class="d-flex flex-row tituloEditavel">
                     <!-- titulo-->
+                    <i class="fa-solid fa-file-contract ico-size p-3"></i>
                     Nome da licitação: {{licitacao.tituloArquivo}}<br>
                     <script>
                         $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
@@ -54,8 +55,10 @@
                     Status: {{licitacao.status}}
                 </div>
             </div>
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="rodapeCard p-2 mb-1">
+                {{licitacao.status}}
+            </div>
+            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                 <div class="d-flex">
                     <form class="m-1" action="{% url 'verificador_fraude:avaliar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
@@ -64,9 +67,11 @@
                     </form>
                 </div>
             </div>
+            <!-- Product actions-->
         </div>
     </div>
     {% endif %}
     {% endfor %}
+    {% endblock %}
 </div>
-{% endblock %}
+

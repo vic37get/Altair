@@ -7,3 +7,14 @@
 .cardInterno{
     height: 65% !important;
 }
+
+.rodapeCard{
+    border-top: 1px solid rgb(170, 170, 170);
+    border-bottom: 1px solid rgb(170, 170, 170);
+    height: 50% !important;
+}
+
+.previewAud{
+    width: 40% !important;
+    right: 0 !important;
+}

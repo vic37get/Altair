@@ -3,15 +3,16 @@
 {%load tagger%}
 {% block content %}
 
-<div id="" class="w-50 h-100">
-    <embed src="" id="embedavaliar" type='application/pdf' class="w-100 h-100">
+
+<div id="main">
+  <div class="h-100 previewAud">
+      <embed src="" id="embedavaliar" type='application/pdf' class="w-100 h-100">
+  </div>
 </div>
-
-<script type="text/javascript">
-  var jsonDecoded = JSON.parse(decodeEntity("{{licitacao}}").replace(/\n\r?/g, ''));
-  var elemento = document.getElementById("embedavaliar");
-  var bin = atob(jsonDecoded.base64.$binary);
-  elemento.src = bin + "#view=FitH"
-
-</script>
+  <script type="text/javascript">
+    var jsonDecoded = JSON.parse(decodeEntity("{{licitacao}}").replace(/\n\r?/g, ''));
+    var elemento = document.getElementById("embedavaliar");
+    var bin = atob(jsonDecoded.base64.$binary);
+    elemento.src = bin + "#view=FitH"
+  </script>
 {% endblock %}
