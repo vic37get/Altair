@@ -24,33 +24,11 @@
     </div>
 </div>
 <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-2 m-0 justify-content-center">
-    <div class="col mb-3 mt-5">
-        <div class="card h-100 cardNew">
-            <!-- Ppreview aqui-->
-            <!-- detalhes simples-->
-            <div class="card-body p-4 text-center">
-                <i class="fa-solid fa-file-circle-plus ico-size"></i>
-                <div class="text-center">
-                    <!-- titulo-->
-                    <h5 class="fw-bolder">Sem Título</h5>
-                    <!-- algum dado a escolha-->
-                </div>
-            </div>
-            <!-- Product actions-->
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                    <form class="my-1" action="{% url 'home_page:template' %} " method="post">
-                        {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton buttonNew" type="submit" value="Nova Licitação">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
         var selectedValue = $('#aioConceptName').find(":selected").val();
     </script>
     {% for licitacao in licitacoes%}
+    {% if licitacao.status == "submetido" %}
     <div class="col mb-3 mt-5">
         <div class="card h-100">
             <div class="card-body p-4 text-center">
@@ -81,16 +59,13 @@
                 <div class="text-center d-flex justify-content-center">
                     <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Editar">
-                    </form>
-                    <form class="m-1" action="{% url 'construtor_licitacoes:excluir' licitacao|private:'_id' %}" method="post">
-                        {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Excluir">
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Avaliar">
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}
