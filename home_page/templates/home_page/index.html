@@ -50,11 +50,16 @@
     {% for licitacao in licitacoes%}
     <div class="col mb-3 mt-5">
         <div class="card h-100">
+            <div class="licitacaoStatus d-flex flex-row" >
+                <i id="status{{licitacao|private:'_id'}}" class="status pendente fa-solid fa-circle"></i>
+                <p class="nomeStatus">{{licitacao.status}}</p>
+            </div>
             <div class="card-body p-4 text-center">
-                <i class="fa-solid fa-file-lines ico-size"></i>
+                <i class="fa-solid fa-file-lines ico-size" ></i>
                 <div class="text-center d-flex flex-column tituloEditavel">
                     <!-- titulo-->
                     <input id="inputTitleHomePage{{licitacao|private:'_id'}}" class="fw-bolder text-center border-0 " value="{{licitacao.tituloArquivo}}"></input>
+   
                     <script>
                         $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
                             var titulo = {'tituloArquivo':$(this).val()}
@@ -67,11 +72,13 @@
                                 cache: false,
                             });
                         });
+
+                        $(window).on('load', statusLicitacao("{{licitacao.status}}","{{licitacao|private:'_id'}}"));
+
                     </script>
                     <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
                     Última modificação:<br>{{licitacao.dataModificacao}}
                     <br>
-                    <i class="status pendente fa-solid fa-circle"></i>
                 </div>
             </div>
             <!-- Product actions-->
