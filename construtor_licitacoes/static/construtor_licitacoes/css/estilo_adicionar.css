@@ -4,6 +4,7 @@
   --cor_principal: #00684a;
   --cor_principal_contraste: #00684bb2;
   --cor_fundo: rgb(230, 230, 230);
+  --cor_status_pendente: #d2d227;
 }
 
 #corpo_interno{
@@ -326,3 +327,13 @@ footer {
     width: 45%;
     padding: 30px !important;
   }
+
+.status{
+  font-size: small !important;
+}
+
+.pendente{
+  padding: 1px;
+  text-align: left;
+  color: var(--cor_status_pendente);
+}
