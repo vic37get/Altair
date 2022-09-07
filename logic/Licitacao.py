@@ -1,7 +1,15 @@
+import base64
+import re
+from email.mime import base
+
+from bson.objectid import ObjectId
+from utils import connectMongo
+
 import Header
 from LicitacaoInterface import LicitacaoInterface
 from Secao import Secao
 
+db = connectMongo('Altair')
 class Licitacao(LicitacaoInterface):
     def __init__(self, nomeLicitacao, nomeArquivo,dados):
         self.nomeLicitacao = nomeLicitacao
@@ -39,7 +47,27 @@ class Licitacao(LicitacaoInterface):
     def setDados(self,dados):
         self.dados = dados
 
-    def findSectionAndText(self,secoes,dados):
+    def findSectionAndTextBank(self, licitacao_id):
+        lista_secoes = []
+        conteudo_secao = []
+        collection_licitacao = db['licitacao']
+        licitacao = collection_licitacao.find_one({"_id":ObjectId(licitacao_id)})
+        exp_html = re.compile('<.*?>')
+
+        for secao in licitacao['secoes']:
+            titulo = ''
+            titulo = base64.b64decode(secao['titulo']).decode('ISO-8859-1')
+            titulo = re.sub(exp_html, '', titulo)
+            lista_secoes.append(titulo)
+            
+            conteudo = ''
+            conteudo = base64.b64decode(secao['conteudo'][0]).decode('ISO-8859-1')
+            conteudo = re.sub(exp_html, '', conteudo)
+            conteudo_secao.append(conteudo)
+
+            return lista_secoes, conteudo_secao
+
+    def findSectionAndText(self, secoes, dados):
         lista_secoes = []
         conteudo_secao = []
         dados2 = dados
@@ -61,8 +89,16 @@ class Licitacao(LicitacaoInterface):
         if len(lista_secoes) > 0:
             if lista_secoes[-1] == None:
                 lista_secoes = lista_secoes[0:-1]
-        return lista_secoes,conteudo_secao
+
+        return lista_secoes, conteudo_secao
     
+    def structBank(self, licitacao_id):
+        lista_secoes, conteudo_secao = self.findSectionAndTextBank(self, licitacao_id)
+        for i in zip(lista_secoes, conteudo_secao):
+            secao = i[0]
+            secao.verificaSecao()
+            self.addSecoes(secao)
+
     def struct(self,secoes,dados):
         lista_secoes,conteudo_secao = self.findSectionAndText(secoes,dados)
         for i in range(len(lista_secoes)-1,-1,-1):
