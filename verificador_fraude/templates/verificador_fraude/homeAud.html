@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {%load static%}
 {%load tagger%}
 {% block content %}
@@ -60,6 +60,7 @@
                     <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
                         <input class="btn btn-outline-dark colorButton" type="submit" value="Avaliar">
+                    </form>
                     </form>
                 </div>
             </div>
