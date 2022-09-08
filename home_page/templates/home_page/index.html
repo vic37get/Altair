@@ -84,6 +84,7 @@
                     <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
                         <input id="editar{{licitacao|private:'_id'}}" class="btn btn-outline-dark colorButton" type="submit" value="Editar">
+                        
                     </form>
                     <form class="m-1" action="{% url 'construtor_licitacoes:excluir' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}

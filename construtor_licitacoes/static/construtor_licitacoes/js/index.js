@@ -13,6 +13,7 @@ function statusLicitacao(licitacao,id) {
         document.getElementById("Labelstatus"+id).innerHTML = "Submetido";
         document.getElementById("status"+id).setAttribute('class','status submetido fa-solid fa-circle');
         document.getElementById("editar"+id).setAttribute('visibility','hidden');
+        
         console.log("status"+id)
 
     }
