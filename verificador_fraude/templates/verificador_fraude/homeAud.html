@@ -6,10 +6,9 @@
 <div class=" row gx-4 gx-lg-5 menu_index d-flex">
     <div class="input-group rounded w-75 m-0 m-auto">
         <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected>Todos os modelos</option>
-            <option value="1">Capítulos</option>
-            <option value="2">Seções</option>
-            <option value="2">Numérico</option>
+            <option selected>Ordenar por: </option>
+            <option value="1">Data mais recente</option>
+            <option value="2">Data mais antiga</option>
           </select>
         <select class="form-select rounded filtroTipo me-3 border-secondary">
             <option selected value="all">Ordenar por data</option>
@@ -27,8 +26,11 @@
     <script>
         var selectedValue = $('#aioConceptName').find(":selected").val();
     </script>
+    {% if selectedValue == "1" %}
+    {% licitacoes = sorted(licitacoes.dataModificacao) %}
+    {% endif %}
     {% for licitacao in licitacoes%}
-    {% if licitacao.status == "submetido" %}
+    {% if licitacao.status == "0" %}
     <div class="col mb-3 mt-5 cardAud">
         <div class="card h-100" >
             <div class="card-body">
