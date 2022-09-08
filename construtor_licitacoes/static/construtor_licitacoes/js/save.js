@@ -8,7 +8,7 @@ function createJSON(id,id_template) {
     }
     json['dataModificacao'] = getStringDate();
     json['cabecalho'] = cabecalho;
-    json['status'] = "pending"
+    json['status'] = 0;
     json['base64'] = baixarPdf(false);
     json['secoes'] = [];
     json['id_template'] = id_template;

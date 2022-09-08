@@ -2,14 +2,16 @@
 function statusLicitacao(licitacao,id) {
 
     console.log("isso aí mermo: "+licitacao);
-    if(licitacao=="pending"){
-        document.getElementById("status"+id).style.color = "green" ;
+    if(licitacao==0){
+        document.getElementById("status"+id).setAttribute('class','status pendente fa-solid fa-circle');
+        document.getElementById("Labelstatus"+id).innerHTML = "Pendente";
         console.log("status"+id)
 
     }
 
-    if(licitacao == "submetido" ){
-        document.getElementById("status"+id).style.color = "red" ;
+    if(licitacao==1){
+        document.getElementById("Labelstatus"+id).innerHTML = "Submetido";
+        document.getElementById("status"+id).setAttribute('class','status submetido fa-solid fa-circle');
         console.log("status"+id)
     }
 
