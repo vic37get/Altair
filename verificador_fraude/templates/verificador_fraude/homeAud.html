@@ -3,7 +3,7 @@
 {%load tagger%}
 {% block content %}
 
-<div class=" row gx-4 gx-lg-5 menu_index d-flex">
+<div class=" row gx-4 gx-lg-5 mb-5 menu_index d-flex">
     <div class="input-group rounded w-75 m-0 m-auto">
         <select class="form-select rounded filtroTipo me-3 border-secondary">
             <option selected>Ordenar por: </option>
@@ -25,7 +25,7 @@
 <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-1 m-0 justify-content-center">
     {% for licitacao in licitacoes%}
     {% if licitacao.status == 1 %}
-        <div class="col mb-3 mt-5 cardAud">
+        <div class="col mb-4 cardAud">
             <div class="card h-100 cardlicAud">
                     <!--<i class="fa-solid fa-file-lines ico-size"></i> -->
                     <div class="d-flex flex-row tituloEditavel">
@@ -73,4 +73,3 @@
     {% endfor %}
     {% endblock %}
 </div>
-
