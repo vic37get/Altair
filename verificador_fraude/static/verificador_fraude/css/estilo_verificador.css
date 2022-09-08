@@ -1,3 +1,12 @@
+:root {
+    --fonte: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --cor_principal: #00684a;
+    --cor_principal_contraste: #00684bb2;
+    --cor_fundo: rgb(230, 230, 230);
+    --cor_hover: #003f2d;
+    --background_hover: rgb(185, 185, 185);
+}
+
 .cardAud{
     width: 80% !important;
     padding: 0;
@@ -18,3 +27,49 @@
     width: 40% !important;
     right: 0 !important;
 }
+
+.BarraNameLic{
+    width: 100%;
+    height: fit-content;
+    background-color: var(--cor_principal);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    font-size: 18px;
+}
+
+.cardlicAud{
+    border-bottom: 2px solid var(--cor_principal);
+    border-left: 2px solid var(--cor_principal);
+    border-right: 2px solid var(--cor_principal);
+}
+
+.documentBarra{
+    position: absolute;
+    right: 0 !important;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    text-shadow: none;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.textoDocumento{
+    color: var(--cor_principal);
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.documentBarra:hover{
+    background-color: var(--background_hover);
+}
+
+.textoDocumento:hover{
+    color: var(--cor_hover);
+}
+

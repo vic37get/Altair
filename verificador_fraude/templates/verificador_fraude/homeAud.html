@@ -28,15 +28,19 @@
         var selectedValue = $('#aioConceptName').find(":selected").val();
     </script>
     {% for licitacao in licitacoes%}
-    {% if licitacao.status == "submetido" %}
+    {% if licitacao.status == 1 %}
     <div class="col mb-3 mt-5 cardAud">
-        <div class="card h-100" >
-            <div class="card-body">
+        <div class="card h-100 cardlicAud">
                 <!--<i class="fa-solid fa-file-lines ico-size"></i> -->
                 <div class="d-flex flex-row tituloEditavel">
                     <!-- titulo-->
-                    <i class="fa-solid fa-file-contract ico-size p-3"></i>
-                    Nome da licitação: {{licitacao.tituloArquivo}}<br>
+                    <div class="BarraNameLic">
+                        <div class="documentBarra">
+                            <a class="textoDocumento"href="">Documento <i class="fa-solid fa-file"></i></a>
+                        </div>
+                        Licitação: {{licitacao.tituloArquivo}}
+                     
+                    </div>
                     <script>
                         $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
                             var titulo = {'tituloArquivo':$(this).val()}
@@ -51,12 +55,11 @@
                         });
                     </script>
                     <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
-                    Data de envio: {{licitacao.dataModificacao}}<br>
-                    Status: {{licitacao.status}}
-                </div>
             </div>
             <div class="rodapeCard p-2 mb-1">
-                {{licitacao.status}}
+                <!--<i class="fa-solid fa-file-contract ico-size p-3"></i>-->
+                <div class="badge badge-2x rounded-pill bg-info text-dark"><i class="fa-solid fa-calendar-days"></i> Enviada em: {{licitacao.dataModificacao}} </div>
+                <div class="badge badge-2x rounded-pill bg-warning text-dark"><i class="fa-solid fa-calendar-days"></i> Status: {{licitacao.status}} </div>
             </div>
             <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                 <div class="d-flex">
