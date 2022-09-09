@@ -5,6 +5,7 @@
     --cor_fundo: rgb(230, 230, 230);
     --cor_hover: #003f2d;
     --background_hover: rgb(185, 185, 185);
+    --cor_bordas: rgb(170, 170, 170);
 }
 
 .cardAud{
@@ -18,8 +19,7 @@
 }
 
 .rodapeCard{
-    border-top: 1px solid rgb(170, 170, 170);
-    border-bottom: 1px solid rgb(170, 170, 170);
+    border-bottom: 1px solid var(--cor_bordas);
     height: 50% !important;
 }
 
@@ -71,5 +71,31 @@
 
 .textoDocumento:hover{
     color: var(--cor_hover);
+}
+
+.objeto{
+    max-height: max-content;
+}
+
+.tipolic{
+    background-color: rgb(255, 127, 127);
+}
+
+.nomelic{
+    color: gold;
+    font-size: 17px;
+    width: fit-content;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.nomelic:hover{
+    color: gold;
+}
+
+.barraDosFiltros{
+    width: 95%;
 }
 

@@ -21,7 +21,6 @@ def nova_licitacao(request,pk):
         'template':dict(template),
         'id_licitacao':id.inserted_id
     }
-    #return HttpResponse(modelo.render(context, request))
     return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
     
 def editar(request,pk):
@@ -43,8 +42,6 @@ def salvar(request):
         collection_licitacao = db_client['licitacao']
         data = json.loads(request.body.decode('utf-8'))
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
-        #print(data['json'])
-        #print(data['_id'])
     return HttpResponse()
 
 def excluir(request,pk):
@@ -61,8 +58,6 @@ def editarTitulo(request):
         collection_licitacao = db_client['licitacao']
         data = json.loads(request.body.decode('utf-8'))
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
-        #print(data['json'])
-        #print(data['_id'])
     return HttpResponse()
 
 def enviarGeral(request):
@@ -86,6 +81,10 @@ def enviarConstrucao(request, pk):
 
 def salvarFormulario(request, pk):
     if request.method == 'POST':
-        print(request.body)
-    return HttpResponse()
-
+        collection_licitacao = db_client['licitacao']
+        data = request.POST.copy()
+        data['status'] = 1
+        data['avaliada'] = 0
+        del data['csrfmiddlewaretoken']
+        collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
+    return redirect('/')
