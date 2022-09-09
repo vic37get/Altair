@@ -12,4 +12,5 @@ urlpatterns = [
     path('enviar/<pk>', views.enviarConstrucao, name='enviarConstrucao'),
     path('enviarD/<pk>',views.salvarFormulario,name='enviarSubmetidos'),
     path('excluirLicitacao/<pk>',views.excluir,name='excluir'),
+    path('toPDF',views.toPDF,name='toPDF'),
 ]
