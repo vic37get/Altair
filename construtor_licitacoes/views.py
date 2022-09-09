@@ -62,10 +62,11 @@ def editarTitulo(request):
 
 def enviarGeral(request):
     collection_licitacao = db_client['licitacao']
-    licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
-    context = {
-        'id_licitacao':licitacao['_id']
-    }
+    #licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    #context = {
+    #    'id_licitacao':licitacao['_id']
+    #}
+    #Falta implementar isso.
     modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
     return HttpResponse(modelo.render(context, request))
 
