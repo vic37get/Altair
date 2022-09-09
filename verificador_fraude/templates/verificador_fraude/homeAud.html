@@ -55,7 +55,16 @@
                 <div class="rodapeCard p-2 mb-1">
                     <!--<i class="fa-solid fa-file-contract ico-size p-3"></i>-->
                     <div class="badge badge-2x rounded-pill bg-info text-dark"><i class="fa-solid fa-calendar-days"></i> Enviada em: {{licitacao.dataModificacao}} </div>
-                    <div class="badge badge-2x rounded-pill bg-warning text-dark"><i class="fa-solid fa-calendar-days"></i> Status: {{licitacao.status}} </div>
+                    <div id="divStatus{{licitacao|private:'_id'}}" class="badge badge-2x rounded-pill bg-warning text-dark"></div>
+                    <script>
+                        var div = document.getElementById("divStatus{{licitacao|private:'_id'}}");
+                        if({{licitacao.status}} == 0){
+                            div.innerHTML = "<i class='fa-solid fa-file-signature'></i> Status: Não Avaliada <i class='fa-solid fa-circle text-danger'></i>";
+                        }
+                        if({{licitacao.status}} == 1){
+                            div.innerHTML = "<i class='fa-solid fa-file-signature'></i> Status: Avaliada <i class='fa-solid fa-circle text-success'></i>";
+                        }
+                    </script> 
                 </div>
                 <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                     <div class="d-flex">

@@ -64,3 +64,28 @@ def editarTitulo(request):
         #print(data['json'])
         #print(data['_id'])
     return HttpResponse()
+
+def enviarGeral(request):
+    collection_licitacao = db_client['licitacao']
+    licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    context = {
+        'id_licitacao':licitacao['_id']
+    }
+    modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
+    return HttpResponse(modelo.render(context, request))
+
+def enviarConstrucao(request, pk):
+    collection_licitacao = db_client['licitacao']
+    licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    context = {
+        'place':licitacao['tituloArquivo'],
+        'id_licitacao':licitacao['_id']
+    }
+    modelo = loader.get_template('construtor_licitacoes/enviarConstrucao.html')
+    return HttpResponse(modelo.render(context, request))
+
+def salvarFormulario(request, pk):
+    if request.method == 'POST':
+        print(request.body)
+    return HttpResponse()
+
