@@ -343,3 +343,8 @@ footer {
   text-align: left;
   color: var(--cor_status_submetido);
 }
+
+input:disabled{
+  text-shadow: none;
+  box-shadow: none;
+} 
