@@ -3,6 +3,7 @@
   --fonte: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --cor_principal: #00684a;
   --cor_principal_contraste: #00684bb2;
+  --cor_fundo: rgb(230, 230, 230);
 }
 
 #corpo_interno{
@@ -42,7 +43,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: rgb(230, 230, 230);
+  background-color: var(--cor_fundo);
 }
 
 footer {
@@ -124,7 +125,7 @@ footer {
   }
   
   .sidebar button:hover {
-    color: #444;
+    color: rgb(126, 126, 126);
   }
   
   .sidebar .closebtn {
@@ -157,7 +158,7 @@ footer {
 }
 
 .openbtn:hover {
-  background-color: #444;
+  background-color: rgb(126, 126, 126);
 }
 
 #menuLateralEsquerdo{
@@ -234,6 +235,11 @@ footer {
   padding-bottom: 2vh;
 }
 
+.filtroTipo:focus, input:focus{
+  box-shadow: 0 0 0 0 !important;
+  outline: 0 !important;
+}
+
 .menu_lateral{
   margin-top: 1vh;
   z-index: 0;
@@ -243,6 +249,18 @@ footer {
   border: none;
   height: 100%;
   width: 2.6vw;
+}
+
+.menu_index{
+  top: 0;
+  height: fit-content;
+  padding: 7px;
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 5px;
+  background-color: rgb(214, 214, 214);
+  margin-top: 35px;
 }
 
 .content_menu_folha{
@@ -272,7 +290,8 @@ footer {
 }
 
 .buttonNew:hover{
-  background-color: rgb(104, 104, 104) !important;
+  background-color: rgb(185, 185, 185) !important;
+  color: #003f2d !important;
 }
 
 .h-100{
@@ -289,7 +308,7 @@ footer {
 }
 
 .colorButton:hover{
-  background-color: #444;
+  background-color: #003f2d;
 }
 
   #embedpreview{

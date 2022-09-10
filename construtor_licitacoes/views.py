@@ -22,7 +22,6 @@ def nova_licitacao(request,pk):
         'template':dict(template),
         'id_licitacao':id.inserted_id
     }
-    #return HttpResponse(modelo.render(context, request))
     return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
     
 def editar(request,pk):
@@ -45,8 +44,6 @@ def salvar(request):
         data = json.loads(request.body.decode('utf-8'))
         data['json']['base64'] = Binary(data['json']['base64'].encode())
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
-        #print(data['json'])
-        #print(data['_id'])
     return HttpResponse()
 
 def excluir(request,pk):
@@ -63,10 +60,38 @@ def editarTitulo(request):
         collection_licitacao = db_client['licitacao']
         data = json.loads(request.body.decode('utf-8'))
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
-        #print(data['json'])
-        #print(data['_id'])
     return HttpResponse()
+    
+def enviarGeral(request):
+    collection_licitacao = db_client['licitacao']
+    #licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    #context = {
+    #    'id_licitacao':licitacao['_id']
+    #}
+    #Falta implementar isso.
+    modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
+    return HttpResponse(modelo.render(context, request))
 
+def enviarConstrucao(request, pk):
+    collection_licitacao = db_client['licitacao']
+    licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    context = {
+        'place':licitacao['tituloArquivo'],
+        'id_licitacao':licitacao['_id']
+    }
+    modelo = loader.get_template('construtor_licitacoes/enviarConstrucao.html')
+    return HttpResponse(modelo.render(context, request))
+
+def salvarFormulario(request, pk):
+    if request.method == 'POST':
+        collection_licitacao = db_client['licitacao']
+        data = request.POST.copy()
+        data['status'] = 1
+        data['avaliada'] = 0
+        del data['csrfmiddlewaretoken']
+        collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
+    return redirect('/')
+    
 import weasyprint
 #sudo apt-get install libpangocairo-1.0-0
 import base64

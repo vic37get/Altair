@@ -31,7 +31,7 @@ def enviar(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(modelo.render(context, request))
-
+    
 def filtro(request):
     collection_licitacao = db_client['licitacao']
     home = loader.get_template('home_page/index.html')
@@ -54,3 +54,13 @@ def filtro(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(home.render(context, request))
+    
+def homeAud(request):
+    template = loader.get_template('verificador_fraude/homeAud.html')
+    collection_licitacao = db_client['licitacao']
+    licitacoes = collection_licitacao.find({})
+    context = {
+        'licitacoes':licitacoes
+    }
+    return HttpResponse(template.render(context, request))
+

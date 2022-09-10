@@ -39,18 +39,41 @@ function getAllIds(){
     });
     var textoHeader = tinymce.get("cabecalho").getContent();
     stringpdf = textoHeader + stringpdf
-    var doc = new jsPDF();
-    doc.fromHTML(stringpdf, // page element which you want to print as PDF
-    15,
-    15, 
-    {
-      'width': 170
-    },
-    function(a) 
-    {
-      var file = document.getElementById("embedpreview")
-      file.src = doc.output('datauristring') + "#view=FitH"
+    console.log(stringpdf)
+    var dataPDf = {};
+    dataPDf['contentPDF'] = stringpdf;
+    dataPDf = JSON.stringify(dataPDf);
+    $.ajax({
+      type: 'POST',
+      url: '/construcao/toPDF',
+      data: dataPDf,
+      contentType: 'application/json; charset=utf-8',
+      cache: false,
+      success: function(data){
+        //arrayBufferToBase64(data)
+        //let utf8Encode = new TextEncoder();
+        //var bytes = utf8Encode.encode(data)
+        var file = document.getElementById("embedpreview")
+        //file.setAttribute('src',"data:application/pdf;base64,"+data)
+        file.setAttribute('src',"data:application/pdf;base64,"+data+"#view=FitH")
+        //file.src = "data:application/pdf;base64,"+data+"#view=FitH"
+        console.log(file.src)
+      },
+      error: function () {
+        console.log('error')
+      },
     });
+  }
+
+  function arrayBufferToBase64( buffer ) {
+    var binary = '';
+    let utf8Encode = new TextEncoder();
+    var bytes = utf8Encode.encode(buffer)
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return binary
   }
 
   function getTitulo(){
