@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class=" row gx-4 gx-lg-5 menu_index d-flex">
-    <div class="input-group rounded w-75 m-0 m-auto">
+    <div class="input-group rounded m-0 m-auto barraDosFiltros">
         <select class="form-select rounded filtroTipo me-3 border-secondary">
             <option selected>Todos os modelos</option>
             <option value="1">Capítulos</option>
@@ -12,9 +12,9 @@
             <option value="2">Numérico</option>
           </select>
         <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected>Todas</option>
-            <option value="1">Pendentes</option>
-            <option value="2">Submetidas</option>
+            <option selected value="all">Todas</option>
+            <option value="pedding">Pendentes</option>
+            <option value="submit">Submetidas</option>
           </select>
         <input type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
         <form action="" method="post">
@@ -47,6 +47,9 @@
             </div>
         </div>
     </div>
+    <script>
+        var selectedValue = $('#aioConceptName').find(":selected").val();
+    </script>
     {% for licitacao in licitacoes%}
     <div class="col mb-3 mt-5">
         <div class="card h-100">
@@ -69,7 +72,8 @@
                         });
                     </script>
                     <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
-                    Última modificação:<br>{{licitacao.dataModificacao}}
+                    Última modificação:<br>{{licitacao.dataModificacao}}<br>
+                    Status:<br>{{licitacao.status}}
                 </div>
             </div>
             <!-- Product actions-->
