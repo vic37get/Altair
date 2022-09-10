@@ -4,6 +4,8 @@
   --cor_principal: #00684a;
   --cor_principal_contraste: #00684bb2;
   --cor_fundo: rgb(230, 230, 230);
+  --cor_status_pendente: #d2d227;
+  --cor_status_submetido: rgb(15, 99, 15);
 }
 
 #corpo_interno{
@@ -326,3 +328,23 @@ footer {
     width: 45%;
     padding: 30px !important;
   }
+
+.status{
+  font-size: large !important;
+}
+
+.pendente{
+  padding: 1px;
+  text-align: left;
+  color: var(--cor_status_pendente);
+}
+
+.submetido{
+  text-align: left;
+  color: var(--cor_status_submetido);
+}
+
+input:disabled{
+  text-shadow: none;
+  box-shadow: none;
+} 

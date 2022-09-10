@@ -4,21 +4,21 @@
 {% block content %}
 
 <div class=" row gx-4 gx-lg-5 menu_index d-flex">
-    <div class="input-group rounded m-0 m-auto barraDosFiltros">
-        <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected>Todos os modelos</option>
-            <option value="1">Capítulos</option>
-            <option value="2">Seções</option>
-            <option value="2">Numérico</option>
-          </select>
-        <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected value="all">Todas</option>
-            <option value="pedding">Pendentes</option>
-            <option value="submit">Submetidas</option>
-          </select>
-        <input type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
-        <form action="" method="post">
+    <div class="input-group rounded w-75 m-0 m-auto align-items-center justify-content-center">
+        <form class="d-flex flex-row" action="{% url 'home_page:filtro' %} " method="get">
             {% csrf_token %}
+            <select name="template" class="form-select rounded filtroTipo me-3 border-secondary w-auto">
+                <option value=-1 selected>Todos os modelos</option>
+                <option value="CAPÍTULOS">Capítulos</option>
+                <option value="SEÇÕES">Seções</option>
+                <option value="NUMÉRICO">Numérico</option>
+            </select>
+            <select name="status" class="form-select rounded filtroTipo me-3 border-secondary w-auto">
+                <option value=-1 selected>Todas</option>
+                <option value=0>Pendentes</option>
+                <option value=1>Submetidas</option>
+            </select>
+            <input name="tipoArquivo" type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
             <input class="btn btn-outline-dark colorButton ms-1" type="submit" value="Filtrar">
         </form>
     </div>
@@ -53,11 +53,17 @@
     {% for licitacao in licitacoes%}
     <div class="col mb-3 mt-5">
         <div class="card h-100">
+            <div class="licitacaoStatus m-2 d-flex flex-row" >
+                <i id="status{{licitacao|private:'_id'}}" class="status fa-solid fa-circle"></i>
+                <p id="Labelstatus{{licitacao|private:'_id'}}" class="nomeStatus"></p>
+            </div>
             <div class="card-body p-4 text-center">
-                <i class="fa-solid fa-file-lines ico-size"></i>
+                <i class="fa-solid fa-file-lines ico-size" ></i>
                 <div class="text-center d-flex flex-column tituloEditavel">
                     <!-- titulo-->
                     <input id="inputTitleHomePage{{licitacao|private:'_id'}}" class="fw-bolder text-center border-0 " value="{{licitacao.tituloArquivo}}"></input>
+                    <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
+                    Última modificação:<br>{{licitacao.dataModificacao}}
                     <script>
                         $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
                             var titulo = {'tituloArquivo':$(this).val()}
@@ -70,10 +76,9 @@
                                 cache: false,
                             });
                         });
+                        $(window).on('load', statusLicitacao("{{licitacao.status}}","{{licitacao|private:'_id'}}"));
+
                     </script>
-                    <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
-                    Última modificação:<br>{{licitacao.dataModificacao}}<br>
-                    Status:<br>{{licitacao.status}}
                 </div>
             </div>
             <!-- Product actions-->
@@ -81,12 +86,15 @@
                 <div class="text-center d-flex justify-content-center">
                     <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Editar">
+                        <input id="editar{{licitacao|private:'_id'}}" class="btn btn-outline-dark colorButton" type="submit" value="Editar">
                     </form>
                     <form class="m-1" action="{% url 'construtor_licitacoes:excluir' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input class="btn btn-outline-dark colorButton" type="submit" value="Excluir">
+                        <input id="excluir{{licitacao|private:'_id'}}" class="btn btn-outline-dark colorButton" type="submit" value="Excluir">
                     </form>
+                    <script>
+                        $(window).on('load', switchLockEdit("{{licitacao.status}}","{{licitacao|private:'_id'}}"));
+                    </script>
                 </div>
             </div>
         </div>
