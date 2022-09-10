@@ -1,10 +1,11 @@
+import json
+
+import bson.json_util as json_util
+from bson.objectid import ObjectId
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from utils import connectMongo
-from bson.objectid import ObjectId
-import json
-import bson.json_util as json_util
 
 db_client = connectMongo('Altair')
 
@@ -21,7 +22,8 @@ def avaliar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
     context = {
-        'licitacao':json_util.dumps(licitacao)
+        'licitacao':json_util.dumps(licitacao),
+        'licitacao_dados': licitacao
     }
     modelo = loader.get_template('verificador_fraude/avaliar.html')
     return HttpResponse(modelo.render(context, request))

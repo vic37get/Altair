@@ -25,7 +25,9 @@
 
 .previewAud{
     width: 40% !important;
+    position: absolute;
     right: 0 !important;
+    height: 100%;
 }
 
 .BarraNameLic{
@@ -97,5 +99,56 @@
 
 .barraDosFiltros{
     width: 95%;
+}
+
+#embedavaliar{
+    width: 100%;
+    height: 100%;
+}
+
+.previewPdfAud{
+    padding: 1px;
+    margin: 0;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    border-left: 3px solid var(--cor_principal) !important;
+    border-top: 3px solid var(--cor_principal) !important;
+}
+
+.conteudos_interna{
+    background-color: white;
+    height: 100%;
+    width: 60%;
+    margin: 0;
+    padding: 0;
+}
+
+.informacoesLic{
+    padding: 20px;
+}
+
+.ObjetoDaLic{
+    margin-top: 30px;
+    margin-left: 50px;
+    width: 57%;
+    border: 1px solid var(--cor_principal);
+}
+
+.TituloCard{
+    background-color: var(--cor_principal) !important;
+    color: white;
+}
+
+.TituloCardTxt{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.TexoDoCard{
+    font-size: 16px;
+    padding: 10px;
 }
 

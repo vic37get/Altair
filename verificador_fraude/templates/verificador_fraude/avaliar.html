@@ -2,32 +2,26 @@
 {%load static%}
 {%load tagger%}
 {% block content %}
-
-<div id="main">
-  <div class="h-100 previewAud">
-      <embed src="" id="embedavaliar" type='application/pdf' class="w-100 h-100">
-      <form>
-
-        <div>
-            área para exibir o resultado do classificar
-        </div>
-
-
-        
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Área de feedback</span>
-          </div>
-          <textarea class="form-control" aria-label="With textarea"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="formControlRange">O quanto nosso classificador acertou? </label>
-          <input type="range" class="form-control-range" id="formControlRange">
-        </div>
-      </form>
+<div class="conteudos_interna">
+  <div class="informacoesLic">
+    <a class=""></i> Licitação: </a>{{licitacao_dados.tituloArquivo}}<br>
+    <a class=""></i> Orgão: </a>{{licitacao_dados.orgao}}<br>
+    <a class=""></i> Data de abertura: </a>{{licitacao_dados.data}}<br>
+    <a class=""></i> Município: </a>{{licitacao_dados.municipio}}<br>
+    <a class=""></i> Tipo de Licitação: </a>{{licitacao_dados.tipo}}<br>
   </div>
-
+  <div class="ObjetoDaLic">
+    <div class="TituloCard">
+      <a class="TituloCardTxt"> OBJETO:</a>
+    </div>
+    <div class="TexoDoCard">
+      {{licitacao_dados.objeto}}
+    </div>
+  </div>
+  <div id="mySidebarRight" class="sidebar previewPdfAud">
+    <embed src="" id="embedavaliar" type='application/pdf'>
+  </div>
+</div>
   <script type="text/javascript">
     var jsonDecoded = JSON.parse(decodeEntity("{{licitacao}}").replace(/\n\r?/g, ''));
     var elemento = document.getElementById("embedavaliar");
