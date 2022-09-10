@@ -62,16 +62,6 @@ def editarTitulo(request):
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
     return HttpResponse()
     
-def enviarGeral(request):
-    collection_licitacao = db_client['licitacao']
-    #licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
-    #context = {
-    #    'id_licitacao':licitacao['_id']
-    #}
-    #Falta implementar isso.
-    modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
-    return HttpResponse(modelo.render(context, request))
-
 def enviarConstrucao(request, pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
@@ -91,6 +81,16 @@ def salvarFormulario(request, pk):
         del data['csrfmiddlewaretoken']
         collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
     return redirect('/')
+
+def enviarGeral(request):
+    collection_licitacao = db_client['licitacao']
+    data = request.POST.copy()
+    pdf = base64.b64encode(data['arquivo'])
+    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64':pdf})
+    
+    modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
+    return HttpResponse(modelo.render(context, request))
+
     
 import weasyprint
 #sudo apt-get install libpangocairo-1.0-0
