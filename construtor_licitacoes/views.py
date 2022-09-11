@@ -82,14 +82,22 @@ def salvarFormulario(request, pk):
         collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
     return redirect('/')
 
-def enviarGeral(request):
-    collection_licitacao = db_client['licitacao']
-    data = request.POST.copy()
-    pdf = base64.b64encode(data['arquivo'])
-    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64':pdf})
-    
+def enviar(request):
     modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
+    context = {
+    }
     return HttpResponse(modelo.render(context, request))
+
+def enviarGeral(request):
+    print("Ok")
+    if request.method == 'POST':
+        print("Ok")
+        collection_licitacao = db_client['licitacao']
+        data = request.POST.copy()
+        print(data)
+        pdf = base64.b64encode(data['arquivo'])
+        id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64':pdf})
+    return redirect('/')  
 
     
 import weasyprint
