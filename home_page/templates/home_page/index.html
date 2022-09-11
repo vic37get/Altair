@@ -2,7 +2,14 @@
 {%load static%}
 {%load tagger%}
 {% block content %}
-
+{% include 'messages.html' %}
+<script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 3000)
+</script>
 <div class=" row gx-4 gx-lg-5 menu_index d-flex">
     <div class="input-group rounded w-75 m-0 m-auto align-items-center justify-content-center">
         <form class="d-flex flex-row" action="{% url 'home_page:filtro' %} " method="get">
