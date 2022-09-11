@@ -90,7 +90,6 @@ def enviar(request):
 
 def enviarGeral(request):
     if request.method == 'POST':
-        print("ok")
         collection_licitacao = db_client['licitacao']
         data = request.POST
         arquivo = request.FILES['arquivopdf'].read()

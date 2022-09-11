@@ -29,9 +29,25 @@
   </div>
 
   <script type="text/javascript">
-    var jsonDecoded = JSON.parse(decodeEntity("{{licitacao}}").replace(/\n\r?/g, ''));
+    var database = "{{licitacao}}".split(";")
     var elemento = document.getElementById("embedavaliar");
-    var bin = atob(jsonDecoded.base64.$binary);
-    elemento.src = bin + "#view=FitH"
+    if(database.length == 4){
+      var database2 = database[2].split(",")
+      var database3 = database2[1].split("&")
+      console.log(database3)
+      elemento.src = "data:application/pdf;base64," + database3[0] + "#view=FitH"
+    }
+    else if(database.length == 3){
+      var database2 = database[1].split("&")
+      elemento.src = "data:application/pdf;base64," + database2[0] + "#view=FitH"
+    }
+    //console.log(database)
+    //var database2 = database[1].split("&")
+    //var jsonDecoded = JSON.parse(decodeEntity("{{licitacao}}").replace(/\n\r?/g, ''));
+    //console.log(jsonDecoded)
+    
+    //console.log(database2[0])
+    //var bin = atob(database2[0]);
+    //elemento.src = "data:application/pdf;base64," + database2[0] + "#view=FitH"
   </script>
 {% endblock %}
