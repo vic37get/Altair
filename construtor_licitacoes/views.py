@@ -92,9 +92,10 @@ def enviarGeral(request):
     if request.method == 'POST':
         print("ok")
         collection_licitacao = db_client['licitacao']
-        print(request.POST)
-        #pdf = base64.b64encode(data['arquivo'])
-        #id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'status': 1})
+        data = request.POST
+        arquivo = request.FILES['arquivopdf'].read()
+        bytespdf = base64.b64encode(arquivo)
+        id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
     return redirect('/')  
 
     

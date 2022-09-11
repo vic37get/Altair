@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha formLic";>
-    <form action="{% url 'construtor_licitacoes:enviarGeral' %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'construtor_licitacoes:enviarGeral' %}" enctype='multipart/form-data' method="post">
       {% csrf_token %}
         <div class="form-row">
           <div class="form-group col-md-6 w-100">
@@ -15,7 +15,7 @@
             <input name="municipio" type="text" class="form-control border-2" placeholder="Município" required>
 
             <label class="m-1 mt-2" for="Estado">Estado</label>
-            <input name="estado" type="text" class="form-control border-2" placeholder="Piauí" readonly>
+            <input name="estado" type="text" class="form-control border-2" placeholder="Piauí" value="Piauí" readonly>
 
             <label class="m-1 mt-2" for="TipoObjeto">Tipo de Objeto</label>
             <select name="tipo" class="form-select border-2">
@@ -32,7 +32,7 @@
             <input name="data" type="date" class="form-control border-2" required>
 
             <label class="m-1 mt-2" for="Arquivo">Arquivo</label>
-            <input name="arquivo" class="form-control border-2" type="file" name="arquivopdf" required>
+            <input class="form-control border-2" type="file" name="arquivopdf" required>
           </div>
         </div>
         <button type="submit" class="btn btn-outline-dark colorButton mt-4">Enviarr</button>
