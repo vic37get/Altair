@@ -8,7 +8,7 @@
       {% csrf_token %}
         <div class="form-row">
           <div class="form-group col-md-6 w-100">
-            <label class="m-1 mt-2" for="Orgao">Órgão 1</label>
+            <label class="m-1 mt-2" for="Orgao">Órgão</label>
             <input name="orgao" type="text" required class="form-control border-2" placeholder="Órgão">
 
             <label class="m-1 mt-2" for="Municipio">Município</label>
@@ -35,7 +35,7 @@
             <input class="form-control border-2" type="file" name="arquivopdf" required>
           </div>
         </div>
-        <button type="submit" class="btn btn-outline-dark colorButton mt-4">Enviarr</button>
+        <button type="submit" class="btn btn-outline-dark colorButton mt-4">Enviar</button>
         <a href={% url 'home_page:index' %} class="btn btn-outline-dark buttonNew mt-4">Cancelar</a>
     </form>
 </div>
