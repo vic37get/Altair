@@ -4,21 +4,21 @@
 {% block content %}
 
 <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha formLic";>
-    <form action="{% url 'construtor_licitacoes:enviarGeral' %}" method="post">
+    <form action="{% url 'construtor_licitacoes:enviarGeral' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
         <div class="form-row">
           <div class="form-group col-md-6 w-100">
             <label class="m-1 mt-2" for="Orgao">Órgão 1</label>
-            <input type="text" required class="form-control border-2" placeholder="Órgão">
+            <input name="orgao" type="text" required class="form-control border-2" placeholder="Órgão">
 
             <label class="m-1 mt-2" for="Municipio">Município</label>
-            <input type="text" class="form-control border-2" placeholder="Município" required>
+            <input name="municipio" type="text" class="form-control border-2" placeholder="Município" required>
 
             <label class="m-1 mt-2" for="Estado">Estado</label>
-            <input type="text" class="form-control border-2" placeholder="Piauí" readonly>
+            <input name="estado" type="text" class="form-control border-2" placeholder="Piauí" readonly>
 
             <label class="m-1 mt-2" for="TipoObjeto">Tipo de Objeto</label>
-            <select class="form-select border-2">
+            <select name="tipo" class="form-select border-2">
               <option selected>Selecionar tipo</option>
               <option value="1">Obras</option>
               <option value="2">Serviços</option>
@@ -26,13 +26,13 @@
             </select>
 
             <label class="m-1 mt-2" for="Objeto">Objeto</label>
-            <textarea type="text" class="form-control border-2" aria-label="With textarea" placeholder="Objeto da licitação" required></textarea>
+            <textarea name="objeto" type="text" class="form-control border-2" aria-label="With textarea" placeholder="Objeto da licitação" required></textarea>
 
             <label class="m-1 mt-2" for="DataAbertura">Data de Abertura</label>
-            <input type="date" class="form-control border-2" required>
+            <input name="data" type="date" class="form-control border-2" required>
 
             <label class="m-1 mt-2" for="Arquivo">Arquivo</label>
-            <input class="form-control border-2" type="file" required>
+            <input name="arquivo" class="form-control border-2" type="file" name="arquivopdf" required>
           </div>
         </div>
         <button type="submit" class="btn btn-outline-dark colorButton mt-4">Enviarr</button>
