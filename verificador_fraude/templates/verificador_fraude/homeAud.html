@@ -75,10 +75,10 @@
                         <div id="divStatus{{licitacao|private:'_id'}}" class="badge badge-2x rounded-pill bg-warning text-dark"></div>
                         <script>
                             var div = document.getElementById("divStatus{{licitacao|private:'_id'}}");
-                                if({{licitacao.avaliada}} == 0){
+                                if("{{licitacao.avaliada}}" == 0){
                                     div.innerHTML = "<i class='fa-solid fa-file-signature'></i> Status: Não Avaliada <i class='fa-solid fa-circle text-danger'></i>";
                                 }
-                                if({{licitacao.avaliada}} == 1){
+                                if("{{licitacao.avaliada}}" == 1){
                                     div.innerHTML = "<i class='fa-solid fa-file-signature'></i> Status: Avaliada <i class='fa-solid fa-circle text-success'></i>";
                                 }
                         </script> 
