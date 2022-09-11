@@ -1,3 +1,4 @@
+from email import message
 import json
 from datetime import datetime
 from multiprocessing import context
@@ -5,7 +6,7 @@ from multiprocessing import context
 import bson.json_util as json_util
 from bson.objectid import ObjectId
 from bson.binary import Binary
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
@@ -23,10 +24,14 @@ def nova_licitacao(request,pk):
         'id_licitacao':id.inserted_id
     }
     return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
-    
+
+from django.contrib import messages 
 def editar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    if(licitacao['status']!=0):
+        messages.info(request, 'Ação invalida, licitação: \''+licitacao['tituloArquivo']+'\' já submetida')
+        return redirect('/')
     collection_template = db_client['template']
     template = collection_template.find_one({"_id":ObjectId(licitacao['id_template'])})
     context = {
