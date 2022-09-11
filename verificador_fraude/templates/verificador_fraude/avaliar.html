@@ -3,19 +3,55 @@
 {%load tagger%}
 {% block content %}
 <div class="conteudos_interna">
-  <div class="informacoesLic">
-    <a class=""></i> Licitação: </a>{{licitacao_dados.tituloArquivo}}<br>
-    <a class=""></i> Orgão: </a>{{licitacao_dados.orgao}}<br>
-    <a class=""></i> Data de abertura: </a>{{licitacao_dados.data}}<br>
-    <a class=""></i> Município: </a>{{licitacao_dados.municipio}}<br>
-    <a class=""></i> Tipo de Licitação: </a>{{licitacao_dados.tipo}}<br>
+  <div class="BotaoVoltarAud">
+    
   </div>
-  <div class="ObjetoDaLic">
+  <div class="SobreLic">
+    <a class="btn btn-left btn-info mb-3 border-1 border-dark text-white" href="{% url 'home_page:homeAud' %}">⬅️ Voltar</a>
     <div class="TituloCard">
-      <a class="TituloCardTxt"> OBJETO:</a>
+      <a class="nomelic"><i class="fa-solid fa-landmark"></i> Licitação: </a>{{licitacao_dados.arquivo}}
     </div>
-    <div class="TexoDoCard">
-      {{licitacao_dados.objeto}}
+    <div class="ConteudoCard">
+      <div class="TextoCard">
+        <div class="row">
+          <div class="col-sm">
+            <h4 class="TitulosInformacoesLic"> Município:</h4>
+            <p class="TextoInformacoesLic">{{licitacao_dados.municipio}}</p>
+            <h4 class="TitulosInformacoesLic"> Órgão:</h4>
+            <p class="TextoInformacoesLic">{{licitacao_dados.orgao}}</p>
+            <h4 class="TitulosInformacoesLic"> Tipo de Licitação:</h4>
+            <p class="TextoInformacoesLic">{{licitacao_dados.tipo}}</p>
+          </div>
+          <div class="col-sm">
+            <h4 class="TitulosInformacoesLic">Data de abertura: </h4>
+            <p class="TextoInformacoesLic">{{licitacao_dados.data}}</p>
+          </div>
+        </div>
+        <h4 class="TitulosInformacoesLic"> Objeto:</h4>
+        <p class="TextoInformacoesLic">{{licitacao_dados.objeto}}</p>
+      </div>
+      <div class="botoes">
+        <a class="btn btn-left btn-danger border-1 border-dark text-white" onclick=""><i class="fa-solid fa-land-mine-on"></i> Verificar Indícios</a>
+      </div>
+    </div>
+    <div class="Achados">   
+      <h5 class="mb-3 mt-3">Indícios encontrados na Licitação</h5>        
+      <table class="table">
+          <tbody>
+            <tr title="Descoberto na Seção">
+              <td><strong>Seção:</strong></td>
+              <td><!-- SEÇÃO ACHADA AQUI --></td>
+            </tr>
+            <tr title="Tipo">
+              <td><strong>Tipo:</strong></td>
+              <td> <!-- Descrição do achado --> <span class="badge alert-success"><!-- Tipo de achado aqui --></span></td>
+            </tr>
+        </tbody>
+      </table>
+      <p class="breakable well" style="margin-top:1em"> <!-- Conteudo Achado --></p>
+      <div style="margin-top:1em">
+          <button id="btnavaliar_48766" class="btn btn-primary border-1 border-dark" onclick="avaliar('48766')">❔ Avaliar Achado</button>
+      </div>
     </div>
   </div>
   <div id="mySidebarRight" class="sidebar previewPdfAud">

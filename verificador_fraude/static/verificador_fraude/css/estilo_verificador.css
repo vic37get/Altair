@@ -6,6 +6,8 @@
     --cor_hover: #003f2d;
     --background_hover: rgb(185, 185, 185);
     --cor_bordas: rgb(170, 170, 170);
+    --fonte_principal: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    --cor_fundo_divs: rgb(240, 240, 240);
 }
 
 .cardAud{
@@ -108,37 +110,38 @@
 
 .previewPdfAud{
     padding: 1px;
-    margin: 0;
+    margin-top: 58px;
     top: 0;
     right: 0;
     width: 40%;
     height: 100%;
-    border-left: 3px solid var(--cor_principal) !important;
-    border-top: 3px solid var(--cor_principal) !important;
 }
 
 .conteudos_interna{
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
     background-color: white;
     height: 100%;
     width: 60%;
-    margin: 0;
     padding: 0;
 }
 
-.informacoesLic{
+.BotaoVoltarAud{
     padding: 20px;
+    margin: 0 auto;
 }
 
-.ObjetoDaLic{
+.SobreLic{
     margin-top: 30px;
-    margin-left: 50px;
-    width: 57%;
-    border: 1px solid var(--cor_principal);
+    margin: 0 auto;
+    width: 95%;
+    
 }
 
 .TituloCard{
     background-color: var(--cor_principal) !important;
     color: white;
+    padding: 8px;
 }
 
 .TituloCardTxt{
@@ -147,8 +150,42 @@
     font-size: 18px;
 }
 
-.TexoDoCard{
+.ConteudoCard{
     font-size: 16px;
-    padding: 10px;
+    border: 1px solid var(--cor_principal);
 }
 
+.TitulosInformacoesLic{
+    color: rgb(80, 80, 80);
+    font-size: 18px;
+    font-family: var(--fonte_principal);
+}
+
+.TextoInformacoesLic{
+    font-size: 15px;
+    font-family: var(--fonte_principal);
+}
+
+.botoes{
+    border-top: 1px solid var(--cor_bordas);
+    padding: 8px;
+    background-color: rgb(240, 240, 240);
+}
+
+.fonteicone{
+    font-size: 20px;
+}
+
+.TextoCard{
+    padding: 20px;
+}
+
+.Achados{
+    padding-top: 10px;
+}
+
+.table{
+    background-color: var(--cor_fundo_divs);
+    border: 1px solid var(--cor_bordas);
+    font-family: var(--fonte_principal);
+}
