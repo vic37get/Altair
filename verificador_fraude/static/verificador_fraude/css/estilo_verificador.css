@@ -189,3 +189,14 @@
     border: 1px solid var(--cor_bordas);
     font-family: var(--fonte_principal);
 }
+
+.tituloTabela{
+    font-family: 'Lato', sans-serif;
+    color: rgb(49, 49, 49);
+    font-weight: bold;
+}
+
+.IndiciosEncontrados{
+    font-family: 'Lato', sans-serif;
+    font-weight: 590;
+}

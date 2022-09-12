@@ -27,7 +27,7 @@
         <input type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
         <form action="" method="post">
             {% csrf_token %}
-            <input class="btn btn-outline-dark colorButton ms-1" type="submit" value="Filtrar">
+            <input class="btn btn-outline-dark colorButton ms-1" type="submit" value="Buscar">
         </form>
     </div>
 </div>
@@ -40,7 +40,7 @@
                         <!-- titulo-->
                         <div class="BarraNameLic">
                             <div class="documentBarra align-middle">
-                                <a class="textoDocumento" href="">Documento <i class="fa-solid fa-file"></i></a>
+                                <a class="textoDocumento" download="{{licitacao.tituloArquivo}}.pdf" href="{{licitacao.base64}}">Documento <i class="fa-solid fa-file"></i></a>
                             </div>
                              <a class="nomelic"><i class="fa-solid fa-landmark"></i> Licitação/Órgão: </a>{{licitacao.tituloArquivo}} {{licitacao.orgao}} 
                         </div>

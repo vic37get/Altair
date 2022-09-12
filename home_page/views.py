@@ -31,12 +31,3 @@ def enviar(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(modelo.render(context, request))
-
-def homeAud(request):
-    template = loader.get_template('verificador_fraude/homeAud.html')
-    collection_licitacao = db_client['licitacao']
-    licitacoes = collection_licitacao.find({})
-    context = {
-        'licitacoes':licitacoes
-    }
-    return HttpResponse(template.render(context, request))

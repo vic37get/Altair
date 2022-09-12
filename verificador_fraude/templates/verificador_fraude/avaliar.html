@@ -15,11 +15,11 @@
       <div class="TextoCard">
         <div class="row">
           <div class="col-sm">
-            <h4 class="TitulosInformacoesLic"> Município:</h4>
+            <h4 class="TitulosInformacoesLic">Município:</h4>
             <p class="TextoInformacoesLic">{{licitacao_dados.municipio}}</p>
-            <h4 class="TitulosInformacoesLic"> Órgão:</h4>
+            <h4 class="TitulosInformacoesLic">Órgão:</h4>
             <p class="TextoInformacoesLic">{{licitacao_dados.orgao}}</p>
-            <h4 class="TitulosInformacoesLic"> Tipo de Licitação:</h4>
+            <h4 class="TitulosInformacoesLic">Tipo de Licitação:</h4>
             <p class="TextoInformacoesLic">{{licitacao_dados.tipo}}</p>
           </div>
           <div class="col-sm">
@@ -27,7 +27,7 @@
             <p class="TextoInformacoesLic">{{licitacao_dados.data}}</p>
           </div>
         </div>
-        <h4 class="TitulosInformacoesLic"> Objeto:</h4>
+        <h4 class="TitulosInformacoesLic">Objeto:</h4>
         <p class="TextoInformacoesLic">{{licitacao_dados.objeto}}</p>
       </div>
       <div class="botoes">
@@ -35,23 +35,34 @@
       </div>
     </div>
     <div class="Achados">   
-      <h5 class="mb-3 mt-3">Indícios encontrados na Licitação</h5>        
-      <table class="table">
-          <tbody>
-            <tr title="Descoberto na Seção">
-              <td><strong>Seção:</strong></td>
-              <td><!-- SEÇÃO ACHADA AQUI --></td>
-            </tr>
-            <tr title="Tipo">
-              <td><strong>Tipo:</strong></td>
-              <td> <!-- Descrição do achado --> <span class="badge alert-success"><!-- Tipo de achado aqui --></span></td>
-            </tr>
-        </tbody>
-      </table>
-      <p class="breakable well" style="margin-top:1em"> <!-- Conteudo Achado --></p>
+      <h5 class="IndiciosEncontrados mb-3 mt-3">Indícios encontrados na Licitação</h5>
+      {% for achado in licitacao_dados%}       
+        <table class="table">
+            <tbody>
+              <tr title="Descoberto na Seção">
+                <td class="tituloTabela">Seção:</td>
+                <td>{{achado.secao}}<!-- SEÇÃO ACHADA AQUI --></td>
+              </tr>
+              <tr title="Descrição">
+                <td class="tituloTabela">Tipo:</td>
+                <td><span class="badge alert-danger">{{achado.tipo}}<!-- Tipo de achado aqui --></span></td>
+              </tr>
+              <tr title="Tipo">
+                <td class="tituloTabela">Descrição:</td>
+                <td> {{achado.descricao}}<!-- Descrição do achado --></td>
+              </tr>
+              <tr title="ConteudoAchado">
+                <td class="tituloTabela">Conteúdo do indício:</td>
+                <td>{{achado.conteudo}}<!-- Descrição do achado --> <span class="badge alert-success"><!-- Tipo de achado aqui --></span></td>
+              </tr>
+            </tbody>
+        </table>
+      {% endfor %}
+      <!--
       <div style="margin-top:1em">
-          <button id="btnavaliar_48766" class="btn btn-primary border-1 border-dark" onclick="avaliar('48766')">❔ Avaliar Achado</button>
+          <button id="btnavaliar_48766" class="btn btn-primary border-1 border-dark" onclick="avaliar('48766')"><i class="fa-solid fa-thumbs-up"></i> Avaliar Achado</button>
       </div>
+      -->
     </div>
   </div>
   <div id="mySidebarRight" class="sidebar previewPdfAud">

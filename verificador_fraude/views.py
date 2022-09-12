@@ -12,7 +12,11 @@ db_client = connectMongo('Altair')
 def homeAud(request):
     template = loader.get_template('verificador_fraude/homeAud.html')
     collection_licitacao = db_client['licitacao']
+    def binarytoStr(field):
+        return str(field['base64'])
     licitacoes = collection_licitacao.find({})
+    #licitacoes = list(map(binarytoStr,licitacoes))
+    #print(licitacoes[0]['base64'])
     context = {
         'licitacoes':licitacoes
     }
