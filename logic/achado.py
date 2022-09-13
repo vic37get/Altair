@@ -1,4 +1,6 @@
 class Achado:
+
+    
     def _init_(self, tipoAchado, secaoAchado, conteudoAchado, descricaoAchado):
         self.tipoAchado = tipoAchado
         self.secaoAchado = secaoAchado
