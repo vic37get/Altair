@@ -31,13 +31,11 @@ class Main:
         dataManipulation = ProxyDataManipulation()
         dataManipulation.createEmptyFiles()
         nomes = dataManipulation.getNomesEditais(Header.SOURCE_r)
-        barra = tqdm(total=len(nomes))
         for count,nome in enumerate(nomes):
             dados = dataManipulation.readTxTFiles(nome,Header.SOURCE_r)
             ProxyLic = ProxyLicitacao('',nome,dados)
             ProxyLic.struct()
             dataManipulation.saveTypeFiles(ProxyLic)
-            barra.update(1)
 
     def collectRegex():
         from expressoes import lista_de_expressoes,lista_habilitacao
