@@ -5,12 +5,12 @@ from email.mime import base
 from bson.objectid import ObjectId
 from utils import connectMongo
 
-import Header
-from LicitacaoInterface import LicitacaoInterface
-from Secao import Secao
+from logic import Header
+from logic import LicitacaoInterface
+from logic import Secao
 
 db = connectMongo('Altair')
-class Licitacao(LicitacaoInterface):
+class Licitacao(LicitacaoInterface.LicitacaoInterface):
     def __init__(self, nomeLicitacao, nomeArquivo,dados):
         self.nomeLicitacao = nomeLicitacao
         self.nomeArquivo = nomeArquivo
@@ -20,7 +20,7 @@ class Licitacao(LicitacaoInterface):
         self._tipo = 'NO TYPE'
         self.secoes_principais = Header.TIPOS_SECOES.copy()
 
-    def setSecoes(self, secoes):
+    def setSecoes(self,secoes):
         self.secoes = secoes
     
     def getSecao(self):
@@ -96,7 +96,7 @@ class Licitacao(LicitacaoInterface):
         lista_secoes, conteudo_secao = self.findSectionAndTextBank(self, licitacao_id)
         for i in zip(lista_secoes, conteudo_secao):
             secao = i[0]
-            secao.verificaSecao()
+            secao.verificaSecao.Secao()
             self.addSecoes(secao)
 
     def struct(self,secoes,dados):
@@ -106,20 +106,20 @@ class Licitacao(LicitacaoInterface):
             if anexo_nofinal:
                 conteudo_secao[i] = conteudo_secao[i][:anexo_nofinal.start()]
         for i in zip(lista_secoes,conteudo_secao):
-            secao = Secao(i[0].group(8),i[0].group(15),i[1],i[0].group(0))
-            secao.verificaSecao()
+            secao = Secao.Secao(i[0].group(8),i[0].group(15),i[1],i[0].group(0))
+            secao.verificaSecao.Secao()
             self.addSecoes(secao)
 
     def setTipoSecoes(self):
-        for i in self.getSecao():
+        for i in self.getSecao.Secao():
             self.secoes_principais[i.getTipo()] = True
     
     def pulaSumario(self):
         i = 0
-        while(i<len(self.getSecao())):
-            texto = self.getSecao()[i].getConteudo()
+        while(i<len(self.getSecao.Secao())):
+            texto = self.getSecao.Secao()[i].getConteudo()
             if len(texto.replace('\n','')) == 0:
-                self.getSecao().pop(i)
+                self.getSecao.Secao().pop(i)
             else:
                 i+=1
     
@@ -147,7 +147,7 @@ class Licitacao(LicitacaoInterface):
     
     def getSecoesEmpty(self):
         secoesVazias = []
-        for i in self.getSecao():
+        for i in self.getSecao.Secao():
             if i.isEmpty():
                 secoesVazias.append(i)
         return secoesVazias
