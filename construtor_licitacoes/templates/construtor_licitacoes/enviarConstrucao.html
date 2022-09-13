@@ -33,11 +33,11 @@
             <input name="data" type="date" class="form-control border-2" required>
 
             <label class="m-1 mt-2" for="Arquivo">Arquivo</label>
-            <input name="arquivo" type="text" class="form-control border-2" placeholder="{{place}}" value="{{place}}" readonly>
+            <input name="arquivo" type="text" class="form-control border-2" placeholder="{{licitacao.tituloArquivo}}" value="{{licitacao.tituloArquivo}}" readonly>
           </div>
         </div>
         <!--<a href={% url 'home_page:index' %} class="btn btn-outline-dark colorButton mt-4">Enviar</a>-->
-        <button onclick="getOrgao()" type="submit" class="btn btn-outline-dark colorButton mt-4">Enviar</button>
+        <button type="submit" class="btn btn-outline-dark colorButton mt-4">Enviar</button>
         <a href={% url 'construtor_licitacoes:editar' id_licitacao %} class="btn btn-outline-dark buttonNew mt-4">Cancelar</a>
       </form>
 </div>

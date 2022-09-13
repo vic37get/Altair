@@ -172,7 +172,7 @@ footer {
 }
 
 #menuLateralDireito{
-  background-color: #413e3eab;
+  background-color: rgb(50, 54, 57);
   right: 0;
 }
 
@@ -187,12 +187,12 @@ footer {
 }
 
 #btnRight{
-  background-color: #4d4a4a;
+  background-color: rgb(50, 54, 57);
   right: 0;
 }
 
 #mySidebarRight{
-  background-color: #413e3e;
+  background-color: rgb(50, 54, 57);
   right: 0;
 }
 
@@ -262,7 +262,7 @@ footer {
   margin: 0 auto;
   border: 1px solid rgb(170, 170, 170);
   border-radius: 5px;
-  background-color: rgb(214, 214, 214);
+  background-color: rgb(215, 215, 215);
   margin-top: 35px;
 }
 
@@ -348,4 +348,8 @@ footer {
 input:disabled{
   text-shadow: none;
   box-shadow: none;
-} 
+}
+
+.FiltrosIndex{
+  width: 95%;
+}
