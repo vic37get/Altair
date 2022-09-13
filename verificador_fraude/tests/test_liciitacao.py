@@ -1,0 +1,40 @@
+from bson.objectid import ObjectId
+import re
+from django.test import SimpleTestCase
+from utils import connectMongo
+from logic import Tokeniza
+import base64
+
+db = connectMongo('Altair')
+class VerificardorTest(SimpleTestCase):
+    def test_licitacoes(self):
+        sec1 = {'titulo':'PGg1IGNsYXNzPSJzZWNhb190aXR1bG8gdGl0dWxvQ2FwdHVyYSI+Q0FQzVRVTE8gSSAtIERPIE9CSkVUTzwvaDU+',
+        'conteudo':'PHA+MS4xLiBPIG9iamV0byBkYSBwcmVzZW50ZSBsaWNpdGEmY2NlZGlsOyZhdGlsZGU7byAmZWFjdXRlOyBhIGVzY29saGEgZGEgcHJvcG9zdGEgbWFpcyB2YW50YWpvc2EgcGFyYSBhIEFxdWlzaSZjY2VkaWw7JmF0aWxkZTtvcGFyY2VsYWRhIHNvYiBkZW1hbmRhIGRlIE1hdGVyaWFpcywgU3VwcmltZW50b3MgZSBFcXVpcGFtZW50b3MgZGUgSW5mb3JtJmFhY3V0ZTt0aWNhLCBQcmVzdGEmY2NlZGlsOyZhdGlsZGU7b2RlIFNlcnZpJmNjZWRpbDtvcyBkZSBNYW51dGVuJmNjZWRpbDsmYXRpbGRlO28sIFJlY2FyZ2FzIGRlIENhcnR1Y2hvcyBlIFRvbm5lcnMsIGRlc3RpbmFkb3MgYSBhdGVuZGVyIGFQcmVmZWl0dXJhIE11bmljaXBhbCBlIGFzIGRpdmVyc2FzIFNlY3JldGFyaWFzIE11bmljaXBhaXMgZGUgQ0FSQUNPTCAmbmRhc2g7IFBJLCBkZSBhY29yZG8gY29tIGFxdWFudGlkYWRlIGUgZXNwZWNpZmljYSZjY2VkaWw7Jm90aWxkZTtlcyB0JmVhY3V0ZTtjbmljYXMgY29uc3RhbnRlcyBubyBUZXJtbyBkZSBSZWZlciZlY2lyYztuY2lhICZuZGFzaDsgQW5leG8gSSBkZXN0ZSBFZGl0YWwscXVhbnRpZGFkZXMgZSBleGlnJmVjaXJjO25jaWFzIGVzdGFiZWxlY2lkYXMgbmVzdGUgRWRpdGFsIGUgc2V1cyBhbmV4b3MuPC9wPgo8cD4xLjIuIEEgbGljaXRhJmNjZWRpbDsmYXRpbGRlO28gc2VyJmFhY3V0ZTsgUE9SIExPVEUsIGNvbmZvcm1lIHRhYmVsYSBjb25zdGFudGUgZG8gVGVybW8gZGUgUmVmZXImZWNpcmM7bmNpYSwgZmFjdWx0YW5kby1zZWFvIGxpY2l0YW50ZSBhIHBhcnRpY2lwYSZjY2VkaWw7JmF0aWxkZTtvIGVtIHF1YW50b3MgaXRlbnMgZm9yZW0gZGUgc2V1IGludGVyZXNzZS48L3A+CjxwPjEuMy4gTyBjcml0JmVhY3V0ZTtyaW8gZGUganVsZ2FtZW50byBhZG90YWRvIHNlciZhYWN1dGU7IG8gbWVub3IgcHJlJmNjZWRpbDtvIGRvIGl0ZW0sIG9ic2VydmFkYXMgYXMgZXhpZyZlY2lyYztuY2lhcyBjb250aWRhc25lc3RlIEVkaXRhbCBlIHNldXMgQW5leG9zIHF1YW50byAmYWdyYXZlO3MgZXNwZWNpZmljYSZjY2VkaWw7Jm90aWxkZTtlcyBkbyBvYmpldG8uQ29uZm9ybWUgRGVzcGFjaG8gZGUgSW5mb3JtYSZjY2VkaWw7JmF0aWxkZTtvIGRlIENyJmVhY3V0ZTtkaXRvIE9yJmNjZWRpbDthbWVudCZhYWN1dGU7cmlvIGUgbmFzIHNvbGljaXRhJmNjZWRpbDsmb3RpbGRlO2VzIHBvciBwYXJ0ZSBkYXMgc2VjcmV0YXJpYXNyZXF1ZXJlbnRlcyBhIERlc3Blc2Egc2UgZW5jb250cmEgYW1wYXJhZGEgY29tIHJlY3Vyc29zIGRvIE9SJkNjZWRpbDtBTUVOVE8gR0VSQUwvMjAyMixGUE0vSUNNUy9GVU5ERUIvU01FL1FTRS9GVVMvRk1TL0ZNQVMvSFBQL0dCRi9HU1VBUy9QU0IvQ1JBUy9QUiZPYWN1dGU7UFJJTyBlIG91dHJhc2NvbnNpZ25hZGFzIG5vIG9yJmNjZWRpbDthbWVudG8gdmlnZW50ZSwgY29uZm9ybWUgZG90YSZjY2VkaWw7Jm90aWxkZTtlcyBvciZjY2VkaWw7YW1lbnQmYWFjdXRlO3JpYXMgYWJhaXhvOjwvcD4='}
+        sec2 = {'titulo':'PGg1IGNsYXNzPSJzZWNhb190aXR1bG8gdGl0dWxvQ2FwdHVyYSI+Q0FQzVRVTE8gSUkgLSBETyBKVUxHQU1FTlRPPC9oNT4=',
+        'conteudo':'PHA+My4xLiBQb2RlciZhdGlsZGU7byBwYXJ0aWNpcGFyIGRlc3RlIFByZWcmYXRpbGRlO28gaW50ZXJlc3NhZG9zIGN1am8gcmFtbyBkZSBhdGl2aWRhZGUgc2VqYSBjb21wYXQmaWFjdXRlO3ZlbCBjb20gbzxicj5vYmpldG8gZGVzdGEgbGljaXRhJmNjZWRpbDsmYXRpbGRlO28sIGUgcXVlIGVzdGVqYW0gQ2FkYXN0cmFkYXMgZSBDcmVkZW5jaWFkYXMganVudG8gQkxMICZuZGFzaDsgQm9sc2EgZGUgTGljaXRhJmNjZWRpbDsmb3RpbGRlO2VzIGRvPGJyPkJyYXNpbCwgbmEgZm9ybWEgZGEgTGVpLjxicj4zLjEuMS4gT3MgbGljaXRhbnRlcyBkZXZlciZhdGlsZGU7byBhZGVyaXIgYW8gc2lzdGVtYSBsaWNpdGEmY2NlZGlsOyZvdGlsZGU7ZXMtZSBlIGNhZGFzdHJhciByZXByZXNlbnRhbnRlcyBwYXJhIG88YnI+cmVjZWJpbWVudG8gZGEgY2hhdmUgZGUgaWRlbnRpZmljYSZjY2VkaWw7JmF0aWxkZTtvIGUgc2VuaGEgcGVzc29hbCAoaW50cmFuc2ZlciZpYWN1dGU7dmVpcyksIGNvbmZvcm1lIHByb2NlZGltZW50byBjb250aWRvPGJyPm5vIG1hbnVhbCBkbyBmb3JuZWNlZG9yLCBkaXNwb24maWFjdXRlO3ZlbCBubyBlbmRlcmUmY2NlZGlsO28gZWxldHImb2NpcmM7bmljbzogd3d3LmJsbGNvbXByYXMub3JnLmJyLjwvcD4='}
+        sec3 = {'titulo':'PGg1IGNsYXNzPSJzZWNhb190aXR1bG8gdGl0dWxvQ2FwdHVyYSI+Q0FQzVRVTE8gSVYgLSBEQSBIQUJJTElUQcfDTzwvaDU+',
+        'conteudo':'PHA+cGFwZWwgdGltYnJhZG8gZSBzdWJzY3JpdGEgcGVsbyByZXByZXNlbnRhbnRlIGxlZ2FsIG91IHBlbG8gcHJvY3VyYWRvciBzZSBlc3RlIHRpdmVyIG91dG9yZ2EgcGFyYSB0YWwsIGFzc2VndXJhbmRvIGEgaW5leGlzdCZlY2lyYztuY2lhIGRlIGZhdG8gaW1wZWRpdGl2byBwYXJhIGxpY2l0YXIgb3UgY29udHJhdGFyIGNvbSBhIEFkbWluaXN0cmEmY2NlZGlsOyZhdGlsZGU7bzsgYykgQWx2YXImYWFjdXRlOyBkZSBsaWNlbiZjY2VkaWw7YSBkZSBmdW5jaW9uYW1lbnRvIDYuMiAmbmRhc2g7IERJU1BPU0kmQ2NlZGlsOyZPdGlsZGU7RVMgR0VSQUlTIERBIEhBQklMSVRBJkNjZWRpbDsmQXRpbGRlO08gaHR0cDovL3d3dy5sZWlkaXJldG8uY29tLmJyL2RlY3JldG8tbGVpLTU0NTIuaHRtbCBhKSBOYSBoaXAmb2FjdXRlO3Rlc2UgZGUgbiZhdGlsZGU7byBjb25zdGFyIHByYXpvIGRlIHZhbGlkYWRlIG5hcyBjZXJ0aWQmb3RpbGRlO2VzIGFwcmVzZW50YWRhcywgYSBBZG1pbmlzdHJhJmNjZWRpbDsmYXRpbGRlO28gYWNlaXRhciZhYWN1dGU7IGNvbW8gdiZhYWN1dGU7bCIsIiZpYWN1dGU7bmRpY2VzIG9maWNpYWlzIHF1YW5kbyBlbmNlcnJhZG9zIGgmYWFjdXRlOyBtYWlzIGRlIDAzICh0ciZlY2lyYztzKSBtZXNlcyBkYSBkYXRhIGRlIGFwcmVzZW50YSZjY2VkaWw7JmF0aWxkZTtvIGRhIHByb3Bvc3RhLCBjYXNvIGEgbGljaXRhbnRlIHRlbmhhIGluaWNpYWRvIHN1YXMgYXRpdmlkYWRlcyBubyBwcmVzZW50ZSBleGVyYyZpYWN1dGU7Y2lvLiA0LjEuNi4gT3V0cm9zIGRvY3VtZW50b3M6IGEpIEFsdmFyJmFhY3V0ZTsgZGUgbGljZW4mY2NlZGlsO2EgZGUgZnVuY2lvbmFtZW50byBhdHVhbGl6YWRvOyBiKSBEZWNsYXJhJmNjZWRpbDsmYXRpbGRlO28gZG8gbGljaXRhbnRlIGRlIHF1ZSBvcyBkb2N1bWVudG9zIGNvbnN0YW50ZXMgZGUgc2V1IEVudmVsb3BlIEEgJm5kYXNoOyBET0NVTUVOVE9TIERFIEhBQklMSVRBJkNjZWRpbDsmQXRpbGRlO08gcyZhdGlsZGU7byBmaSZlYWN1dGU7aXMgZSB2ZXJkYWRlaXJvcywgY29uZm9ybWUgbyBtb2RlbG8gZG8gYW5leG87IGMpIERlY2xhcmEmY2NlZGlsOyZhdGlsZGU7bywgc29iIGFzIHBlbmFzIGQ8L3A+'}
+        secoes = [sec1,sec2,sec3]
+        collection_licitacao = db['licitacao']
+        id = collection_licitacao.insert_one({
+            "tituloArquivo":'TESTE VERIFICAR',
+            "status":0,
+            "id_template":"62fa60beee51e36853cffe6d",
+            "dataCriação":"13/09/2022 13:51",
+            "cabecalho":"",
+            "secoes":secoes,
+        })
+        licitacoes = collection_licitacao.find_one({'_id':ObjectId(id.inserted_id)})
+        collection_licitacao.delete_one({'_id':ObjectId(id.inserted_id)})
+        verificadorFraude = Tokeniza.Main().verificarAltair(licitacoes)
+        res,c = '',0
+
+        for i in verificadorFraude:
+            if i.getConteudoAchado() != '':
+                c += 1
+                res = i.getTipoAchado()
+        #-------------------
+        self.assertEquals(1,c)
+        self.assertEquals('comprovante_localizacao',res)
+
+    

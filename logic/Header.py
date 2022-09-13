@@ -16,11 +16,11 @@ OP_MOD_tm= 'teste'
 OP_MOD_DATAFRAME = False
 
 import re
-from RegraProxy import RegraProxy
+from logic import RegraProxy
 
-EXP_GERAL = RegraProxy('regra_secao_geral',re.compile(r'((\n)\s?(((SE[CÇ][ÃA]O)|(CAP[IÍ]TULO))([ ]){1,5})?(([LXVI]{1,8})|(\d{1,3}))([ )—––.-]+)([0])?([ )—––.-]*)(\n){0,2}((([A-ZÀÁÃÂÄÈÉÊËÍÎÔÕÓÒÖÛÚÙÜÇ-])+([0-9() \'“”""ªº\/:.,;–$%#@!\?&\*\|·])*){4,}))'))
-EXP_AVISO = RegraProxy('regra_aviso',re.compile(r'^(AVISO).{0,20}(LICITA[ÇC][ÃA]O)',flags=re.M))
-EXP_ANEXO = RegraProxy('regra_anexo',re.compile(r'^(ANEXO)',flags=re.M))
+EXP_GERAL = RegraProxy.RegraProxy('regra_secao_geral',re.compile(r'((\n)\s?(((SE[CÇ][ÃA]O)|(CAP[IÍ]TULO))([ ]){1,5})?(([LXVI]{1,8})|(\d{1,3}))([ )—––.-]+)([0])?([ )—––.-]*)(\n){0,2}((([A-ZÀÁÃÂÄÈÉÊËÍÎÔÕÓÒÖÛÚÙÜÇ-])+([0-9() \'“”""ªº\/:.,;–$%#@!\?&\*\|·])*){4,}))'))
+EXP_AVISO = RegraProxy.RegraProxy('regra_aviso',re.compile(r'^(AVISO).{0,20}(LICITA[ÇC][ÃA]O)',flags=re.M))
+EXP_ANEXO = RegraProxy.RegraProxy('regra_anexo',re.compile(r'^(ANEXO)',flags=re.M))
 
 TIPOS = {
     'OBJETO':'OBJETO',
@@ -48,15 +48,15 @@ TIPOS_SECOES = {
 
 TAMANHO_MAX_OBJ = 15
 
-import expressoes
-LISTA_TODOS = expressoes.lista_de_expressoes
+from logic import expressoes
+LISTA_TODOS = expressoes.lista_geral
 LISTA_HABILITACAO = expressoes.lista_habilitacao
 
-OBJETO = RegraProxy(TIPOS['OBJETO'],re.compile(r'((OBJETO)|(DA LICITA[ÇC][ÃAÂ]O))'))
-JULGAMENTO = RegraProxy(TIPOS['JULGAMENTO'],re.compile(r'((JULGAMENTO)|(AN[AÁ]LISE[S]?.{0,20}PROPOSTA[S]?))'))
-CONDICAO_PARTICIPACAO = RegraProxy(TIPOS['CONDICAO_PARTICIPACAO'],re.compile(r'(PARTICIP)'))
-HABILITACAO = RegraProxy(TIPOS['HABILITACAO'],re.compile(r'(HABILITA)'))
-CREDENCIAMENTO = RegraProxy(TIPOS['CREDENCIAMENTO'],re.compile(r'(CREDENCI)'))
+OBJETO = RegraProxy.RegraProxy(TIPOS['OBJETO'],re.compile(r'((OBJETO)|(DA LICITA[ÇC][ÃAÂ]O))'))
+JULGAMENTO = RegraProxy.RegraProxy(TIPOS['JULGAMENTO'],re.compile(r'((JULGAMENTO)|(AN[AÁ]LISE[S]?.{0,20}PROPOSTA[S]?))'))
+CONDICAO_PARTICIPACAO = RegraProxy.RegraProxy(TIPOS['CONDICAO_PARTICIPACAO'],re.compile(r'(PARTICIP)'))
+HABILITACAO = RegraProxy.RegraProxy(TIPOS['HABILITACAO'],re.compile(r'(HABILITA)'))
+CREDENCIAMENTO = RegraProxy.RegraProxy(TIPOS['CREDENCIAMENTO'],re.compile(r'(CREDENCI)'))
 
 SECOES = [OBJETO,JULGAMENTO,CONDICAO_PARTICIPACAO,HABILITACAO,CREDENCIAMENTO]
 

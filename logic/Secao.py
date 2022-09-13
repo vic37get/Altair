@@ -1,4 +1,4 @@
-import Header
+from logic import Header
 
 class Secao:
     def __init__(self,numero, titulo, conteudo,completo):
