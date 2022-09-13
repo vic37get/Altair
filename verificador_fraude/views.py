@@ -26,7 +26,7 @@ def avaliar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
     context = {
-        'licitacao':json_util.dumps(licitacao),
+        'licitacao':licitacao['base64'],
         'licitacao_dados': licitacao
     }
     modelo = loader.get_template('verificador_fraude/avaliar.html')
