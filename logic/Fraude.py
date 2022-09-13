@@ -38,3 +38,25 @@ class Fraude:
                     print("*****************************")
                     return achado_obj
         return Achado(expressao.getNome(),None,'','')
+
+    def verificarLicitacaoCompleta(self):
+        achados = []
+        for i in Header.LISTA_TODOS:
+            c = False
+            for key,valor in Header.TIPOS.items():
+                if key != Header.TIPOS['HABILITACAO']:
+                    achado = self.verificaFraudeCompleta(i,valor)
+                    if achado.getSecaoAchado() != None:
+                        achados.append(achado)
+                        c = True
+                        break
+            if not c:
+                achados.append(Achado(i.getNome(),None,'',''))
+            
+        for j in Header.LISTA_HABILITACAO:
+            achados.append(self.verificaFraudeCompleta(j,Header.TIPOS['HABILITACAO']))
+        return achados
+
+        
+
+    
