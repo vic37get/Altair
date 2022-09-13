@@ -74,7 +74,23 @@ class Fraude:
             
         for j in Header.LISTA_HABILITACAO:
             achados.append(self.verificaFraudeParcial(j,Header.TIPOS['HABILITACAO']))
-        return achados
+        return 
+        
+    def getAchadosCompleta(self):
+        if self.achados == None:
+            self.achados = self.verificarLicitacaoCompleta()
+        return self.achados
+    
+    def getAchadosParcial(self):
+        if self.achados == None:
+            self.achados = self.verificarLicitacaoParcial()
+        return self.achados
+
+    def getAchados(self):
+        if Header.OP_MOD_DATAFRAME:
+            return self.getAchadosCompleta()
+        else:
+            return self.getAchadosParcial()
 
 
         
