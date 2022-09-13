@@ -1,10 +1,10 @@
-from Licitacao import Licitacao
-from LicitacaoInterface import LicitacaoInterface
+from logic import Licitacao
+from logic import LicitacaoInterface
 import Header
 
-class ProxyLicitacao(LicitacaoInterface):
+class ProxyLicitacao(LicitacaoInterface.LicitacaoInterface):
     def __init__(self, nomeLicitacao, nomeArquivo,dados):
-        self._Licitacao = Licitacao(nomeLicitacao, nomeArquivo,dados)
+        self._Licitacao = Licitacao.Licitacao(nomeLicitacao, nomeArquivo,dados)
         self._CACHE_SECOES = None
         self._CACHE_DADOS = None
         self._CACHE_ISVALIDO = None
