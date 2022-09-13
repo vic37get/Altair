@@ -27,6 +27,7 @@ class Main:
                 lista_fraudes.append(verificadorFraude)
         dataManipulation.saveResultsAll(lista_fraudes)
     
+    
     def verify(self):
         dataManipulation = ProxyDataManipulation()
         dataManipulation.createEmptyFiles()
