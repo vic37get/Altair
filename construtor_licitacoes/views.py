@@ -82,9 +82,8 @@ def salvarFormulario(request, pk):
         data['avaliada'] = 0
         del data['csrfmiddlewaretoken']
         licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
-        if licitacao['status'] !=0:
-            messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi enviada!')
-            return redirect('/')
+        collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
+        messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi enviada!')
     return redirect('/')
 
 def enviar(request):
