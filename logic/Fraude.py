@@ -1,5 +1,6 @@
 import Header
-from Achado import Achado
+from logic import Achado
+
 class Fraude:
     def __init__(self,Licitacao):
         self._Licitacao = Licitacao
@@ -56,6 +57,25 @@ class Fraude:
         for j in Header.LISTA_HABILITACAO:
             achados.append(self.verificaFraudeCompleta(j,Header.TIPOS['HABILITACAO']))
         return achados
+
+    def verificarLicitacaoParcial(self):
+        achados = []
+        for i in Header.LISTA_TODOS:
+            c = False
+            for key,valor in Header.TIPOS.items():
+                if key != Header.TIPOS['HABILITACAO']:
+                    achado = self.verificaFraudeParcial(i,valor)
+                    if achado.getSecaoAchado() != None:
+                        achados.append(achado)
+                        c = True
+                        break
+            if not c:
+                achados.append(Achado(i.getNome(),None,'',''))
+            
+        for j in Header.LISTA_HABILITACAO:
+            achados.append(self.verificaFraudeParcial(j,Header.TIPOS['HABILITACAO']))
+        return achados
+
 
         
 
