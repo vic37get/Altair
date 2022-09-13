@@ -10,18 +10,12 @@ from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from utils import connectMongo
+from django.contrib import messages
 
 db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
-    modelo = loader.get_template('construtor_licitacoes/adicionar.html')
-    collection_template = db_client['template']
     collection_licitacao = db_client['licitacao']
-    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
-    template = collection_template.find_one({"_id":ObjectId(pk)})
-    context = {
-        'template':dict(template),
-        'id_licitacao':id.inserted_id
-    }
+    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'status':0,'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
     return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
     
 def editar(request,pk):
@@ -49,9 +43,12 @@ def salvar(request):
 def excluir(request,pk):
     collection_licitacao = db_client['licitacao']
     if request.method == 'POST':
+        licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
+        if licitacao['status'] != 0:
+            messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' não pôde ser excluída')
+            return redirect('/')
+        messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi excluída!')
         collection_licitacao.delete_one({"_id":ObjectId(pk)})
-        context = {  
-        }
         return redirect('/')
 
 @csrf_exempt
@@ -89,7 +86,10 @@ def salvarFormulario(request, pk):
         data['status'] = 1
         data['avaliada'] = 0
         del data['csrfmiddlewaretoken']
-        collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
+        licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
+        if licitacao['status'] !=0:
+            messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi enviada!')
+            return redirect('/')
     return redirect('/')
     
 import weasyprint
