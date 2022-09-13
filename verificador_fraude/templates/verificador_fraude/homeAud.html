@@ -1,0 +1,103 @@
+{% extends 'base2.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+
+<div class=" row gx-4 gx-lg-5 mb-5 menu_index d-flex">
+    <div class="input-group rounded m-0 m-auto barraDosFiltros">
+        <select class="form-select rounded filtroTipo me-3 border-secondary">
+            <option selected value="all">Todos os tipos</option>
+            <option value="pedding">Serviços</option>
+            <option value="submit">Obras</option>
+            <option value="submit">Aquisições</option>
+          </select>
+
+        <select class="form-select rounded filtroTipo me-3 border-secondary">
+            <option selected>Ordenar por: </option>
+            <option value="1">Data mais recente</option>
+            <option value="2">Data mais antiga</option>
+          </select>
+
+        <select class="form-select rounded filtroTipo me-3 border-secondary">
+            <option selected value="all">Todos os status</option>
+            <option value="pedding">Não avaliada</option>
+            <option value="submit">Avaliada</option>
+          </select>
+
+        <input type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
+        <form action="" method="post">
+            {% csrf_token %}
+            <input class="btn btn-outline-dark colorButton ms-1" type="submit" value="Buscar">
+        </form>
+    </div>
+</div>
+<div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-1 m-0 justify-content-center">
+    {% for licitacao in licitacoes%}
+    {% if licitacao.status == 1 %}
+        <div class="col mb-4 cardAud">
+            <div class="card cardlicAud">
+                    <div class="d-flex flex-row tituloEditavel">
+                        <!-- titulo-->
+                        <div class="BarraNameLic">
+                            <div class="documentBarra align-middle">
+                                <a class="textoDocumento" download="{{licitacao.tituloArquivo}}.pdf" href="{{licitacao.base64}}">Documento <i class="fa-solid fa-file"></i></a>
+                            </div>
+                             <a class="nomelic"><i class="fa-solid fa-landmark"></i> Licitação/Órgão: </a>{{licitacao.tituloArquivo}} {{licitacao.orgao}} 
+                        </div>
+                        <script>
+                            $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
+                                var titulo = {'tituloArquivo':$(this).val()}
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/construcao/editarTitulo',
+                                    data: JSON.stringify({'json':titulo,'_id':"{{licitacao|private:'_id'}}"}),
+                                    dataType : 'json',
+                                    contentType: 'application/json; charset=utf-8',
+                                    cache: false,
+                                });
+                            });
+                        </script>
+                        <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
+                </div>
+                <div class="rodapeCard p-2 mb-1 flex-column">
+                    <div id="divobjeto{{licitacao|private:'_id'}}"class="objeto p-2">
+                        <script>
+                            var div = document.getElementById("divobjeto{{licitacao|private:'_id'}}");
+                            var texto = '{{licitacao.objeto}}'
+                            var texto = texto.slice(0, 1000)
+                            div.innerHTML = texto
+                        </script>
+                    </div>
+                    <!--<i class="fa-solid fa-file-contract ico-size p-3"></i>-->
+                    <div class="badges_status">
+                        <div class="badge badge-2x rounded-pill text-dark tipolic"><i class="fa-solid fa-pen-fancy"></i> Tipo de Licitação: {{licitacao.tipo}} </div>
+                        <div class="badge badge-2x rounded-pill bg-info text-dark"><i class="fa-solid fa-calendar-days"></i> Data de Abertura: {{licitacao.data}} </div>
+                        <div id="divStatus{{licitacao|private:'_id'}}" class="badge badge-2x rounded-pill bg-warning text-dark"></div>
+                        <script>
+                            var div = document.getElementById("divStatus{{licitacao|private:'_id'}}");
+                                if("{{licitacao.avaliada}}" == 0){
+                                    div.innerHTML = "<i class='fa-solid fa-file-signature'></i> Status: Não Avaliada <i class='fa-solid fa-circle text-danger'></i>";
+                                }
+                                if("{{licitacao.avaliada}}" == 1){
+                                    div.innerHTML = "<i class='fa-solid fa-file-signature'></i> Status: Avaliada <i class='fa-solid fa-circle text-success'></i>";
+                                }
+                        </script> 
+                        
+                    </div>
+                </div>
+                <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                    <div class="d-flex">
+                        <form class="m-1" action="{% url 'verificador_fraude:avaliar' licitacao|private:'_id' %}" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-outline-dark colorButton" type="submit" value="Abrir">
+                        </form>
+                        </form>
+                    </div>
+                </div>
+                <!-- Product actions-->
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+    {% endblock %}
+</div>

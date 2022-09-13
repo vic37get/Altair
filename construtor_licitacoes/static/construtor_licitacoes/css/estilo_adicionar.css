@@ -49,6 +49,7 @@ html, body {
 }
 
 footer {
+  z-index: 5;
   background-color: var(--cor_principal);
   position: relative !important;
   width: 100%;
@@ -343,3 +344,8 @@ footer {
   text-align: left;
   color: var(--cor_status_submetido);
 }
+
+input:disabled{
+  text-shadow: none;
+  box-shadow: none;
+} 

@@ -31,3 +31,27 @@ def enviar(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(modelo.render(context, request))
+    
+def filtro(request):
+    collection_licitacao = db_client['licitacao']
+    home = loader.get_template('home_page/index.html')
+
+    status = int(request.GET['status'])
+    template = request.GET['template']
+    tituloArquivo = request.GET['tipoArquivo']
+
+    pesquisa = dict()
+    if status != -1:
+        pesquisa['status'] = status
+    if template != '-1':
+        collection_template = db_client['template']
+        template_banco = collection_template.find_one({'nome':template},{'_id':1})
+        pesquisa['id_template'] = str(template_banco['_id'])
+    if tituloArquivo != '':
+        pesquisa['tituloArquivo'] = {'$regex':tituloArquivo,'$options':'i'}
+    licitacoes = collection_licitacao.find(pesquisa)
+    context = {
+        'licitacoes':licitacoes
+    }
+    return HttpResponse(home.render(context, request))
+    
