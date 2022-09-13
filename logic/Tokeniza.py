@@ -15,12 +15,9 @@ class Main:
         nomes = dataManipulation.getNomesEditais(Header.SOURCE_r)
         lista_fraudes = []
         for count,nome in enumerate(nomes):
-            #if count > 1000:
-                #break
             dados = dataManipulation.readTxTFiles(nome,Header.SOURCE_r)
             ProxyLic = ProxyLicitacao('',nome,dados)
             ProxyLic.struct()
-            #----- Salva no txts -----------
             dataManipulation.saveTypeFiles(ProxyLic)
             for i in ProxyLic.getSecao():
                 pass
@@ -29,3 +26,12 @@ class Main:
                 verificadorFraude.getAchados()
                 lista_fraudes.append(verificadorFraude)
         dataManipulation.saveResultsAll(lista_fraudes)
+    
+    def verify(self):
+        pass
+
+    def collectRegex():
+        pass
+
+    if __name__ == '__main__':
+        pass
