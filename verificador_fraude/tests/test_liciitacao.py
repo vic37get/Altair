@@ -2,12 +2,11 @@ from bson.objectid import ObjectId
 import re
 from django.test import SimpleTestCase
 from utils import connectMongo
-from logic import LicitacaoProxy,Fraude,Header
+from logic import Tokeniza
 import base64
 
 db = connectMongo('Altair')
 class VerificardorTest(SimpleTestCase):
-
     def test_licitacoes(self):
         sec1 = {'titulo':'PGg1IGNsYXNzPSJzZWNhb190aXR1bG8gdGl0dWxvQ2FwdHVyYSI+Q0FQzVRVTE8gSSAtIERPIE9CSkVUTzwvaDU+',
         'conteudo':'PHA+MS4xLiBPIG9iamV0byBkYSBwcmVzZW50ZSBsaWNpdGEmY2NlZGlsOyZhdGlsZGU7byAmZWFjdXRlOyBhIGVzY29saGEgZGEgcHJvcG9zdGEgbWFpcyB2YW50YWpvc2EgcGFyYSBhIEFxdWlzaSZjY2VkaWw7JmF0aWxkZTtvcGFyY2VsYWRhIHNvYiBkZW1hbmRhIGRlIE1hdGVyaWFpcywgU3VwcmltZW50b3MgZSBFcXVpcGFtZW50b3MgZGUgSW5mb3JtJmFhY3V0ZTt0aWNhLCBQcmVzdGEmY2NlZGlsOyZhdGlsZGU7b2RlIFNlcnZpJmNjZWRpbDtvcyBkZSBNYW51dGVuJmNjZWRpbDsmYXRpbGRlO28sIFJlY2FyZ2FzIGRlIENhcnR1Y2hvcyBlIFRvbm5lcnMsIGRlc3RpbmFkb3MgYSBhdGVuZGVyIGFQcmVmZWl0dXJhIE11bmljaXBhbCBlIGFzIGRpdmVyc2FzIFNlY3JldGFyaWFzIE11bmljaXBhaXMgZGUgQ0FSQUNPTCAmbmRhc2g7IFBJLCBkZSBhY29yZG8gY29tIGFxdWFudGlkYWRlIGUgZXNwZWNpZmljYSZjY2VkaWw7Jm90aWxkZTtlcyB0JmVhY3V0ZTtjbmljYXMgY29uc3RhbnRlcyBubyBUZXJtbyBkZSBSZWZlciZlY2lyYztuY2lhICZuZGFzaDsgQW5leG8gSSBkZXN0ZSBFZGl0YWwscXVhbnRpZGFkZXMgZSBleGlnJmVjaXJjO25jaWFzIGVzdGFiZWxlY2lkYXMgbmVzdGUgRWRpdGFsIGUgc2V1cyBhbmV4b3MuPC9wPgo8cD4xLjIuIEEgbGljaXRhJmNjZWRpbDsmYXRpbGRlO28gc2VyJmFhY3V0ZTsgUE9SIExPVEUsIGNvbmZvcm1lIHRhYmVsYSBjb25zdGFudGUgZG8gVGVybW8gZGUgUmVmZXImZWNpcmM7bmNpYSwgZmFjdWx0YW5kby1zZWFvIGxpY2l0YW50ZSBhIHBhcnRpY2lwYSZjY2VkaWw7JmF0aWxkZTtvIGVtIHF1YW50b3MgaXRlbnMgZm9yZW0gZGUgc2V1IGludGVyZXNzZS48L3A+CjxwPjEuMy4gTyBjcml0JmVhY3V0ZTtyaW8gZGUganVsZ2FtZW50byBhZG90YWRvIHNlciZhYWN1dGU7IG8gbWVub3IgcHJlJmNjZWRpbDtvIGRvIGl0ZW0sIG9ic2VydmFkYXMgYXMgZXhpZyZlY2lyYztuY2lhcyBjb250aWRhc25lc3RlIEVkaXRhbCBlIHNldXMgQW5leG9zIHF1YW50byAmYWdyYXZlO3MgZXNwZWNpZmljYSZjY2VkaWw7Jm90aWxkZTtlcyBkbyBvYmpldG8uQ29uZm9ybWUgRGVzcGFjaG8gZGUgSW5mb3JtYSZjY2VkaWw7JmF0aWxkZTtvIGRlIENyJmVhY3V0ZTtkaXRvIE9yJmNjZWRpbDthbWVudCZhYWN1dGU7cmlvIGUgbmFzIHNvbGljaXRhJmNjZWRpbDsmb3RpbGRlO2VzIHBvciBwYXJ0ZSBkYXMgc2VjcmV0YXJpYXNyZXF1ZXJlbnRlcyBhIERlc3Blc2Egc2UgZW5jb250cmEgYW1wYXJhZGEgY29tIHJlY3Vyc29zIGRvIE9SJkNjZWRpbDtBTUVOVE8gR0VSQUwvMjAyMixGUE0vSUNNUy9GVU5ERUIvU01FL1FTRS9GVVMvRk1TL0ZNQVMvSFBQL0dCRi9HU1VBUy9QU0IvQ1JBUy9QUiZPYWN1dGU7UFJJTyBlIG91dHJhc2NvbnNpZ25hZGFzIG5vIG9yJmNjZWRpbDthbWVudG8gdmlnZW50ZSwgY29uZm9ybWUgZG90YSZjY2VkaWw7Jm90aWxkZTtlcyBvciZjY2VkaWw7YW1lbnQmYWFjdXRlO3JpYXMgYWJhaXhvOjwvcD4='}
@@ -26,26 +25,16 @@ class VerificardorTest(SimpleTestCase):
             "secoes":secoes,
         })
         licitacoes = collection_licitacao.find_one({'_id':ObjectId(id.inserted_id)})
-
-        licitacao_Obj = LicitacaoProxy.ProxyLicitacao("",licitacoes['tituloArquivo'],"")
-        secoes = []
-
-        from logic import API
-        api = API.API()
-        for i in licitacoes['secoes']:
-            secao = api.APISecao(i['titulo'],i['conteudo'])
-            secao.verificaSecao()
-            secoes.append(secao)
-        licitacao_Obj.setSecoes(secoes)
-        verificadorFraude = Fraude.Fraude(licitacao_Obj)
-        licitacao_Obj.setTipoValidade(Header.TIPOS['VALIDO'])
-        
-        print(licitacao_Obj.getTipoValidade())
-        #print(verificadorFraude.getAchados())
-        for i in verificadorFraude.getAchados():
-            print(i.getConteudoAchado(),i.getTipoAchado())
-        #-------------------
         collection_licitacao.delete_one({'_id':ObjectId(id.inserted_id)})
-        self.assertIsNotNone(licitacao_Obj)
+        verificadorFraude = Tokeniza.Main().verificarAltair(licitacoes)
+        res,c = '',0
+
+        for i in verificadorFraude:
+            if i.getConteudoAchado() != '':
+                c += 1
+                res = i.getTipoAchado()
+        #-------------------
+        self.assertEquals(1,c)
+        self.assertEquals('comprovante_localizacao',res)
 
     
