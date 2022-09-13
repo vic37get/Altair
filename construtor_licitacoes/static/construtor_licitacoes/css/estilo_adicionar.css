@@ -49,6 +49,7 @@ html, body {
 }
 
 footer {
+  z-index: 5;
   background-color: var(--cor_principal);
   position: relative !important;
   width: 100%;
