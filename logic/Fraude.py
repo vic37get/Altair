@@ -34,8 +34,7 @@ class Fraude:
                         texto_achado = j.getConteudo()[achado[0].start()-Header.CONTEXTO_INI:]
                     else:
                         texto_achado = j.getConteudo()
-                    achado_obj.setConteudoAchado.Achado(texto_achado)
-                    print(achado_obj.getConteudoAchado.Achado())
+                    achado_obj.setConteudoAchado(texto_achado)
                     print("*****************************")
                     return achado_obj
         return Achado.Achado(expressao.getNome(),None,'','')
@@ -74,7 +73,7 @@ class Fraude:
             
         for j in Header.LISTA_HABILITACAO:
             achados.append(self.verificaFraudeParcial(j,Header.TIPOS['HABILITACAO']))
-        return 
+        return achados
         
     def getAchadosCompleta(self):
         if self.achados == None:
