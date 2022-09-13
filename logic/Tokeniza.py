@@ -42,6 +42,3 @@ class Main:
     def collectRegex():
         from expressoes import lista_de_expressoes,lista_habilitacao
         return lista_de_expressoes,lista_habilitacao 
-
-    if __name__ == '__main__':
-        Main()
