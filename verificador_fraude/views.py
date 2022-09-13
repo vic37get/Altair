@@ -1,3 +1,4 @@
+import base64
 import json
 
 import bson.json_util as json_util
@@ -12,11 +13,9 @@ db_client = connectMongo('Altair')
 def homeAud(request):
     template = loader.get_template('verificador_fraude/homeAud.html')
     collection_licitacao = db_client['licitacao']
-    def binarytoStr(field):
-        return str(field['base64'])
     licitacoes = collection_licitacao.find({})
+    print(licitacoes[0])
     #licitacoes = list(map(binarytoStr,licitacoes))
-    #print(licitacoes[0]['base64'])
     context = {
         'licitacoes':licitacoes
     }
@@ -31,3 +30,26 @@ def avaliar(request,pk):
     }
     modelo = loader.get_template('verificador_fraude/avaliar.html')
     return HttpResponse(modelo.render(context, request))
+
+def filtroVerificador(request):
+    collection_licitacao = db_client['licitacao']
+    verificador = loader.get_template('verificador_fraude/homeAud.html')
+
+    avaliada = int(request.GET['avaliada'])
+    tipo = request.GET['tipo']
+    tituloArquivo = request.GET['NomeLicitação']
+
+    pesquisa = dict()
+    if tipo != '-1':
+        pesquisa['tipo'] = tipo
+
+    if avaliada != -1:
+        pesquisa['avaliada'] = avaliada
+
+    if tituloArquivo != '':
+        pesquisa['tituloArquivo'] = {'$regex':tituloArquivo,'$options':'i'}
+    licitacoes = collection_licitacao.find(pesquisa)
+    context = {
+        'licitacoes':licitacoes
+    }
+    return HttpResponse(verificador.render(context, request))

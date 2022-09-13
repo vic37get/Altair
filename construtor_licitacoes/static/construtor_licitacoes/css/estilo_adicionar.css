@@ -262,7 +262,7 @@ footer {
   margin: 0 auto;
   border: 1px solid rgb(170, 170, 170);
   border-radius: 5px;
-  background-color: rgb(214, 214, 214);
+  background-color: rgb(215, 215, 215);
   margin-top: 35px;
 }
 
@@ -348,4 +348,8 @@ footer {
 input:disabled{
   text-shadow: none;
   box-shadow: none;
-} 
+}
+
+.FiltrosIndex{
+  width: 95%;
+}

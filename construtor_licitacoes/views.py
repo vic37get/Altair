@@ -1,25 +1,25 @@
-from email import message
 import json
 from datetime import datetime
+from email import message
 from multiprocessing import context
 
 import bson.json_util as json_util
-from bson.objectid import ObjectId
 from bson.binary import Binary
-from django.http import HttpResponse,HttpResponseRedirect
+from bson.objectid import ObjectId
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from utils import connectMongo
-from django.contrib import messages
 
 db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
     collection_licitacao = db_client['licitacao']
-    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'status':0,'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
+    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
     return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
 
-from django.contrib import messages 
+
 def editar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
@@ -102,9 +102,12 @@ def enviarGeral(request):
     return redirect('/')  
 
     
-import weasyprint
 #sudo apt-get install libpangocairo-1.0-0
 import base64
+
+import weasyprint
+
+
 #pip install django-easy-pdf
 #django-easy-pdf>=0.2.0 and WeasyPrint>=0.34
 @csrf_exempt
