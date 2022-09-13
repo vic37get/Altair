@@ -29,7 +29,7 @@
         <script src={%static "construtor_licitacoes/js/getsTinyMCE.js"%} ></script>
         <script src={%static "construtor_licitacoes/js/templatesSecoes.js"%} ></script>
         <script src={%static "construtor_licitacoes/js/downloadPdf.js"%} ></script>
-        <script src={%static "construtor_licitacoes/js/getFormsFields.js"%} ></script>
+        <script src={%static "construtor_licitacoes/js/index.js"%} ></script>
 
         <!-- CSS -->
         <link href={%static "construtor_licitacoes/css/estilo_adicionar.css" %} rel="stylesheet" referrerpolicy="origin"></script>
@@ -58,14 +58,14 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href={% url 'home_page:index' %}>Minhas Licitações</a></li>
-                    <li class="nav-item"><a class="nav-link" href={% url 'home_page:enviar' %}>Enviar Licitação</a></li>
+                    <li class="nav-item"><a class="nav-link" href={% url 'construtor_licitacoes:enviar' %}>Enviar Licitação</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
 
-    <body id="main_body">
+    <body id="main_body"  ">
         <!-- Navigation-->
         <!-- Section-->
         <section class="py-5" id="corpo_principal">

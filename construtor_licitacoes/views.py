@@ -1,3 +1,4 @@
+from email import message
 import json
 from datetime import datetime
 from multiprocessing import context
@@ -5,7 +6,7 @@ from multiprocessing import context
 import bson.json_util as json_util
 from bson.objectid import ObjectId
 from bson.binary import Binary
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
@@ -17,10 +18,14 @@ def nova_licitacao(request,pk):
     collection_licitacao = db_client['licitacao']
     id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'status':0,'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
     return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
-    
+
+from django.contrib import messages 
 def editar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    if(licitacao['status']!=0):
+        messages.info(request, 'Ação invalida, licitação: \''+licitacao['tituloArquivo']+'\' já submetida')
+        return redirect('/')
     collection_template = db_client['template']
     template = collection_template.find_one({"_id":ObjectId(licitacao['id_template'])})
     context = {
@@ -59,16 +64,6 @@ def editarTitulo(request):
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
     return HttpResponse()
     
-def enviarGeral(request):
-    collection_licitacao = db_client['licitacao']
-    #licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
-    #context = {
-    #    'id_licitacao':licitacao['_id']
-    #}
-    #Falta implementar isso.
-    modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
-    return HttpResponse(modelo.render(context, request))
-
 def enviarConstrucao(request, pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
@@ -91,6 +86,22 @@ def salvarFormulario(request, pk):
             messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi enviada!')
             return redirect('/')
     return redirect('/')
+
+def enviar(request):
+    modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
+    context = {
+    }
+    return HttpResponse(modelo.render(context, request))
+
+def enviarGeral(request):
+    if request.method == 'POST':
+        collection_licitacao = db_client['licitacao']
+        data = request.POST
+        arquivo = request.FILES['arquivopdf'].read()
+        bytespdf = base64.b64encode(arquivo)
+        id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
+    return redirect('/')  
+
     
 import weasyprint
 #sudo apt-get install libpangocairo-1.0-0
