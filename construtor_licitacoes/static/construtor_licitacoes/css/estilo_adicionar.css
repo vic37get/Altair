@@ -172,7 +172,7 @@ footer {
 }
 
 #menuLateralDireito{
-  background-color: #413e3eab;
+  background-color: rgb(50, 54, 57);
   right: 0;
 }
 
@@ -187,12 +187,12 @@ footer {
 }
 
 #btnRight{
-  background-color: #4d4a4a;
+  background-color: rgb(50, 54, 57);
   right: 0;
 }
 
 #mySidebarRight{
-  background-color: #413e3e;
+  background-color: rgb(50, 54, 57);
   right: 0;
 }
 
