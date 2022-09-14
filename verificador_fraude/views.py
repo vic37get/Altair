@@ -14,7 +14,7 @@ def homeAud(request):
     template = loader.get_template('verificador_fraude/homeAud.html')
     collection_licitacao = db_client['licitacao']
     licitacoes = collection_licitacao.find({})
-    print(licitacoes[0])
+    #print(licitacoes[0])
     #licitacoes = list(map(binarytoStr,licitacoes))
     context = {
         'licitacoes':licitacoes

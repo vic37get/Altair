@@ -35,7 +35,6 @@ class Fraude:
                     else:
                         texto_achado = j.getConteudo()
                     achado_obj.setConteudoAchado(texto_achado)
-                    print("*****************************")
                     return achado_obj
         return Achado.Achado(expressao.getNome(),None,'','')
 
