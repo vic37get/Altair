@@ -2,6 +2,7 @@ import base64
 import json
 
 import bson.json_util as json_util
+from bson.binary import Binary
 from bson.objectid import ObjectId
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -14,8 +15,11 @@ def homeAud(request):
     template = loader.get_template('verificador_fraude/homeAud.html')
     collection_licitacao = db_client['licitacao']
     licitacoes = collection_licitacao.find({})
-    print(licitacoes[0])
-    #licitacoes = list(map(binarytoStr,licitacoes))
+    def binarytoStr(element):
+        element['base64'] = Binary(element['base64']).decode()
+        return element
+    licitacoes = list(licitacoes)
+    licitacoes = list(map(binarytoStr,licitacoes))
     context = {
         'licitacoes':licitacoes
     }
