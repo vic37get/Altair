@@ -14,7 +14,7 @@ def homeAud(request):
     template = loader.get_template('verificador_fraude/homeAud.html')
     collection_licitacao = db_client['licitacao']
     licitacoes = collection_licitacao.find({})
-    print(licitacoes[0])
+    #print(licitacoes[0])
     #licitacoes = list(map(binarytoStr,licitacoes))
     context = {
         'licitacoes':licitacoes
@@ -53,3 +53,26 @@ def filtroVerificador(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(verificador.render(context, request))
+
+def verificar(request,pk):
+    from logic import Tokeniza,Header
+    collection_licitacao = db_client['licitacao']
+    licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
+    tam = int(request.GET['tamanho'])
+    if int(request.GET['tamanho']) <= 0:
+        tam = 0
+    Header.CONTEXTO_FIM,Header.CONTEXTO_INI = tam,tam
+    verificadorFraude = Tokeniza.Main().verificarAltair(licitacao)
+    achados = []
+    for i in verificadorFraude:
+            if i.getConteudoAchado() != '':
+                achados.append(i)
+    achados = [i.__dict__ for i in achados]
+    licitacao['achados'] = achados
+    collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':licitacao},upsert=True)
+    context = {
+        'licitacao':licitacao['base64'],
+        'licitacao_dados': licitacao
+    }
+    modelo = loader.get_template('verificador_fraude/avaliar.html')
+    return HttpResponse(modelo.render(context, request))

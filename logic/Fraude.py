@@ -1,4 +1,4 @@
-import Header
+from logic import Header
 from logic import Achado
 
 class Fraude:
@@ -14,10 +14,10 @@ class Fraude:
             if j.getTipo() == tipo:
                 achado = expressao.search(j.getConteudo())
                 if achado[1]:
-                    achado_obj = Achado(expressao.getNome(),j.getTitulo(),'','')
-                    achado_obj.setConteudoAchado(j.getConteudo())
+                    achado_obj = Achado.Achado(expressao.getNome(),j.getTitulo(),'','')
+                    achado_obj.setConteudoAchado.Achado(j.getConteudo())
                     return achado_obj
-        return Achado(expressao.getNome(),None,'','')
+        return Achado.Achado(expressao.getNome(),None,'','')
 
     def verificaFraudeParcial(self,expressao,tipo):
         for j in self._Licitacao.getSecao():
@@ -25,7 +25,7 @@ class Fraude:
                 achado = expressao.search(j.getConteudo())
                 texto_achado = ''
                 if achado[1]:
-                    achado_obj = Achado(expressao.getNome(),j.getTitulo(),'','')
+                    achado_obj = Achado.Achado(expressao.getNome(),j.getTitulo(),'',expressao.getDescricao())
                     if achado[0].start()>Header.CONTEXTO_INI and len(j.getConteudo())> (achado[0].end()+Header.CONTEXTO_FIM):
                         texto_achado = j.getConteudo()[achado[0].start()-Header.CONTEXTO_INI:achado[0].end()+Header.CONTEXTO_FIM]
                     elif achado[0].start()<Header.CONTEXTO_INI and len(j.getConteudo())> (achado[0].end()+Header.CONTEXTO_FIM):
@@ -35,10 +35,8 @@ class Fraude:
                     else:
                         texto_achado = j.getConteudo()
                     achado_obj.setConteudoAchado(texto_achado)
-                    print(achado_obj.getConteudoAchado())
-                    print("*****************************")
                     return achado_obj
-        return Achado(expressao.getNome(),None,'','')
+        return Achado.Achado(expressao.getNome(),None,'','')
 
     def verificarLicitacaoCompleta(self):
         achados = []
@@ -47,12 +45,12 @@ class Fraude:
             for key,valor in Header.TIPOS.items():
                 if key != Header.TIPOS['HABILITACAO']:
                     achado = self.verificaFraudeCompleta(i,valor)
-                    if achado.getSecaoAchado() != None:
+                    if achado.getSecaoAchado.Achado() != None:
                         achados.append(achado)
                         c = True
                         break
             if not c:
-                achados.append(Achado(i.getNome(),None,'',''))
+                achados.append(Achado.Achado(i.getNome(),None,'',''))
             
         for j in Header.LISTA_HABILITACAO:
             achados.append(self.verificaFraudeCompleta(j,Header.TIPOS['HABILITACAO']))
@@ -70,11 +68,11 @@ class Fraude:
                         c = True
                         break
             if not c:
-                achados.append(Achado(i.getNome(),None,'',''))
+                achados.append(Achado.Achado(i.getNome(),None,'',''))
             
         for j in Header.LISTA_HABILITACAO:
             achados.append(self.verificaFraudeParcial(j,Header.TIPOS['HABILITACAO']))
-        return 
+        return achados
         
     def getAchadosCompleta(self):
         if self.achados == None:
@@ -87,10 +85,7 @@ class Fraude:
         return self.achados
 
     def getAchados(self):
-        if Header.OP_MOD_DATAFRAME:
-            return self.getAchadosCompleta()
-        else:
-            return self.getAchadosParcial()
+        return self.getAchadosParcial()
 
 
         

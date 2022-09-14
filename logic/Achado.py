@@ -1,7 +1,5 @@
 class Achado:
-
-    
-    def _init_(self, tipoAchado, secaoAchado, conteudoAchado, descricaoAchado):
+    def __init__(self, tipoAchado, secaoAchado, conteudoAchado, descricaoAchado):
         self.tipoAchado = tipoAchado
         self.secaoAchado = secaoAchado
         self.conteudoAchado = conteudoAchado

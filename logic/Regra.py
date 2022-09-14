@@ -6,12 +6,19 @@ class Regra(i.RegraInterface):
         self._regexPositivo = regra
         self._regexNegativos = []
         self._nome = nome
+        self.descricao = ''
 
     def getNome(self):
         return self._nome
 
     def setNome(self, nome):
         self._nome = nome
+
+    def getDescricao(self):
+        return self.descricao
+
+    def setDescricao(self, descricao):
+        self.descricao = descricao
 
     def getRegexPositivo(self):
         return self._regexPositivo
@@ -32,12 +39,23 @@ class Regra(i.RegraInterface):
         return re.search(regra,texto)
 
     def toJson(self):
+        #print(self._regexPositivo.__dict__)
         retorno = dict()
         for key,value in self.__dict__.items():
-            retorno[key] = str(value)
+            if type(value) == re.Pattern:
+                print(value.__str__())
+                retorno[key] = value.__str__()
+            else:
+                if type(value) == list:
+                    #l = [i.__str__() for i in value]
+                    #retorno[key] = str(l)
+                    retorno[key] = str(value)
+                else:
+                    retorno[key] = str(value)
         return retorno
 
     def loadJson(self,json):
         self._nome = json['_nome']
         self._regexPositivo = eval(json['_regexPositivo'])
         self._regexNegativos = eval(json['_regexNegativos'])
+        self.descricao = json['descricao']
