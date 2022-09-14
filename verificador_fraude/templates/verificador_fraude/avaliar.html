@@ -31,29 +31,34 @@
         <p class="TextoInformacoesLic">{{licitacao_dados.objeto}}</p>
       </div>
       <div class="botoes">
-        <a class="btn btn-left btn-danger border-1 border-dark text-white" onclick=""><i class="fa-solid fa-land-mine-on"></i> Verificar Indícios</a>
+        <form class="d-flex flex-row align-items-baseline" action="{% url 'verificador_fraude:verificar' licitacao_dados|private:'_id' %}" method="get">
+          <button type="submit" class="btn btn-left btn-danger border-dark text-white"><i class="fa-solid fa-land-mine-on"></i> Verificar Indícios</button>
+            <span class="bg-primary border-dark text-white ms-2 input-group-text"><i class="fa-solid fa-ruler-vertical me-2"></i> Tamanho do contexto</span>
+            <input class="ms-1 form-control border-1 border-dark" name="tamanho" type="number" value="200" style="width:70px;"></input>
+        </form>
       </div>
     </div>
     <div class="Achados">   
       <h5 class="IndiciosEncontrados mb-3 mt-3">Indícios encontrados na Licitação</h5>
-      {% for achado in licitacao_dados.achado%}       
+
+      {% for achado in licitacao_dados.achados%}       
         <table class="table">
             <tbody>
               <tr title="Descoberto na Seção">
                 <td class="tituloTabela">Seção:</td>
-                <td>{{achado.secao}}<!-- SEÇÃO ACHADA AQUI --></td>
+                <td>{{achado.secaoAchado}}<!-- SEÇÃO ACHADA AQUI --></td>
               </tr>
               <tr title="Descrição">
                 <td class="tituloTabela">Tipo:</td>
-                <td><span class="badge alert-danger">{{achado.tipo}}<!-- Tipo de achado aqui --></span></td>
+                <td><span class="badge alert-danger">{{achado.tipoAchado}}<!-- Tipo de achado aqui --></span></td>
               </tr>
               <tr title="Tipo">
                 <td class="tituloTabela">Descrição:</td>
-                <td> {{achado.descricao}}<!-- Descrição do achado --></td>
+                <td><em>"{{achado.descricaoAchado}}"<!-- Descrição do achado --></em></td>
               </tr>
               <tr title="ConteudoAchado">
                 <td class="tituloTabela">Conteúdo do indício:</td>
-                <td>{{achado.conteudo}}<!-- Descrição do achado --> <span class="badge alert-success"><!-- Tipo de achado aqui --></span></td>
+                <td>{{achado.conteudoAchado}}<!-- Descrição do achado --> <span class="badge alert-success"><!-- Tipo de achado aqui --></span></td>
               </tr>
             </tbody>
         </table>

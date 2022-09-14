@@ -1,10 +1,10 @@
-from Licitacao import Licitacao
-from LicitacaoInterface import LicitacaoInterface
-import Header
+from logic import Licitacao
+from logic import LicitacaoInterface
+from logic import Header
 
-class ProxyLicitacao(LicitacaoInterface):
+class ProxyLicitacao(LicitacaoInterface.LicitacaoInterface):
     def __init__(self, nomeLicitacao, nomeArquivo,dados):
-        self._Licitacao = Licitacao(nomeLicitacao, nomeArquivo,dados)
+        self._Licitacao = Licitacao.Licitacao(nomeLicitacao, nomeArquivo,dados)
         self._CACHE_SECOES = None
         self._CACHE_DADOS = None
         self._CACHE_ISVALIDO = None
@@ -28,7 +28,7 @@ class ProxyLicitacao(LicitacaoInterface):
  
     def setSecoes(self, secoes):
         self.clearCache()
-        return self._Licitacao.setSecoes(self,secoes)
+        return self._Licitacao.setSecoes(secoes)
     
     def getSecoesEmpty(self):
         return self._Licitacao.getSecoesEmpty()

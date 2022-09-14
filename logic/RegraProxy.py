@@ -34,6 +34,13 @@ class RegraProxy(i.RegraInterface):
         positivo = self._Regra.search(self._Regra.getRegexPositivo(),texto)
         #questão do positivo e negativo
         return positivo,all([positivo,not(any(negativos))])
+
+    def getDescricao(self):
+        return self._Regra.getDescricao()
+
+    def setDescricao(self, descricao):
+        self._Regra.setDescricao(descricao)
+
     def toJson(self):
         return self._Regra.toJson()
 
