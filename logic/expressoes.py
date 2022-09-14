@@ -1,5 +1,6 @@
 import re
 from logic import RegraProxy
+from logic import descricao_expressoes as desc
 
 alimentos_caros = RegraProxy.RegraProxy('alimentos_caros', re.compile(r'((((\s)|(\n))ostra[s]?(\s))|(((\s)|(\n))lagost[aims]+)(\s)|((caviar).{0,40}((beluga)|(petrossian)))|(((\s)|(\n))capelin(\s))|(((\s)|(\n))truta(\s))|(((\s)|(\n))lumpo(\s))|(((\s)|(\n))trufa[s]?(\s))|((presunto).{0,30}((parma)|(pata.{0,5}negra)|(italiano)|(ib[ée]rico)|(villani)|(espanhol)|(jam[óo]n)|(serrano)))|(((contra.{0,3}fil[ée])|(carne)).{0,20}((wagyu)|(matsusaka)|(kobe)|( yonezawa)|(mishima)|(omi)|(sanda)))|((caf[eé]).{0,20}((kape)|(alamid)|(luwak)|(kopi)|(civeta)|(weasel)|(jacu)))|((weasel).{0,20}(coffee))|(((foie)|(fois)).{0,10}(gras))|((cogumelo).{0,10}(matsutake))|((frango).{0,20}((cemani)|(ayam)))|((kobe).{0,10}(beef))|((queijo).{0,10}(alce)))',flags=re.IGNORECASE|re.S))
 bebidas_alcoolicas = RegraProxy.RegraProxy('bebidas_alcoolicas', re.compile(r'((champanh[ea])|(champagne)|(u[ií]sque)|(whisk[e]?y)|([wv][oó]d[ck]a)|(cerveja)|(tequila)|(c[ou]nhaque)|(brandy)|(cacha[çc]a)|(((\s)|(\n))saquê(\s))|(((\s)|(\n))gim(\s))|(((\s)|(\n))cho[p]+[e]?(\s))|(((\s)|(\n))sidra(\s))|(absinto)|(vermut[eh])|((bebida).{0,20}(alc[oó]+lic[ao])))', flags=re.IGNORECASE|re.S))
@@ -17,6 +18,7 @@ quadro_permanente = RegraProxy.RegraProxy('quadro_permanente', re.compile(r'(((q
 filiacao_abav_iata = RegraProxy.RegraProxy('filiacao_abav_iata', re.compile(r'((((associa[çc][aã]o)|(empresa[s])|(sindicato))(.{0,30}((turismo)|(transporte)|(viage[mns]+)|(aerovi[áa]ria[s]?))))|((international)(.{0,10}((air).{0,10}(transport).{0,10}(association))))|(((\s)|(\n))embratur(\s))|(((\s)|(\n))iata(\s))|(((\s)|(\n))abav(\s))|(((\s)|(\n))sindetur(\s))|(((\s)|(\n))snea(\s)))', flags=re.IGNORECASE|re.S))
 visto_registro_profissional = RegraProxy.RegraProxy('visto_registro_profissional', re.compile(r'(((visto).{0,20}((conselho)|(CREA)|(CAU)|(entidade.{0,10}profissional)|(registro)))|((caso).{0,20}((empresa[s]?.{0,10}n[ãa]o.{0,10}sediada[s]?)|(licitante[s]?.{0,10}n[aã]o.{0,10}sediado[s]?))))', re.S))
 comprovante_localizacao = RegraProxy.RegraProxy('comprovante_localizacao', re.compile('(((alvar[aá])|(comprov[mnteçcãao]*)).{0,20}((localiza[çc][ãa]o)|(funcionamento)))',flags=re.IGNORECASE|re.S))
+comprovante_localizacao.setDescricao(desc.comprovante_localizacao[1])
 usina_asfalto_cbuq = RegraProxy.RegraProxy('usina_asfalto_cbuq', re.compile(r'(((localiza[cçaão]+)|(licen[cç]a.{0,10}(opera[cçãao]+))|(propriedade)|(patrim[oô]nio)|(disponibili[zacçãaodade]+)|(loca[cç][aã]o))(.{0,5}((usina)(.{0,5}((asfalto)|(cbuq)))))|(usina.{0,10}asfalto.{0,10}pr[óo]pria))', flags=re.IGNORECASE|re.S))
 amostra_prototipo = RegraProxy.RegraProxy('amostra_prototipo', re.compile('((amostra)|(prot[oó]tipo))(.{0,5}((proposta)|(envelope)))',flags=re.IGNORECASE|re.S))
 n_min_max_limitacao_atestados = RegraProxy.RegraProxy('n_min_max_limitacao_atestados', re.compile(r'((((dois|duas)|(tr[êe]s)|(quatro)|(cinco)).{0,10}((atestado[s]?)|(certid[aãoões]*))).{0,20}((capacidade t[eé]cnica)|(qualifica[cç][aã]o t[eé]cnica)))', flags=re.IGNORECASE|re.S))
@@ -77,3 +79,18 @@ comprovante_localizacao, usina_asfalto_cbuq, amostra_prototipo, n_min_max_limita
  temp_exp_profissional, quadro_permanente, certificado_registro_cadastral, doc_firma_reconhecida_cartorio, certificado_boas_praticas,
 exigencia_posse_previa, licenca_ambiental, vinculo_empregaticio, cadastro_previo, certificado_qualidade,
 comprovacao_atividade, vedacao_documento]
+'''
+lista_habilitacao,lista_geral = [],[]
+
+import utils
+db = utils.connectMongo('Altair')
+collection_regra = db['regra']
+
+regras = collection_regra.find({'secao':'habilitacao'})
+for regra in regras:
+    lista_habilitacao.append(RegraProxy.RegraProxy().loadJson(regra))
+
+regras = collection_regra.find({'secao':'geral'})
+for regra in regras:
+    lista_geral.append(RegraProxy.RegraProxy().loadJson(regra))
+'''
