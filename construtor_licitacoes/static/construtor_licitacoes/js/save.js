@@ -3,12 +3,17 @@ function createJSON(id,id_template) {
     var cabecalho = getHeader();
     var titulos = getTitulo();
     var conteudos = getConteudo();
+    for (let i = 0;i<conteudos.length;i++){
+      conteudos[i] = btoa(conteudos[i])
+    }
     json['dataModificacao'] = getStringDate();
     json['cabecalho'] = cabecalho;
+    json['base64'] = baixarPdf(false);
     json['secoes'] = [];
     json['id_template'] = id_template;
+    json['cabecalho'] = btoa(json['cabecalho']);
     for (let i = 0; i < titulos.length; i++) {
-        json['secoes'].push({'titulo':titulos[i].replace(/"/g, "'"),'conteudo':conteudos[i].map(rep)})
+        json['secoes'].push({'titulo':btoa(titulos[i]),'conteudo':[conteudos[i]]})
     }
     var output = {'json':json,'_id':id};
     return JSON.stringify(output);
@@ -20,11 +25,11 @@ function saveJSON(id){
       type: 'POST',
       url: '/construcao/salvar',
       data: dataJSON,
-      dataType : 'json',
       contentType: 'application/json; charset=utf-8',
       cache: false,
+      success: function(data){alert('O Documento foi Salvo.');},
+      error: function () {alert('Ocorreu um problema ao salvar o documento');}
     });
-    alert('O Documento foi Salvo.');
   }
 
 function loadJSON(json){
@@ -53,7 +58,7 @@ function setConteudo(jsonDecoded){
       selector: '#cabecalho',
       setup: function (editor) {
         editor.on('init', function (e) {
-          tinymce.get('cabecalho').setContent(jsonDecoded.cabecalho);
+          tinymce.get('cabecalho').setContent(atob(jsonDecoded.cabecalho));
         });
       },
       weight : '80%',
@@ -83,7 +88,7 @@ function setConteudo(jsonDecoded){
                   var secao = divs_secoes[index];
                   var secao_filhos = secao.children;
                   if(secao_filhos[0].tagName == 'DIV'){
-                      tinymce.get(secao_filhos[0].children[1].id).setContent($(jsonDecoded.secoes[index].titulo)[0].children[1].outerHTML);
+                      tinymce.get(secao_filhos[0].children[1].id).setContent($(atob(jsonDecoded.secoes[index].titulo))[0].children[1].outerHTML);
                   }
               } 
           });
@@ -123,7 +128,7 @@ function setConteudo(jsonDecoded){
                     if(secao_filhos[j].tagName == 'TEXTAREA'){
                         /*console.log(secao_filhos[j].id);
                         console.log(jsonDecoded.secoes[index].conteudo[0]);*/
-                        tinymce.get(secao_filhos[j].id).setContent(jsonDecoded.secoes[index].conteudo[0]);
+                        tinymce.get(secao_filhos[j].id).setContent(atob(jsonDecoded.secoes[index].conteudo[0]));
                     }
                 }
             }
