@@ -1,8 +1,7 @@
-from bson.objectid import ObjectId
 from django.test import SimpleTestCase
-from utils import connectMongo
 from logic import Achado
-db = connectMongo('Altair')
+
+
 class arquivosAchados(SimpleTestCase):
 
     def test_licitacoes(self):
@@ -19,11 +18,11 @@ class arquivosAchados(SimpleTestCase):
             arquivoAchado.setTipoAchado(tipoAchado_teste)
         except:
             print("erro ao setar informações, verifique se foram passadas corretamente")
-        
+
         try:
             #testando getters
             self.assertEquals(arquivoAchado.getTipoAchado,"comprovante_localizacao")
-            self.assertE quals(arquivoAchado.getSecaoAchado,"secao2_sub")
+            self.assertEquals(arquivoAchado.getSecaoAchado,"secao2_sub")
             self.assertEquals(arquivoAchado.getConteudoAchado,conteudo_teste)
             self.assertEquals(arquivoAchado.getDescricaoAchado,descricao_teste)
         except:
