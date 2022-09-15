@@ -1,5 +1,4 @@
 from bson.objectid import ObjectId
-import bso
 from django.test import SimpleTestCase
 from utils import connectMongo
 from logic import Achado
@@ -24,7 +23,7 @@ class arquivosAchados(SimpleTestCase):
         try:
             #testando getters
             self.assertEquals(arquivoAchado.getTipoAchado,"comprovante_localizacao")
-            self.assertequals(arquivoAchado.getSecaoAchado,"secao2_sub")
+            self.assertE quals(arquivoAchado.getSecaoAchado,"secao2_sub")
             self.assertEquals(arquivoAchado.getConteudoAchado,conteudo_teste)
             self.assertEquals(arquivoAchado.getDescricaoAchado,descricao_teste)
         except:
