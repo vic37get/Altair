@@ -4,33 +4,26 @@
 {% block content %}
 
 <div class=" row gx-4 gx-lg-5 mb-5 menu_index d-flex">
-    <div class="input-group rounded m-0 m-auto barraDosFiltros">
-        <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected value="all">Todos os tipos</option>
-            <option value="pedding">Serviços</option>
-            <option value="submit">Obras</option>
-            <option value="submit">Aquisições</option>
-          </select>
-
-        <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected>Ordenar por: </option>
-            <option value="1">Data mais recente</option>
-            <option value="2">Data mais antiga</option>
-          </select>
-
-        <select class="form-select rounded filtroTipo me-3 border-secondary">
-            <option selected value="all">Todos os status</option>
-            <option value="pedding">Não avaliada</option>
-            <option value="submit">Avaliada</option>
-          </select>
-
-        <input type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
-        <form action="" method="post">
+    <div class="input-group rounded m-0 p-0 m-auto align-items-center justify-content-center">
+        <form class="input-group rounded m-0 m-auto barraDosFiltros" action="{% url 'verificador_fraude:filtroVerificador' %} " method="get">
             {% csrf_token %}
-            <input class="btn btn-outline-dark colorButton ms-1" type="submit" value="Buscar">
+            <select name="tipo" class="form-select rounded filtroTipo me-3 border-secondary w-auto">
+                <option value=-1 selected>Todos os tipos</option>
+                <option value='Serviços'>Serviços</option>
+                <option value='Obras'>Obras</option>
+                <option value='Aquisições'>Aquisições</option>
+            </select>
+            <select name="avaliada" class="form-select rounded filtroTipo me-3 border-secondary w-auto">
+                <option value=-1 selected>Todas</option>
+                <option value=0>Não avaliada</option>
+                <option value=1>Avaliada</option>
+            </select>
+            <input name="NomeLicitação" type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
+            <input class="btn colorButton rounded-2 border-1 border-dark text-white ms-1" type="submit" value="🔍 Buscar">
         </form>
     </div>
 </div>
+
 <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-1 m-0 justify-content-center">
     {% for licitacao in licitacoes%}
     {% if licitacao.status == 1 %}

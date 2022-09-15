@@ -22,10 +22,10 @@ class RegraTest(SimpleTestCase):
         id = collections_regra.insert_one(regra.toJson())
 
         regra_mongo = dict(collections_regra.find_one({"_id":ObjectId(id.inserted_id)}))
+        collections_regra.delete_one({"_id":ObjectId(id.inserted_id)})
         dicts_regra_classe = dict(regra.toJson())
         dicts_regra_classe["_id"] = ObjectId(id.inserted_id)
 
-        collections_regra.delete_one({"_id":ObjectId(id.inserted_id)})
         self.assertEqual(dicts_regra_classe.__eq__(dict(regra_mongo)),True)
     
     def test_load_loadJson(self):
@@ -36,9 +36,11 @@ class RegraTest(SimpleTestCase):
         collections_regra = db_client['regra']
         id = collections_regra.insert_one(regra.toJson())
         regra_mongo = dict(collections_regra.find_one({"_id":ObjectId(id.inserted_id)}))
+        collections_regra.delete_one({"_id":ObjectId(id.inserted_id)})
         regra = rule.RegraProxy()
         regra.loadJson(regra_mongo)
 
         self.assertEqual(regra.search('a')[1],True)
         self.assertEqual(regra.search('a bc')[1],False)
+
         

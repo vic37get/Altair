@@ -21,6 +21,7 @@ class Main:
         return verificadorFraude.getAchados()
 
     def all(self):
+        '''
         #
         dataManipulation = ProxyDataManipulation()
         #
@@ -45,9 +46,12 @@ class Main:
                 lista_fraudes.append(verificadorFraude)
         #
         dataManipulation.saveResultsAll(lista_fraudes)
+        '''
+        pass
     
     
     def verify(self):
+        '''
         dataManipulation = ProxyDataManipulation()
         dataManipulation.createEmptyFiles()
         nomes = dataManipulation.getNomesEditais(Header.SOURCE_r)
@@ -55,7 +59,8 @@ class Main:
             dados = dataManipulation.readTxTFiles(nome,Header.SOURCE_r)
             ProxyLic = ProxyLicitacao('',nome,dados)
             ProxyLic.struct()
-            dataManipulation.saveTypeFiles(ProxyLic)
+            dataManipulation.saveTypeFiles(ProxyLic)'''
+        pass
 
     def collectRegex():
         from expressoes import lista_de_expressoes,lista_habilitacao

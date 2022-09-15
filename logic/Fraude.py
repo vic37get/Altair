@@ -25,7 +25,7 @@ class Fraude:
                 achado = expressao.search(j.getConteudo())
                 texto_achado = ''
                 if achado[1]:
-                    achado_obj = Achado.Achado(expressao.getNome(),j.getTitulo(),'','')
+                    achado_obj = Achado.Achado(expressao.getNome(),j.getTitulo(),'',expressao.getDescricao())
                     if achado[0].start()>Header.CONTEXTO_INI and len(j.getConteudo())> (achado[0].end()+Header.CONTEXTO_FIM):
                         texto_achado = j.getConteudo()[achado[0].start()-Header.CONTEXTO_INI:achado[0].end()+Header.CONTEXTO_FIM]
                     elif achado[0].start()<Header.CONTEXTO_INI and len(j.getConteudo())> (achado[0].end()+Header.CONTEXTO_FIM):
@@ -35,7 +35,6 @@ class Fraude:
                     else:
                         texto_achado = j.getConteudo()
                     achado_obj.setConteudoAchado(texto_achado)
-                    print("*****************************")
                     return achado_obj
         return Achado.Achado(expressao.getNome(),None,'','')
 

@@ -11,8 +11,8 @@
     }, 3000)
 </script>
 <div class=" row gx-4 gx-lg-5 menu_index d-flex">
-    <div class="input-group rounded w-75 m-0 m-auto align-items-center justify-content-center">
-        <form class="d-flex flex-row" action="{% url 'home_page:filtro' %} " method="get">
+    <div class="input-group rounded m-0 m-auto align-items-center justify-content-center">
+        <form class="input-group rounded m-0 m-auto barraDosFiltros" action="{% url 'home_page:filtro' %} " method="get">
             {% csrf_token %}
             <select name="template" class="form-select rounded filtroTipo me-3 border-secondary w-auto">
                 <option value=-1 selected>Todos os modelos</option>
@@ -26,7 +26,7 @@
                 <option value=1>Submetidas</option>
             </select>
             <input name="tipoArquivo" type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
-            <input class="btn btn-outline-dark colorButton ms-1" type="submit" value="Filtrar">
+            <input class="btn colorButton rounded-2 border-1 border-dark text-white ms-1" type="submit" value="🔍 Buscar">
         </form>
     </div>
 </div>
@@ -36,7 +36,7 @@
             <!-- Ppreview aqui-->
             <!-- detalhes simples-->
             <div class="card-body p-4 text-center">
-                <i class="fa-solid fa-file-circle-plus ico-size"></i>
+                <i class="fa-solid fa-file-circle-plus ico-size"></i><i class=""></i>
                 <div class="text-center">
                     <!-- titulo-->
                     <h5 class="fw-bolder">Sem Título</h5>
