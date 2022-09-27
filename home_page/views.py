@@ -2,6 +2,7 @@ from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
+from django.contrib import messages
 from utils import connectMongo
 from django.contrib.auth.forms import UserCreationForm  
 
@@ -70,14 +71,14 @@ def submeterCadastro(request):
         collection_usuario = db_client['usuario']
         dados_usuario = request.POST.copy()
         del dados_usuario['csrfmiddlewaretoken']
-        busca = collection_usuario.find_one({'userID': dados_usuario['Usuario']})
-        print('usuario encontrado: ', busca)
-        if busca != None:
-            collection_usuario.insert_one({'userID': dados_usuario['Usuario'], 'senha': dados_usuario['Senha']})
+        busca = collection_usuario.find_one({'userID': dados_usuario['usuario']})
+        if busca == None:
+            collection_usuario.insert_one({'userID': dados_usuario['usuario'], 'senha': dados_usuario['senha']})
             return redirect('/')
         else:
+            messages.info(request, 'Ação invalida, usuário: \''+busca['userID']+'\' já existe!')
             print('Usuário já existe')
-            return redirect('home_page/cadastro.html')
+            return redirect('/cadastrarUsuario')
     
 
 

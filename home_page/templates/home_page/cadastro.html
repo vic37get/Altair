@@ -2,6 +2,7 @@
 {%load static%}
 {%load tagger%}
 {% block content %}
+{% include 'messages.html' %}
 
 <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha formLic";>
       <form action="{% url 'home_page:submeterCadastro' %}" method="post">
@@ -9,13 +10,13 @@
         <div class="form-row">
           <div class="form-group col-md-6 w-100">
             <label class="m-1 mt-2" for="Orgao">Usuario</label>
-            <input name="Usuario" type="text" required class="form-control border-2" placeholder="user">
+            <input name="usuario" type="text" required class="form-control border-2" placeholder="user">
 
             <label class="m-1 mt-2" for="Municipio">Senha</label>
-            <input name="Senha" type="text" class="form-control border-2" placeholder="senha" required>
+            <input name="senha" type="text" class="form-control border-2" placeholder="senha" required>
 
             <label class="m-1 mt-2" for="Estado">Confirmação de senha</label>
-            <input name="Confirmaçao senha" type="text" class="form-control border-2" placeholder="senha" required>
+            <input name="confirmação senha" type="text" class="form-control border-2" placeholder="senha" required>
 
           </div>
         </div>
