@@ -1,7 +1,10 @@
+from multiprocessing import context
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 from utils import connectMongo
+from django.contrib.auth.forms import UserCreationForm  
+
 
 db_client = connectMongo('Altair')
 
@@ -54,4 +57,30 @@ def filtro(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(home.render(context, request))
+
+def cadastrarUsuario(request):
+    modelo = loader.get_template('home_page/cadastro.html')
+    context={
+
+    }
+    return HttpResponse(modelo.render(context, request))
+
+def submeterCadastro(request):
+    if request.method == "POST":
+        collection_usuario = db_client['usuario']
+        dados_usuario = request.POST.copy()
+        del dados_usuario['csrfmiddlewaretoken']
+        busca = collection_usuario.find_one({'userID': dados_usuario['Usuario']})
+        print('usuario encontrado: ', busca)
+        if busca != None:
+            collection_usuario.insert_one({'userID': dados_usuario['Usuario'], 'senha': dados_usuario['Senha']})
+            return redirect('/')
+        else:
+            print('Usuário já existe')
+            return redirect('home_page/cadastro.html')
+    
+
+
+
+
     
