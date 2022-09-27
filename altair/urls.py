@@ -19,7 +19,8 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('home_page.urls')),
-    path('construcao/',include('construtor_licitacoes.urls')),
-    path('',include('verificador_fraude.urls'))
+    path('gestor/',include('home_page.urls')),
+    path('aud/',include('verificador_fraude.urls')),
+    path('',include('homeAll.urls')),
+    path('gestor/construcao/',include('construtor_licitacoes.urls')),
 ]

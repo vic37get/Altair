@@ -17,7 +17,7 @@ db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
     collection_licitacao = db_client['licitacao']
     id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
-    return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
+    return redirect('/gestor/construcao/editarLicitacao/'+str(id.inserted_id))
 
 
 def editar(request,pk):
@@ -25,7 +25,7 @@ def editar(request,pk):
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
     if(licitacao['status']!=0):
         messages.info(request, 'Ação invalida, licitação: \''+licitacao['tituloArquivo']+'\' já submetida')
-        return redirect('/')
+        return redirect('/gestor')
     collection_template = db_client['template']
     template = collection_template.find_one({"_id":ObjectId(licitacao['id_template'])})
     context = {
@@ -51,10 +51,10 @@ def excluir(request,pk):
         licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
         if licitacao['status'] != 0:
             messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' não pôde ser excluída')
-            return redirect('/')
+            return redirect('/gestor')
         messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi excluída!')
         collection_licitacao.delete_one({"_id":ObjectId(pk)})
-        return redirect('/')
+        return redirect('/gestor')
 
 @csrf_exempt
 def editarTitulo(request):

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'construtor_licitacoes',
     'home_page',
-    'verificador_fraude'
+    'verificador_fraude',
+    'homeAll',
 ]
 
 MIDDLEWARE = [
