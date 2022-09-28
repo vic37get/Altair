@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('gestor/',include('home_page.urls')),
     path('aud/',include('verificador_fraude.urls')),
-    path('',include('homeAll.urls')),
+    path('',include('home_all.urls')),
     path('gestor/construcao/',include('construtor_licitacoes.urls')),
 ]

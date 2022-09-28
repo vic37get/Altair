@@ -8,5 +8,5 @@
   }
 
 body{
-    background-color: var(--cor_principal);
+    background-color: var(--cor_principal) !important;
 }

@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'construtor_licitacoes',
     'home_page',
     'verificador_fraude',
-    'homeAll',
+    'home_all',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +70,7 @@ ROOT_URLCONF = 'altair.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['home_page/templates/home_page/', 'verificador_fraude/templates/verificador_fraude'],
+        'DIRS': ['home_all/templates/home_all','home_page/templates/home_page/', 'verificador_fraude/templates/verificador_fraude'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
