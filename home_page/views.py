@@ -9,6 +9,36 @@ from django.contrib.auth.forms import UserCreationForm
 
 db_client = connectMongo('Altair')
 
+def InicialLogin(request):
+    login = loader.get_template('home_page/login.html')
+    context = {
+
+    }
+    return HttpResponse(login.render(context, request))
+
+def login(request):
+    #verifica login
+    
+    logged = True # se existe usuario e senha no banco certinho
+    if (logged):
+        request.session.set('logged', True)
+        request.session.set('username', banco.username)
+        request.session.set('name', banco.name)
+        request.session.set('id', banco.id)
+        return 
+    else: 
+        return #render #'login',{'errorMessage':'Usuario ou senha incorretos'}
+
+def qualquer_coisa(request):
+    # so pra mostrar como usa
+    id = request.session.get('id') # ai tuy joga em algum lugar, exemplo:
+    licitacao.criador = id
+
+def logoff_incomplete(request):
+    # desliga
+    request.session.destroy()
+    return #redirect 'index'
+
 def index(request):
     template = loader.get_template('home_page/index.html')
     collection_licitacao = db_client['licitacao']
@@ -73,7 +103,8 @@ def submeterCadastro(request):
         del dados_usuario['csrfmiddlewaretoken']
         busca = collection_usuario.find_one({'userID': dados_usuario['usuario']})
         if busca == None:
-            collection_usuario.insert_one({'userID': dados_usuario['usuario'], 'senha': dados_usuario['senha']})
+            messages.info(request, 'Usuário \''+dados_usuario['usuario']+'\' cadastrado com sucesso!')
+            collection_usuario.insert_one({'userID': dados_usuario['usuario'], 'nome':dados_usuario['nome'],'cargo': dados_usuario['cargo'],'email':dados_usuario['email'],'senha': dados_usuario['senha']})
             return redirect('/')
         else:
             messages.info(request, 'Ação invalida, usuário: \''+busca['userID']+'\' já existe!')

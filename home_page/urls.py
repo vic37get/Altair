@@ -6,6 +6,7 @@ app_name='home_page'
 urlpatterns = [
     path('', views.index,name='index'),
     path('cadastrarUsuario', views.cadastrarUsuario, name="cadastrar_usuario"),
+    path('login', views.InicialLogin, name="login"),
     path('templates',views.modelo,name='template'),
     path('enviar', views.enviar, name='enviar'),
     path('aud', viewAud.homeAud, name='homeAud'),
