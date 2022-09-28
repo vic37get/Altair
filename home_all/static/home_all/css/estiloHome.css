@@ -1,0 +1,34 @@
+:root {
+  --fonte: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --cor_principal: #1C3879;
+  --cor_principal_contraste: #607EAA;
+  --cor_fundo: #EAE3D2;
+  --cor_secundaria_fundo: #dfd8c5;
+  --cor_divs_contraste: #ece8de;
+  --cor_hover_cinza: rgb(126, 126, 126);
+  --cor_menu_lateral_direito: rgb(50, 54, 57);
+  --cor_divs: #F9F5EB;
+  }
+
+
+.formCadastro{
+  width: 25%;
+  padding: 30px !important;
+}
+
+.logoAltair{
+  font-size: 85px;
+}
+
+#corpo_principal_home_all{
+  /*background-color: var(--cor_principal_contraste) !important;*/
+  background-image: url(https://wallpaperaccess.com/full/1506463.jpg) !important;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-top: 4rem !important;
+}
+
+.inputform{
+  background-color: var(--cor_divs_contraste);
+  border-color: rgb(179, 179, 179);
+}
