@@ -11,5 +11,6 @@ urlpatterns = [
     path('enviar', views.enviar, name='enviar'),
     path('aud', viewAud.homeAud, name='homeAud'),
     path('cadastrar',views.submeterCadastro,name='submeterCadastro'),
+    path('loginForm',views.login,name="loginForm"),
     path('filtro',views.filtro,name='filtro'),
 ]

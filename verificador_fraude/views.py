@@ -5,16 +5,23 @@ import bson.json_util as json_util
 from bson.binary import Binary
 from bson.objectid import ObjectId
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render,redirect
 from django.template import loader
 from utils import connectMongo
 
 db_client = connectMongo('Altair')
 
 def homeAud(request):
+    if len(request.session.keys()) == 0:
+        messages.info(request, 'Necessario relizar login')
+        return redirect('/login')
+    elif(request.session['cargo']!='Auditor'):
+        messages.info(request, 'Necessario logar como auditor')
+        return redirect('/login')
     template = loader.get_template('verificador_fraude/homeAud.html')
     collection_licitacao = db_client['licitacao']
-    licitacoes = collection_licitacao.find({})
+    licitacoes = collection_licitacao.find()
     def binarytoStr(element):
         element['base64'] = Binary(element['base64']).decode()
         return element

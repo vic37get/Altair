@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib import messages
-from utils import connectMongo
+from utils import authenticate, connectMongo
 from django.contrib.auth.forms import UserCreationForm  
 
 
@@ -17,32 +17,38 @@ def InicialLogin(request):
     return HttpResponse(login.render(context, request))
 
 def login(request):
-    #verifica login
-    
-    logged = True # se existe usuario e senha no banco certinho
-    if (logged):
-        request.session.set('logged', True)
-        request.session.set('username', banco.username)
-        request.session.set('name', banco.name)
-        request.session.set('id', banco.id)
-        return 
-    else: 
-        return #render #'login',{'errorMessage':'Usuario ou senha incorretos'}
+    if request.method == "POST":
+        #collection_usuario = db_client['usuario']
+        dados_usuario = request.POST.copy()
+        del dados_usuario['csrfmiddlewaretoken']
+        isExists,user = authenticate(dados_usuario['usuario'],dados_usuario['senha'])
+        request.session['logged'] = False
+        if isExists:
+            request.session['username'] =user['userID']
+            request.session['email'] = user['email']
+            request.session['id'] = user['_id']
+            request.session['cargo'] = user['cargo']
+            request.session['nome'] = user['nome']
+            request.session['logged'] = True
+            if(request.session['cargo'] == 'Gestor'):
+                return redirect('/')
+            elif(request.session['cargo'] == 'Auditor'):
+                return redirect('/aud')
+        else:
+            messages.info(request, 'Usuario ou senha incorretos')
+            return redirect('/login')
 
-def qualquer_coisa(request):
-    # so pra mostrar como usa
-    id = request.session.get('id') # ai tuy joga em algum lugar, exemplo:
-    licitacao.criador = id
+def logoff(request):
+    del request.session
 
-def logoff_incomplete(request):
-    # desliga
-    request.session.destroy()
-    return #redirect 'index'
 
 def index(request):
+    if len(request.session.keys()) == 0:
+        messages.info(request, 'Necessario relizar login')
+        return redirect('/login')
     template = loader.get_template('home_page/index.html')
     collection_licitacao = db_client['licitacao']
-    licitacoes = collection_licitacao.find({})
+    licitacoes = collection_licitacao.find({'id_author':str(request.session['id'])})
     context = {
         'licitacoes':licitacoes
     }
@@ -110,6 +116,7 @@ def submeterCadastro(request):
             messages.info(request, 'Ação invalida, usuário: \''+busca['userID']+'\' já existe!')
             print('Usuário já existe')
             return redirect('/cadastrarUsuario')
+
     
 
 

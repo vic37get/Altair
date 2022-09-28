@@ -5,7 +5,7 @@
 {% include 'messages.html' %}
 
 <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha formLic";>
-      <form action="{% url 'home_page:submeterCadastro' %}" method="post">
+      <form action="{% url 'home_page:loginForm' %}" method="post">
         {% csrf_token %}
         <div class="form-row">
           <div class="form-group col-md-6 w-100">
