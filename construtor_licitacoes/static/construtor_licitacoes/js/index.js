@@ -19,5 +19,6 @@ function statusLicitacao(licitacao,id) {
     if(licitacao!=0){
         document.getElementById("editar"+id).disabled = true;
         document.getElementById("excluir"+id).disabled = true;
+        
     }
   }
