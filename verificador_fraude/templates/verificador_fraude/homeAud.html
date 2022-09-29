@@ -52,7 +52,7 @@
                         </script>
                         <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
                 </div>
-                <div class="rodapeCard p-2 mb-1 flex-column">
+                <div class="rodapeCard p-2 flex-column">
                     <div id="divobjeto{{licitacao|private:'_id'}}"class="objeto p-2">
                         <script>
                             var div = document.getElementById("divobjeto{{licitacao|private:'_id'}}");
@@ -78,7 +78,7 @@
                         
                     </div>
                 </div>
-                <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                <div class="card-footer p-1 barra_botao_aud">
                     <div class="d-flex">
                         <form class="m-1" action="{% url 'verificador_fraude:avaliar' licitacao|private:'_id' %}" method="post">
                             {% csrf_token %}

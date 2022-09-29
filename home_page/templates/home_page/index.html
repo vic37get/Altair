@@ -76,7 +76,7 @@
                             var titulo = {'tituloArquivo':$(this).val()}
                             $.ajax({
                                 type: 'POST',
-                                url: '/construcao/editarTitulo',
+                                url: '/gestor/construcao/editarTitulo',
                                 data: JSON.stringify({'json':titulo,'_id':"{{licitacao|private:'_id'}}"}),
                                 dataType : 'json',
                                 contentType: 'application/json; charset=utf-8',

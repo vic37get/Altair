@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+{% include 'messages.html' %}
+
+<div class="bg-white formCadastro pt-4 pb-5 px-4 mb-5 mt-5">
+    <div class="logo text-center">
+      <i class="fa-brands fa-artstation logoAltair"></i>
+    </div>
+    <form action="{% url 'home_all:submeterCadastro' %}" method="post">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group col-md-6 w-100">
+            
+            <label class="m-1 mt-2" for="usuario">Usuário</label>
+            <input name="usuario" type="text" required class="form-control  inputform" placeholder="Usuário">
+
+            <label class="m-1 mt-2" for="senha">Senha</label>
+            <input id="senha" name="senha" type="password" class="form-control inputform" placeholder="Senha" required>
+            <div class="text-center mt-1">
+              <a class="text-decoration-none" href={% url 'home_all:cadastro' %}>Não possui conta? Cadastre-se</a>
+            </div>
+          </div>
+        </div>
+        <div class="botoes_login text-center">
+          <!--<a href={% url 'home_page:index' %} class="btn btn-outline-dark colorButton mt-4">Enviar</a>-->
+          <button type="submit" class="btn btn-outline-dark colorButton mt-3">Login</button>
+        </div>
+      </form>
+</div>
+{% endblock %}

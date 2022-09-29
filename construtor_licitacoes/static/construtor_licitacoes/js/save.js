@@ -23,7 +23,7 @@ function saveJSON(id){
     var dataJSON = createJSON(id,id_template);
     $.ajax({
       type: 'POST',
-      url: '/construcao/salvar',
+      url: '/gestor/construcao/salvar',
       data: dataJSON,
       contentType: 'application/json; charset=utf-8',
       cache: false,

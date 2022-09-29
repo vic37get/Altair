@@ -1,11 +1,21 @@
 
 :root {
   --fonte: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --cor_principal: #00684a;
-  --cor_principal_contraste: #00684bb2;
-  --cor_fundo: rgb(230, 230, 230);
+  --cor_principal: #1C3879;
+  --cor_principal_contraste: #607EAA;
+  --cor_fundo: #EAE3D2;
+  --cor_secundaria_fundo: #dfd8c5;
+  --cor_divs_contraste: #ece8de;
+  --cor_hover_cinza: rgb(126, 126, 126);
+  --cor_menu_lateral_direito: rgb(50, 54, 57);
+  --cor_divs: #F9F5EB;
   --cor_status_pendente: #d2d227;
   --cor_status_submetido: rgb(15, 99, 15);
+}
+
+* {
+  margin:0;
+  padding:0;
 }
 
 #corpo_interno{
@@ -128,7 +138,7 @@ footer {
   }
   
   .sidebar button:hover {
-    color: rgb(126, 126, 126);
+    color: var(cor_hover_cinza);
   }
   
   .sidebar .closebtn {
@@ -161,7 +171,7 @@ footer {
 }
 
 .openbtn:hover {
-  background-color: rgb(126, 126, 126);
+  background-color: var(--cor_hover_cinza);
 }
 
 #menuLateralEsquerdo{
@@ -172,7 +182,7 @@ footer {
 }
 
 #menuLateralDireito{
-  background-color: rgb(50, 54, 57);
+  background-color: var(--cor_menu_lateral_direito);
   right: 0;
 }
 
@@ -187,12 +197,12 @@ footer {
 }
 
 #btnRight{
-  background-color: rgb(50, 54, 57);
+  background-color: var(--cor_menu_lateral_direito);
   right: 0;
 }
 
 #mySidebarRight{
-  background-color: rgb(50, 54, 57);
+  background-color: var(--cor_menu_lateral_direito);
   right: 0;
 }
 
@@ -209,8 +219,13 @@ footer {
 
 }
 
+.tituloEditavel input{
+  background-color: var(--cor_divs) !important;
+}
+
 .tituloEditavel input:hover{
-  border: 2px solid rgb(99, 99, 99) !important;
+  background-color: var(--cor_divs) !important;
+  border: 2px solid rgb(80, 80, 80) !important;
   border-radius: 3px;
   width: auto !important;
   padding: 0;
@@ -262,7 +277,7 @@ footer {
   margin: 0 auto;
   border: 1px solid rgb(170, 170, 170);
   border-radius: 5px;
-  background-color: rgb(215, 215, 215);
+  background-color: var(--cor_divs_contraste);
   margin-top: 35px;
 }
 
@@ -287,18 +302,18 @@ footer {
 
 .buttonNew{
   background-color: #fff !important;
-  color: #00553d !important;
+  color: var(--cor_principal) !important;
   font-weight: bold !important;
   text-shadow: none !important;
 }
 
 .buttonNew:hover{
   background-color: rgb(185, 185, 185) !important;
-  color: #003f2d !important;
+  color: var(--cor_principal) !important;
 }
 
 .h-100{
-  background-color: white;
+  background-color: var(--cor_divs);
   border: 1px solid rgb(112, 112, 112);
   box-shadow: 0 0 0.1cm rgba(0, 0, 0, 0.5);
 }
@@ -311,7 +326,7 @@ footer {
 }
 
 .colorButton:hover{
-  background-color: #003f2d;
+  background-color: var(--cor_principal);
 }
 
   #embedpreview{
