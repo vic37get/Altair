@@ -47,6 +47,27 @@ class PadraoLicitacao:
             return True
 
     def verificaSecoesPrincipais(self):
-        pass
+        for i in Header.SECOES_OBRIGATORIAS:
+            if self.proxylicitacao._Licitacao.secoes_principais[i.getNome()] == False:
+                return 'A secao {} não foi encontrada'.format(i.getNome())
+        return True
+
+    def verificaAviso(self):
+        testeAviso = self.proxylicitacao.getTipoValidade()
+        if testeAviso == Header.TIPOS['AVISO']:
+            return False
+        return True
+
+    def podeSerEnviado(self):
+        condicoes = [
+            self.verificaTipo(),
+            self.verificaPesquisavel(),
+            self.verificaSecaoVazia(),
+            self.verificaOrdemSecoes(),
+            self.verificaSecoesPrincipais(),
+            self.verificaAviso()
+        ]
+
+        return all(condicoes)
 
 
