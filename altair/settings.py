@@ -110,6 +110,9 @@ WSGI_APPLICATION = 'altair.wsgi.application'
         }
 }'''
 
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_SAVE_EVERY_REQUEST = True 
+#SESSION_ENGINE = 'mongo_sessions.session'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
