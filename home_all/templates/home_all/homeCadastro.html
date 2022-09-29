@@ -4,7 +4,7 @@
 {% block content %}
 {% include 'messages.html' %}
 
-<div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha formCadastro">
+<div class="bg-white formCadastro pt-4 pb-5 px-4 mb-5 mt-5">
     <div class="logo text-center">
       <i class="fa-brands fa-artstation logoAltair"></i>
     </div>
@@ -36,8 +36,11 @@
 
           </div>
         </div>
-        <!--<a href={% url 'home_page:index' %} class="btn btn-outline-dark colorButton mt-4">Enviar</a>-->
-        <button type="submit" class="btn btn-outline-dark colorButton mt-4">Enviar</button>
+        <div class="botoes_login text-center">
+          <!--<a href={% url 'home_page:index' %} class="btn btn-outline-dark colorButton mt-4">Enviar</a>-->
+          <button type="submit" class="btn btn-outline-dark colorButton mt-4 ">Criar conta</button>
+          <a href={% url 'home_all:login' %} class="btn btn-outline-dark colorButton bg-danger ms-1 mt-4">Cancelar</a>
+        </div>
       </form>
       <script>
         var password = document.getElementById("senha")

@@ -13,6 +13,11 @@
   --cor_status_submetido: rgb(15, 99, 15);
 }
 
+* {
+  margin:0;
+  padding:0;
+}
+
 #corpo_interno{
   box-sizing: content-box;
   display: contents;

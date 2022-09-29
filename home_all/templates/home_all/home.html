@@ -43,17 +43,14 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         </div>
     </nav>
-    <body id="main_body"
-        <!-- Navigation-->
-        <!-- Section-->
-        <section class="py-5" id="corpo_principal_home_all">
-            <div class="container px-4 px-lg-5 mt-5" id="corpo_interno" >        
-                {% block content %}
-                {% endblock %}
-            </div>
-        </section>
+    <body>
+        <div class="d-flex align-items-center justify-content-center mt-5">     
+            {% block content %}
+            {% endblock %}
+        </div>
     </body>
     <footer>
         <div class="foot">Copyright &copy; www.altair.com 2022</div>
     </footer>
+
 </html>
