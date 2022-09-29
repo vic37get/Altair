@@ -16,3 +16,39 @@ def authenticate(user,password):
         return [True,user_temp]
     else:
         return [False,None]
+
+from django.contrib import messages
+from django.shortcuts import redirect
+def gestor_required(f):
+     def verifica(request, *args, **kwargs):
+          if request.session['cargo']!='Gestor':
+            messages.info(request, 'Necessario logar como auditor')
+            return redirect('/login')
+          else:
+               return f(request, *args, **kwargs)
+     verifica.__doc__= f.__doc__
+     verifica.__name__= f.__name__
+     return verifica
+
+
+def aud_required(f):
+     def verifica(request, *args, **kwargs):
+          if request.session['cargo']!='Auditor':
+            messages.info(request, 'Necessario logar como auditor')
+            return redirect('/login')
+          else:
+               return f(request, *args, **kwargs)
+     verifica.__doc__= f.__doc__
+     verifica.__name__= f.__name__
+     return verifica
+    
+def login_required(f):
+     def verifica(request, *args, **kwargs):
+          if len(request.session.keys()) == 0:
+            messages.info(request, 'Necessario relizar login')
+            return redirect('/login')
+          else:
+               return f(request, *args, **kwargs)
+     verifica.__doc__= f.__doc__
+     verifica.__name__= f.__name__
+     return verifica

@@ -13,4 +13,5 @@ urlpatterns = [
     path('cadastrar',views.submeterCadastro,name='submeterCadastro'),
     path('loginForm',views.login,name="loginForm"),
     path('filtro',views.filtro,name='filtro'),
+    path('logout',views.logout,name='logout'),
 ]

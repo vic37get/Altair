@@ -11,15 +11,19 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
-from utils import connectMongo
+from utils import connectMongo,login_required,gestor_required
 
 db_client = connectMongo('Altair')
+
+@login_required
+@gestor_required
 def nova_licitacao(request,pk):
     collection_licitacao = db_client['licitacao']
-    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M')})
+    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id'])})
     return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
 
-
+@login_required
+@gestor_required
 def editar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
@@ -37,6 +41,8 @@ def editar(request,pk):
     return HttpResponse(modelo.render(context, request))
 
 @csrf_exempt
+@login_required
+@gestor_required
 def salvar(request):
     if request.method == 'POST':
         collection_licitacao = db_client['licitacao']
@@ -45,6 +51,8 @@ def salvar(request):
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
     return HttpResponse()
 
+@login_required
+@gestor_required
 def excluir(request,pk):
     collection_licitacao = db_client['licitacao']
     if request.method == 'POST':
@@ -57,13 +65,17 @@ def excluir(request,pk):
         return redirect('/')
 
 @csrf_exempt
+@login_required
+@gestor_required
 def editarTitulo(request):
     if request.method == 'POST':
         collection_licitacao = db_client['licitacao']
         data = json.loads(request.body.decode('utf-8'))
         collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
     return HttpResponse()
-    
+
+@login_required
+@gestor_required
 def enviarConstrucao(request, pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
@@ -74,6 +86,8 @@ def enviarConstrucao(request, pk):
     modelo = loader.get_template('construtor_licitacoes/enviarConstrucao.html')
     return HttpResponse(modelo.render(context, request))
 
+@login_required
+@gestor_required
 def salvarFormulario(request, pk):
     if request.method == 'POST':
         collection_licitacao = db_client['licitacao']
@@ -86,12 +100,16 @@ def salvarFormulario(request, pk):
         messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi enviada!')
     return redirect('/')
 
+@login_required
+@gestor_required
 def enviar(request):
     modelo = loader.get_template('construtor_licitacoes/enviarGeral.html')
     context = {
     }
     return HttpResponse(modelo.render(context, request))
 
+@login_required
+@gestor_required
 def enviarGeral(request):
     if request.method == 'POST':
         collection_licitacao = db_client['licitacao']
@@ -111,6 +129,8 @@ import weasyprint
 #pip install django-easy-pdf
 #django-easy-pdf>=0.2.0 and WeasyPrint>=0.34
 @csrf_exempt
+@login_required
+@gestor_required
 def toPDF(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))

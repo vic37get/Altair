@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib import messages
-from utils import authenticate, connectMongo
+from utils import authenticate, connectMongo,login_required,gestor_required
 from django.contrib.auth.forms import UserCreationForm  
 
 
@@ -38,14 +38,15 @@ def login(request):
             messages.info(request, 'Usuario ou senha incorretos')
             return redirect('/login')
 
-def logoff(request):
+@login_required
+def logout(request):
     del request.session
+    return redirect('/login')
 
 
+@login_required
+@gestor_required
 def index(request):
-    if len(request.session.keys()) == 0:
-        messages.info(request, 'Necessario relizar login')
-        return redirect('/login')
     template = loader.get_template('home_page/index.html')
     collection_licitacao = db_client['licitacao']
     licitacoes = collection_licitacao.find({'id_author':str(request.session['id'])})
@@ -54,6 +55,8 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
+@gestor_required
 def modelo(request):
     modelo = loader.get_template('construtor_licitacoes/modelos.html')
     collection = db_client['template']
@@ -63,6 +66,8 @@ def modelo(request):
     }
     return  HttpResponse(modelo.render(context, request))
 
+@login_required
+@gestor_required
 def enviar(request):
     modelo = loader.get_template('home_page/enviar.html')
     collection_licitacao = db_client['licitacao']
@@ -71,7 +76,9 @@ def enviar(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(modelo.render(context, request))
-    
+
+@login_required
+@gestor_required  
 def filtro(request):
     collection_licitacao = db_client['licitacao']
     home = loader.get_template('home_page/index.html')
