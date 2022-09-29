@@ -22,7 +22,7 @@ from django.shortcuts import redirect
 def gestor_required(f):
      def verifica(request, *args, **kwargs):
           if request.session['cargo']!='Gestor':
-            messages.info(request, 'Necessario logar como auditor')
+            messages.info(request, 'Necessario logar como gestor')
             return redirect('/login')
           else:
                return f(request, *args, **kwargs)
@@ -47,6 +47,20 @@ def login_required(f):
           if len(request.session.keys()) == 0:
             messages.info(request, 'Necessario relizar login')
             return redirect('/login')
+          else:
+               return f(request, *args, **kwargs)
+     verifica.__doc__= f.__doc__
+     verifica.__name__= f.__name__
+     return verifica
+
+def logged(f):
+     def verifica(request, *args, **kwargs):
+          if len(request.session.keys()) != 0:
+               messages.info(request, 'Usuario: '+request.session['nome']+' já logado')
+               if request.session['cargo']!='Auditor':
+                    return redirect('/aud')
+               if request.session['cargo']!='Gestor':
+                    return redirect('/gestor')     
           else:
                return f(request, *args, **kwargs)
      verifica.__doc__= f.__doc__
