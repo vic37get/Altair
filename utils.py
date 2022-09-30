@@ -48,6 +48,9 @@ def login_required(f):
             messages.info(request, 'Necessario relizar login')
             return redirect('/login')
           else:
+               if request.session['logged'] == False:
+                    messages.info(request, 'Necessario relizar login')
+                    return redirect('/login')
                return f(request, *args, **kwargs)
      verifica.__doc__= f.__doc__
      verifica.__name__= f.__name__

@@ -18,7 +18,7 @@ def login(request):
 
 @login_required
 def logout(request):
-    del request.session
+    request.session['logged'] = False
     return redirect('/login')
 
 def loginAuth(request):

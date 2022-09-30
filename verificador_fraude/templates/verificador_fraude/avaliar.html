@@ -2,12 +2,30 @@
 {%load static%}
 {%load tagger%}
 {% block content %}
+<div class="modal" tabindex="-1" role="dialog" id="modal-mensagem">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Título do modal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Texto do corpo do modal, é aqui.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="conteudos_interna">
   <div class="BotaoVoltarAud">
-    
   </div>
   <div class="SobreLic">
-    <a class="btn btn-left btn-info mb-3 border-1 border-dark text-white" href="{% url 'home_page:homeAud' %}">⬅️ Voltar</a>
+    <a class="btn btn-left btn-info mb-3 border-1 border-dark text-white" href="{% url 'verificador_fraude:homeAud' %}">⬅️ Voltar</a>
     <div class="TituloCard">
       <a class="nomelic"><i class="fa-solid fa-landmark"></i> Licitação: </a>{{licitacao_dados.arquivo}}
     </div>
@@ -30,12 +48,17 @@
         <h4 class="TitulosInformacoesLic">Objeto:</h4>
         <p class="TextoInformacoesLic">{{licitacao_dados.objeto}}</p>
       </div>
-      <div class="botoes">
-        <form class="d-flex flex-row align-items-baseline" action="{% url 'verificador_fraude:verificar' licitacao_dados|private:'_id' %}" method="get">
-          <button type="submit" class="btn btn-left btn-danger border-dark text-white"><i class="fa-solid fa-land-mine-on"></i> Verificar Indícios</button>
-            <span class="bg-primary border-dark text-white ms-2 input-group-text"><i class="fa-solid fa-ruler-vertical me-2"></i> Tamanho do contexto</span>
+      <div class="d-flex flex-row">
+        <div class="w-100 botoes d-flex">
+          <form class="d-flex flex-row align-items-baseline" action="{% url 'verificador_fraude:verificar' licitacao_dados|private:'_id' %}" method="get">
+            <button type="submit" class="btn btn-left btn-danger border-dark text-white"><i class="fa-solid fa-land-mine-on"></i> Verificar Indícios</button>
+            <p><i class="fa-solid fa-ruler-vertical me-2 mx-2"></i> Tamanho do contexto:</p>
             <input class="ms-1 form-control border-1 border-dark" name="tamanho" type="number" value="200" style="width:70px;"></input>
-        </form>
+          </form>
+        </div>
+        <div class="w-25 botoes d-flex align-items-center">
+          <button type="button" data-toggle="modal" data-target="#modal-mensagem" id="btn-mensagem" class="btn btn-left btn-primary border-dark text-white"><i class="fa-sharp fa-solid fa-check"></i>Avaliar</button>
+        </div>
       </div>
     </div>
     <div class="Achados">   
@@ -75,6 +98,10 @@
   </div>
 </div>
   <script type="text/javascript">
+    $("#btn-mensagem").click(function(){
+      document.getElementById("#modal-mensagem").style.display = 'block';
+      $("#modal-mensagem").modal();
+    });
     var database = "{{licitacao}}".split(";")
     var elemento = document.getElementById("embedavaliar");
     if(database.length == 4){
