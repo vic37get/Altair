@@ -36,7 +36,7 @@ def perfil(request):
         'cargo': request.session['cargo'],
         'nome':  request.session['nome'],
     }
-    perfil = loader.get_template('home_all/perfil.html')
+    perfil = loader.get_template('verificador_fraude/perfil.html')
     return HttpResponse(perfil.render(context, request))
 
 @login_required
