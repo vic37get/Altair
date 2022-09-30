@@ -1,16 +1,10 @@
-from django.shortcuts import render,redirect
-from django.template import loader
-from django.http import HttpResponse
-from utils import login_required
 from django.contrib import messages
-from utils import authenticate, connectMongo,login_required,logged
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template import loader
+from utils import authenticate, connectMongo, logged, login_required
 
 db_client = connectMongo('Altair')
-
-@login_required
-def home(request):
-    home = loader.get_template('home_all/home.html')
-    return HttpResponse(home.render({}, request))
 
 def login(request):
     login = loader.get_template('home_all/homeLogin.html')
