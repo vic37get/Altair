@@ -4,45 +4,9 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib import messages
 from utils import authenticate, connectMongo,login_required,gestor_required
-from django.contrib.auth.forms import UserCreationForm  
 
 
 db_client = connectMongo('Altair')
-
-def InicialLogin(request):
-    login = loader.get_template('home_page/login.html')
-    context = {
-
-    }
-    return HttpResponse(login.render(context, request))
-
-def login(request):
-    if request.method == "POST":
-        #collection_usuario = db_client['usuario']
-        dados_usuario = request.POST.copy()
-        del dados_usuario['csrfmiddlewaretoken']
-        isExists,user = authenticate(dados_usuario['usuario'],dados_usuario['senha'])
-        request.session['logged'] = False
-        if isExists:
-            request.session['username'] =user['userID']
-            request.session['email'] = user['email']
-            request.session['id'] = user['_id']
-            request.session['cargo'] = user['cargo']
-            request.session['nome'] = user['nome']
-            request.session['logged'] = True
-            if(request.session['cargo'] == 'Gestor'):
-                return redirect('/')
-            elif(request.session['cargo'] == 'Auditor'):
-                return redirect('/aud')
-        else:
-            messages.info(request, 'Usuario ou senha incorretos')
-            return redirect('/login')
-
-@login_required
-def logout(request):
-    del request.session
-    return redirect('/login')
-
 
 @login_required
 @gestor_required
