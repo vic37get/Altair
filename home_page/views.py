@@ -19,6 +19,18 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+@login_required
+def perfil(request):
+    context = {
+        'usuario': request.session['username'],
+        'email': request.session['email'],
+        'cargo': request.session['cargo'],
+        'nome':  request.session['nome'],
+    }
+    perfil = loader.get_template('home_page/perfil.html')
+    return HttpResponse(perfil.render(context, request))
+
 @login_required
 @gestor_required
 def modelo(request):

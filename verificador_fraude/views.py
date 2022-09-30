@@ -4,11 +4,11 @@ import json
 import bson.json_util as json_util
 from bson.binary import Binary
 from bson.objectid import ObjectId
-from django.http import HttpResponse
 from django.contrib import messages
-from django.shortcuts import render,redirect
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.template import loader
-from utils import connectMongo,aud_required,login_required
+from utils import aud_required, connectMongo, login_required
 
 db_client = connectMongo('Altair')
 
@@ -27,6 +27,17 @@ def homeAud(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(template.render(context, request))
+
+@login_required
+def perfil(request):
+    context = {
+        'usuario': request.session['username'],
+        'email': request.session['email'],
+        'cargo': request.session['cargo'],
+        'nome':  request.session['nome'],
+    }
+    perfil = loader.get_template('home_all/perfil.html')
+    return HttpResponse(perfil.render(context, request))
 
 @login_required
 @aud_required
@@ -68,7 +79,7 @@ def filtroVerificador(request):
 @login_required
 @aud_required
 def verificar(request,pk):
-    from logic import Tokeniza,Header
+    from logic import Header, Tokeniza
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
     tam = int(request.GET['tamanho'])
