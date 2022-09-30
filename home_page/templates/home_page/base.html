@@ -30,47 +30,50 @@
         <script src={%static "construtor_licitacoes/js/templatesSecoes.js"%} ></script>
         <script src={%static "construtor_licitacoes/js/downloadPdf.js"%} ></script>
         <script src={%static "construtor_licitacoes/js/index.js"%} ></script>
-
         <!-- CSS -->
         <link href={%static "construtor_licitacoes/css/estilo_adicionar.css" %} rel="stylesheet" referrerpolicy="origin"></script>
-        <link href={%static "construtor_licitacoes/css/estilo_construtor.css" %} rel="stylesheet" referrerpolicy="origin"></script>
+        <link href={%static "verificador_fraude/css/estilo_verificador.css" %} rel="stylesheet" referrerpolicy="origin"></script>
         <link href={%static "construtor_licitacoes/css/estilo_construtor.css" %} rel="stylesheet" referrerpolicy="origin"></script>
         
         <!-- Icones fontaweasome-->
         <script src="https://kit.fontawesome.com/4169326a4c.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
 
-    </head>
+        <!-- Jquery Links -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    </head>
+    
     <nav class="navbar navbar-expand-lg navbar-light menu">
-        <div class="container px-4 px-lg-5">
+        <div class="container itens_menu">
             <a class="navbar-brand" href={% url 'home_page:index' %}><i class="fa-brands fa-artstation"></i> Altair</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Modulos</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">Construção de Licitacao</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Verificação de Fraudes</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Simplificação de Leitura</a></li>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Módulos</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Enviar Licitação</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href={% url 'home_page:index' %}>Minhas Licitações</a></li>
-                    <li class="nav-item"><a class="nav-link" href={% url 'construtor_licitacoes:enviar' %}>Enviar Licitação</a></li>
+                    <li class="nav-item"><a class="nav-link" href={% url 'home_page:index' %}>Licitações</a></li>
+                    <li class="nav-item dropdown perfilMenu">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa-solid fa-user"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'home_all:logout' %}">Sair</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
-    <body id="main_body"  ">
+    <body id="main_body">
         <!-- Navigation-->
         <!-- Section-->
         <section class="py-5" id="corpo_principal">
-            <div class="container px-4 px-lg-5 mt-5" id="corpo_interno" >        
+            <div class="container px-4 px-lg-5 mt-5" id="corpo_interno" >   
                 {% block content %}
                 {% endblock %}
             </div>
