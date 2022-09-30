@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
-from utils import connectMongo,login_required,gestor_required
+from utils import connectMongo, gestor_required, login_required
 
 db_client = connectMongo('Altair')
 
@@ -19,7 +19,7 @@ db_client = connectMongo('Altair')
 @gestor_required
 def nova_licitacao(request,pk):
     collection_licitacao = db_client['licitacao']
-    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id'])})
+    id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0,'base64': Binary(''.encode()), 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id'])})
     return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
 
 @login_required
@@ -85,6 +85,7 @@ def enviarConstrucao(request, pk):
     }
     modelo = loader.get_template('construtor_licitacoes/enviarConstrucao.html')
     return HttpResponse(modelo.render(context, request))
+
 
 @login_required
 @gestor_required

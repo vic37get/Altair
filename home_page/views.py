@@ -1,10 +1,10 @@
 from multiprocessing import context
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.template import loader
-from django.contrib import messages
-from utils import authenticate, connectMongo,login_required,gestor_required
 
+from django.contrib import messages
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template import loader
+from utils import authenticate, connectMongo, gestor_required, login_required
 
 db_client = connectMongo('Altair')
 

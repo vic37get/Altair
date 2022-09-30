@@ -1,6 +1,7 @@
 from django.urls import include, path
-from . import views
 from verificador_fraude import views as viewAud
+
+from . import views
 
 app_name='home_page'
 urlpatterns = [
