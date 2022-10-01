@@ -38,16 +38,16 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Módulos</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Enviar Licitação</a></li>
+                            <li><a class="dropdown-item" href="#">Verificar indícios <i class="fa-solid fa-land-mine-on"></i></a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href={% url 'verificador_fraude:homeAud' %}>Licitações</a></li>
                     <li class="nav-item dropdown perfilMenu">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa-solid fa-user"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'verificador_fraude:perfil' %}">Perfil</a></li>
+                            <li><a class="dropdown-item" href="{% url 'verificador_fraude:perfil' %}">Perfil <i class="fa-solid fa-address-card"></i></a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'home_all:logout' %}">Sair</a></li>
+                            <li><a class="dropdown-item" href="{% url 'home_all:logout' %}">Sair <i class="fa-solid fa-door-open"></i></a></li>
                         </ul>
                     </li>
                 </ul>
