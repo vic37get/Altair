@@ -55,4 +55,4 @@ def submeterCadastro(request):
         else:
             messages.info(request, 'Ação invalida, usuário: \''+busca['userID']+'\' já existe!')
             print('Usuário já existe')
-            return redirect('/cadastrarUsuario')
+            return redirect('/cadastro')
