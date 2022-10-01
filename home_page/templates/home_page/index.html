@@ -97,7 +97,7 @@
                     </form>
                     <form class="m-1" action="{% url 'construtor_licitacoes:excluir' licitacao|private:'_id' %}" method="post">
                         {% csrf_token %}
-                        <input id="excluir{{licitacao|private:'_id'}}" class="btn btn-outline-dark colorButton" type="submit" value="Excluir">
+                        <input id="excluir{{licitacao|private:'_id'}}" class="btn btn-outline-dark colorButton btn-vermelho" type="submit" value="Excluir">
                     </form>
                     <script>
                         $(window).on('load', switchLockEdit("{{licitacao.status}}","{{licitacao|private:'_id'}}"));

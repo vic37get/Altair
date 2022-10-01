@@ -20,7 +20,7 @@ html{
 }
 body{
   overflow: auto;
-  background-image: url(https://wallpaperaccess.com/full/1506463.jpg) !important;
+  background-image: url(../assets/imagem_fundo.jpg) !important;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   height: 100% !important;

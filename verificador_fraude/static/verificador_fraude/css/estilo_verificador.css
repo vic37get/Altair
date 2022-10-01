@@ -5,7 +5,7 @@
     --cor_principal_contraste: #607EAA;
     --cor_fundo: rgb(235, 240, 255);
     --cor_hover: #19326d;
-    --cor_divs: #fffcf4;
+    --cor_divs: #ffffff;
     --cor_divs_contraste: rgb(225, 230, 255);
     --cor_secundaria_fundo: #d4cebf;
     --background_hover: rgb(185, 185, 185);
@@ -111,7 +111,7 @@
 }
 
 .barraDosFiltros{
-    width: 95%;
+    width: 100%;
     padding: 0;
 }
 

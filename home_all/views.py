@@ -6,6 +6,11 @@ from utils import authenticate, connectMongo, logged, login_required
 
 db_client = connectMongo('Altair')
 
+@login_required
+def home(request):
+    home = loader.get_template('home_all/home.html')
+    return HttpResponse(home.render({}, request))
+
 def login(request):
     login = loader.get_template('home_all/homeLogin.html')
     return HttpResponse(login.render({}, request))

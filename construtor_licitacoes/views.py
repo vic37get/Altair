@@ -85,8 +85,6 @@ def enviarConstrucao(request, pk):
     }
     modelo = loader.get_template('construtor_licitacoes/enviarConstrucao.html')
     return HttpResponse(modelo.render(context, request))
-
-
 @login_required
 @gestor_required
 def salvarFormulario(request, pk):
@@ -117,7 +115,7 @@ def enviarGeral(request):
         data = request.POST
         arquivo = request.FILES['arquivopdf'].read()
         bytespdf = base64.b64encode(arquivo)
-        id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
+        id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id']), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
     return redirect('/gestor')    
 
     
