@@ -98,7 +98,7 @@ def salvarFormulario(request, pk):
         licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
         collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
         messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi enviada!')
-    return redirect('/')
+    return redirect('/gestor')
 
 @login_required
 @gestor_required
