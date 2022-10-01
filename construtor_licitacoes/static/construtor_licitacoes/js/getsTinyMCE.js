@@ -45,7 +45,7 @@ function getAllIds(){
     dataPDf = JSON.stringify(dataPDf);
     $.ajax({
       type: 'POST',
-      url: '/construcao/toPDF',
+      url: '/gestor/construcao/toPDF',
       data: dataPDf,
       contentType: 'application/json; charset=utf-8',
       cache: false,
