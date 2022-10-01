@@ -20,7 +20,7 @@ db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
     collection_licitacao = db_client['licitacao']
     id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id'])})
-    return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
+    return redirect('/gestor/construcao/editarLicitacao/'+str(id.inserted_id))
 
 @login_required
 @gestor_required
@@ -117,7 +117,7 @@ def enviarGeral(request):
         arquivo = request.FILES['arquivopdf'].read()
         bytespdf = base64.b64encode(arquivo)
         id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
-    return redirect('/')  
+    return redirect('/gestor')  
 
     
 #sudo apt-get install libpangocairo-1.0-0
