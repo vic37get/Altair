@@ -223,6 +223,20 @@
     font-weight: 590;
 }
 
+.modal-dialog{
+    max-width: 600px !important;
+}
+.radio{
+    font-size: larger;
+}
+.radio input{
+    width: 20px;
+    height: 20px;
+}
+.modal-body{
+    padding: 1.2rem !important;
+}
+
 .itens_menu{
     position: relative;
 }
@@ -231,3 +245,4 @@
     position: absolute;
     right: 0;
 }
+

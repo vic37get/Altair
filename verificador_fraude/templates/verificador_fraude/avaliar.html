@@ -2,12 +2,19 @@
 {%load static%}
 {%load tagger%}
 {% block content %}
+{% include 'messages.html' %}
+<script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 3000)
+</script>
 <div class="conteudos_interna">
   <div class="BotaoVoltarAud">
-    
   </div>
   <div class="SobreLic">
-    <a class="btn btn-left btn-info mb-3 border-1 border-dark text-white" href="{% url 'home_page:homeAud' %}">⬅️ Voltar</a>
+    <a class="btn btn-left btn-info mb-3 border-1 border-dark text-white" href="{% url 'verificador_fraude:homeAud' %}">⬅️ Voltar</a>
     <div class="TituloCard">
       <a class="nomelic"><i class="fa-solid fa-landmark"></i> Licitação: </a>{{licitacao_dados.arquivo}}
     </div>
@@ -30,12 +37,17 @@
         <h4 class="TitulosInformacoesLic">Objeto:</h4>
         <p class="TextoInformacoesLic">{{licitacao_dados.objeto}}</p>
       </div>
-      <div class="botoes">
-        <form class="d-flex flex-row align-items-baseline" action="{% url 'verificador_fraude:verificar' licitacao_dados|private:'_id' %}" method="get">
-          <button type="submit" class="btn btn-left btn-danger border-dark text-white"><i class="fa-solid fa-land-mine-on"></i> Verificar Indícios</button>
-            <span class="bg-primary border-dark text-white ms-2 input-group-text"><i class="fa-solid fa-ruler-vertical me-2"></i> Tamanho do contexto</span>
+      <div class="d-flex flex-row">
+        <div class="w-100 botoes d-flex">
+          <form class="d-flex flex-row align-items-baseline" action="{% url 'verificador_fraude:verificar' licitacao_dados|private:'_id' %}" method="get">
+            <button type="submit" class="btn btn-left btn-danger border-dark text-white"><i class="fa-solid fa-land-mine-on"></i> Verificar Indícios</button>
+            <p><i class="fa-solid fa-ruler-vertical me-2 mx-2"></i> Tamanho do contexto:</p>
             <input class="ms-1 form-control border-1 border-dark" name="tamanho" type="number" value="200" style="width:70px;"></input>
-        </form>
+          </form>
+        </div>
+        <div class="w-25 botoes d-flex align-items-center">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-check"></i>Avaliar</button>
+        </div>
       </div>
     </div>
     <div class="Achados">   
@@ -75,6 +87,10 @@
   </div>
 </div>
   <script type="text/javascript">
+    $("#btn-mensagem").click(function(){
+      document.getElementById("#modal-mensagem").style.display = 'block';
+      $("#modal-mensagem").modal();
+    });
     var database = "{{licitacao}}".split(";")
     var elemento = document.getElementById("embedavaliar");
     if(database.length == 4){
@@ -86,5 +102,42 @@
       var database2 = database[1].split("&")
       elemento.src = "data:application/pdf;base64," + database2[0] + "#view=FitH"
     }
+    
   </script>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Avaliação</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'verificador_fraude:avaliacao' licitacao_dados|private:'_id' %}" method="get">
+          {% csrf_token %}
+          <div class="modal-body">
+            <h5>Acredita que existem indicios de fraudes nesse edital?</h5>
+            <div class="radio my-2">
+              <input type="radio" id="sim" name="isIndicio" value="1">
+              <label for="sim">Sim</label><br>
+              <input type="radio" id="no" name="isIndicio" value="0">
+              <label for="no">Não</label><br>
+            </div>
+            <h5>Se sim,quais?</h5>
+            <div>
+              <textarea name='indiciosApontados' class="form-control my-1" rows="2"></textarea>
+            </div>
+            <h5>Se possivel escreva alguns comentarios para o gestor</h5>
+            <div>
+              <textarea name='comentarios' class="form-control my-1" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

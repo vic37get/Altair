@@ -100,3 +100,17 @@ def verificar(request,pk):
     }
     modelo = loader.get_template('verificador_fraude/avaliar.html')
     return HttpResponse(modelo.render(context, request))
+
+@login_required
+@aud_required
+def avalicao(request,pk):
+    collection_avaliacao = db_client['avaliacao']
+    collection_licitacao = db_client['licitacao']
+    if request.method == 'GET':
+        data = request.GET.copy()
+        del data['csrfmiddlewaretoken']
+        data['_idLicitacao'] = pk
+        collection_avaliacao.insert_one(dict(data))
+        collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':{'avaliada':1,'comentarios':data['comentarios']}},upsert=True)
+        messages.info(request,'Avaliação registrada')
+    return redirect('/aud/avaliar/'+pk)

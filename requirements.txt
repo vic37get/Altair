@@ -7,3 +7,4 @@ pdfkit==1.0.0
 gunicorn
 weasyprint==56.1
 regex==2022.8.17
+django-bootstrap-modal-forms==2.2.0
