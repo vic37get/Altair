@@ -36,7 +36,7 @@
 <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-2 m-0 justify-content-center">
     <div class="col mb-3 mt-5">
         <div class="card h-100 cardNew">
-            <!-- Ppreview aqui-->
+            <!-- Preview aqui-->
             <!-- detalhes simples-->
             <div class="card-body p-4 text-center">
                 <i class="fa-solid fa-file-circle-plus ico-size"></i><i class=""></i>
@@ -66,7 +66,8 @@
             <div class="licitacaoStatus m-2 d-flex flex-row" >
                 <i id="status{{licitacao|private:'_id'}}" class="status fa-solid fa-circle"></i>
                 <p id="Labelstatus{{licitacao|private:'_id'}}" class="nomeStatus"></p>
-                <button id="modalButton" type="button" class="btn btn-primary btn-sm float-right" data-bs-toggle="modal" data-bs-target="#feedbackAuditor" >
+                
+                <button id="modalButton{{licitacao|private:'_id'}}" type="button" class="btn btn-outline-info btn-sm float-right position-absolute end-0 me-1" data-bs-toggle="modal" data-bs-target="#feedbackAuditor" onclick="atualizaModal('{{licitacao.comentarios}}')" >
                     Feedback
                   </button>
             </div>
@@ -89,8 +90,7 @@
                                 cache: false,
                             });
                         });
-                        $(window).on('load', statusLicitacao("{{licitacao.status}}","{{licitacao|private:'_id'}}"));
-
+                        $(window).on('load', statusLicitacao("{{licitacao.status}}","{{licitacao.avaliada}}","{{licitacao|private:'_id'}}"));
                     </script>
                 </div>
             </div>
@@ -113,21 +113,16 @@
         </div>
     </div>
     
-    {% endfor %}
-</div>
-
-
-  
-  <!-- Modal -->
+     <!-- Modal -->
   <div class="modal fade" id="feedbackAuditor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Feedback Auditor</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, provident ad aut voluptatibus amet eveniet quisquam magnam officiis beatae voluptate nam ratione fugit placeat. Maxime veritatis maiores totam placeat corporis!
+            <p id="modalContent"></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -135,4 +130,10 @@
       </div>
     </div>
   </div>
+    {% endfor %}
+</div>
+
+
+  
+ 
 {% endblock %}
