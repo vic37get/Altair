@@ -2,10 +2,11 @@
 :root {
   --fonte: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --cor_principal: #1C3879;
+  --cor_hover_principal: #12234d;
   --cor_principal_contraste: #607EAA;
-  --cor_fundo: #EAE3D2;
+  --cor_fundo: rgb(235, 240, 255);
   --cor_secundaria_fundo: #dfd8c5;
-  --cor_divs_contraste: #ece8de;
+  --cor_divs_contraste: rgb(225, 230, 255);
   --cor_hover_cinza: rgb(126, 126, 126);
   --cor_menu_lateral_direito: rgb(50, 54, 57);
   --cor_divs: #F9F5EB;
@@ -28,7 +29,7 @@
   text-shadow: 1px 1px 1px black;
   text-align: center;
   font-family: var(--fonte);
-  font-size: 14px;
+  font-size: 16px;
   padding: 0 !important;
   margin: 0.5vh !important;
 }
@@ -138,13 +139,13 @@ footer {
   }
   
   .sidebar button:hover {
-    color: var(cor_hover_cinza);
+    color: var(--cor_hover_cinza);
   }
   
   .sidebar .closebtn {
     position: absolute;
     top: 0;
-    font-size: 1.6vw;
+    font-size: 30px;
   }
 
 #closeRight{
@@ -326,7 +327,7 @@ footer {
 }
 
 .colorButton:hover{
-  background-color: var(--cor_principal);
+  background-color: var(--cor_hover_principal);
 }
 
   #embedpreview{
@@ -341,7 +342,7 @@ footer {
 
   .formLic{
     margin-top: 60px !important;
-    width: 45%;
+    width: 40%;
     padding: 30px !important;
   }
 
@@ -367,4 +368,26 @@ input:disabled{
 
 .FiltrosIndex{
   width: 95%;
+}
+
+.itens_menu{
+  position: relative;
+}
+
+.perfilMenu{
+  position: absolute;
+  right: 0;
+}
+
+#msg{
+  margin-top: 90px !important;
+  z-index: 10;
+}
+
+.btn-vermelho{
+  background-color: #dc3545;
+}
+
+.btn-vermelho:hover{
+  background-color: #9c2330;
 }

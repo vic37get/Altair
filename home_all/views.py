@@ -1,9 +1,8 @@
-from django.shortcuts import render,redirect
-from django.template import loader
-from django.http import HttpResponse
-from utils import login_required
 from django.contrib import messages
-from utils import authenticate, connectMongo,login_required,logged
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template import loader
+from utils import authenticate, connectMongo, logged, login_required
 
 db_client = connectMongo('Altair')
 

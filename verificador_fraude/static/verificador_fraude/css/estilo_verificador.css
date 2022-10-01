@@ -3,10 +3,10 @@
     --cor_menu_lateral_direito: rgb(50, 54, 57);
     --cor_principal: #1C3879;
     --cor_principal_contraste: #607EAA;
-    --cor_fundo: #EAE3D2;
+    --cor_fundo: rgb(235, 240, 255);
     --cor_hover: #19326d;
-    --cor_divs: #F9F5EB;
-    --cor_divs_contraste: #ece8de;
+    --cor_divs: #ffffff;
+    --cor_divs_contraste: rgb(225, 230, 255);
     --cor_secundaria_fundo: #d4cebf;
     --background_hover: rgb(185, 185, 185);
     --cor_bordas: rgb(179, 179, 179);
@@ -111,7 +111,7 @@
 }
 
 .barraDosFiltros{
-    width: 95%;
+    width: 100%;
     padding: 0;
 }
 
@@ -221,4 +221,13 @@
 .IndiciosEncontrados{
     font-family: 'Lato', sans-serif;
     font-weight: 590;
+}
+
+.itens_menu{
+    position: relative;
+}
+
+.perfilMenu{
+    position: absolute;
+    right: 0;
 }

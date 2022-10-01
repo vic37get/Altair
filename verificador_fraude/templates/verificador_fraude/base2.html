@@ -7,10 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>Altair</title>
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Condensed&display=swap" rel="stylesheet">
-
         <!-- Última versão CSS compilada e minificada do Bootstrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         
@@ -33,7 +29,7 @@
         <script src={%static "construtor_licitacoes/js/getsTinyMCE.js"%} ></script>
         <script src={%static "construtor_licitacoes/js/templatesSecoes.js"%} ></script>
         <script src={%static "construtor_licitacoes/js/downloadPdf.js"%} ></script>
-
+        <script src={%static "construtor_licitacoes/js/index.js"%} ></script>
         <!-- CSS -->
         <link href={%static "construtor_licitacoes/css/estilo_adicionar.css" %} rel="stylesheet" referrerpolicy="origin"></script>
         <link href={%static "verificador_fraude/css/estilo_verificador.css" %} rel="stylesheet" referrerpolicy="origin"></script>
@@ -43,37 +39,48 @@
         <script src="https://kit.fontawesome.com/4169326a4c.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
 
-    </head>
+        <!-- Jquery Links -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    </head>
+    
     <nav class="navbar navbar-expand-lg navbar-light menu">
-        <div class="container px-4 px-lg-5">
+        <div class="container itens_menu">
             <a class="navbar-brand" href={% url 'verificador_fraude:homeAud' %}><i class="fa-brands fa-artstation"></i> Altair</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Modulos</a>
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Módulos</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Verificar indícios <i class="fa-solid fa-land-mine-on"></i></a></li>
+                        </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href={% url 'verificador_fraude:homeAud' %}>Licitações</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Verificador de Indícios</a></li>
+                    <li class="nav-item dropdown perfilMenu">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa-solid fa-user"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'verificador_fraude:perfil' %}">Perfil <i class="fa-solid fa-address-card"></i></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'home_all:logout' %}">Sair <i class="fa-solid fa-door-open"></i></a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
     <body id="main_body">
         <!-- Navigation-->
         <!-- Section-->
         <section class="py-5" id="corpo_principal">
-            <div class="container px-4 px-lg-5 mt-5" id="corpo_interno" >        
+            <div class="container px-4 px-lg-5 mt-5" id="corpo_interno" >   
                 {% block content %}
                 {% endblock %}
             </div>
         </section>
     </body>
     <footer>
-        <div class="foot">Copyright &copy; www.altair.com 2022</div>
+        <div class="foot"> <i class="fa-brands fa-artstation"></i> &copy; 2022, Altair </div>
     </footer>
     
 </html>
