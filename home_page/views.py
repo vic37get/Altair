@@ -1,10 +1,10 @@
 from multiprocessing import context
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.template import loader
-from django.contrib import messages
-from utils import authenticate, connectMongo,login_required,gestor_required
 
+from django.contrib import messages
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template import loader
+from utils import authenticate, connectMongo, gestor_required, login_required
 
 db_client = connectMongo('Altair')
 
@@ -18,6 +18,18 @@ def index(request):
         'licitacoes':licitacoes
     }
     return HttpResponse(template.render(context, request))
+
+
+@login_required
+def perfil(request):
+    context = {
+        'usuario': request.session['username'],
+        'email': request.session['email'],
+        'cargo': request.session['cargo'],
+        'nome':  request.session['nome'],
+    }
+    perfil = loader.get_template('home_page/perfil.html')
+    return HttpResponse(perfil.render(context, request))
 
 @login_required
 @gestor_required

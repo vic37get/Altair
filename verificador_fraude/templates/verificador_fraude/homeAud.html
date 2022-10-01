@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class=" row gx-4 gx-lg-5 mb-5 menu_index d-flex">
-    <div class="input-group rounded m-0 p-0 m-auto align-items-center justify-content-center">
+    <div class="input-group rounded m-0 m-auto align-items-center justify-content-center">
         <form class="input-group rounded m-0 m-auto barraDosFiltros" action="{% url 'verificador_fraude:filtroVerificador' %} " method="get">
             {% csrf_token %}
             <select name="tipo" class="form-select rounded filtroTipo me-3 border-secondary w-auto">

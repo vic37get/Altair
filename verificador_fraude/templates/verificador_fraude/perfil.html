@@ -1,0 +1,64 @@
+{% extends 'homePerfilAuditor.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+{% include 'messages.html' %}
+<script>
+  setTimeout(function(){
+    if ($('#msg').length > 0) {
+      $('#msg').remove();
+    }
+  }, 3000)
+</script>
+<div class="bg-white formCadastro pt-4 pb-5 px-4 mb-5 mt-5">
+    <div class="logo text-center">
+      <i class="fa-solid fa-user logoAltair"></i>
+    </div>
+    <form action="{% url 'verificador_fraude:perfil' %}" method="post">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group col-md-6 w-100">
+
+            <label class="m-1 mt-2" for="nome">Nome</label>
+            <input name="nome" type="text" required class="form-control  inputform" value="{{nome}}" placeholder="Nome completo">
+            
+            <label class="m-1 mt-2" for="usuario">Usuário</label>
+            <input name="usuario" type="text" required class="form-control  inputform" value="{{usuario}}" placeholder="Usuário">
+
+            <label class="m-1 mt-2" for="email">Email</label>
+            <input name="email" type="email" required class="form-control  inputform" value="{{email}}" placeholder="Email">
+
+            <label class="m-1 mt-2" for="TipoObjeto">Cargo</label>
+            <input name="cargo" type="text" readonly class="form-control  inputform" value="{{cargo}}" placeholder="Cargo">
+
+            <label class="m-1 mt-2" for="Municipio">Nova senha</label>
+            <input id="senha" name="senha" type="text" class="form-control inputform" placeholder="Senha" required>
+
+            <label class="m-1 mt-2" for="Estado">Confirmar nova senha</label>
+            <input id="confirm_senha" name="confirmacao senha" type="text" class="form-control inputform" placeholder="Confirmação de senha" required>
+
+          </div>
+        </div>
+        <div class="botoes_login text-center">
+          <!--<a href={% url 'home_page:index' %} class="btn btn-outline-dark colorButton mt-4">Enviar</a>-->
+          <button type="submit" class="btn btn-outline-dark colorButton mt-4 ">Salvar dados</button>
+          <a href={% url 'verificador_fraude:homeAud' %} class="btn btn-outline-dark colorButton btn-vermelho ms-1 mt-4">Voltar</a>
+        </div>
+      </form>
+      <script>
+        var password = document.getElementById("senha")
+        , confirm_password = document.getElementById("confirm_senha");
+
+        function validatePassword(){
+          if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Senhas não coincidem");
+          } 
+          else {
+            confirm_password.setCustomValidity('');
+          }
+        }
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+      </script>
+</div>
+{% endblock %}

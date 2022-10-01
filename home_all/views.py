@@ -1,9 +1,8 @@
-from django.shortcuts import render,redirect
-from django.template import loader
-from django.http import HttpResponse
-from utils import login_required
 from django.contrib import messages
-from utils import authenticate, connectMongo,login_required,logged
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.template import loader
+from utils import authenticate, connectMongo, logged, login_required
 
 db_client = connectMongo('Altair')
 
@@ -13,6 +12,7 @@ def home(request):
     return HttpResponse(home.render({}, request))
 
 def login(request):
+    del request.session
     login = loader.get_template('home_all/homeLogin.html')
     return HttpResponse(login.render({}, request))
 
@@ -61,4 +61,4 @@ def submeterCadastro(request):
         else:
             messages.info(request, 'Ação invalida, usuário: \''+busca['userID']+'\' já existe!')
             print('Usuário já existe')
-            return redirect('/cadastrarUsuario')
+            return redirect('/cadastro')
