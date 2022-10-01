@@ -13,6 +13,7 @@ def home(request):
     return HttpResponse(home.render({}, request))
 
 def login(request):
+    del request.session
     login = loader.get_template('home_all/homeLogin.html')
     return HttpResponse(login.render({}, request))
 
