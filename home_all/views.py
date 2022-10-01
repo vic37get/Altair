@@ -13,6 +13,7 @@ def home(request):
     return HttpResponse(home.render({}, request))
 
 def login(request):
+    del request.session
     login = loader.get_template('home_all/homeLogin.html')
     return HttpResponse(login.render({}, request))
 
@@ -61,4 +62,4 @@ def submeterCadastro(request):
         else:
             messages.info(request, 'Ação invalida, usuário: \''+busca['userID']+'\' já existe!')
             print('Usuário já existe')
-            return redirect('/cadastrarUsuario')
+            return redirect('/cadastro')

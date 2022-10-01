@@ -38,7 +38,7 @@ function baixarPdf(button){
     dataPDf = JSON.stringify(dataPDf);
     $.ajax({
       type: 'POST',
-      url: '/construcao/toPDF',
+      url: '/gestor/construcao/toPDF',
       data: dataPDf,
       async: false,
       contentType: 'application/json; charset=utf-8',
