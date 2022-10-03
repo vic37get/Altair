@@ -60,9 +60,9 @@ def logged(f):
      def verifica(request, *args, **kwargs):
           if len(request.session.keys()) != 0:
                #messages.info(request, 'Usuario: '+request.session['nome']+' já logado')
-               if request.session['cargo']!='Auditor':
+               if request.session['cargo']=='Auditor':
                     return redirect('/aud')
-               if request.session['cargo']!='Gestor':
+               if request.session['cargo']=='Gestor':
                     return redirect('/gestor')     
           else:
                return f(request, *args, **kwargs)
