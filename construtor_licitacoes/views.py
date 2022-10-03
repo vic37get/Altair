@@ -11,7 +11,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
-from utils import connectMongo, gestor_required, login_required
+from utils import connectMongo, gestor_required, login_required,POST_required,GET_required
+import base64,weasyprint
 
 db_client = connectMongo('Altair')
 
@@ -20,7 +21,7 @@ db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
     collection_licitacao = db_client['licitacao']
     id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id']),'comentarios':''})
-    return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
+    return redirect('/gestor/construcao/editarLicitacao/'+str(id.inserted_id))
 
 @login_required
 @gestor_required
@@ -43,26 +44,26 @@ def editar(request,pk):
 @csrf_exempt
 @login_required
 @gestor_required
+@POST_required
 def salvar(request):
-    if request.method == 'POST':
-        collection_licitacao = db_client['licitacao']
-        data = json.loads(request.body.decode('utf-8'))
-        data['json']['base64'] = Binary(data['json']['base64'].encode())
-        collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
+    collection_licitacao = db_client['licitacao']
+    data = json.loads(request.body.decode('utf-8'))
+    data['json']['base64'] = Binary(data['json']['base64'].encode())
+    collection_licitacao.update_one({'_id':ObjectId(data['_id'])},{'$set':data['json']},upsert=True)
     return HttpResponse()
 
 @login_required
 @gestor_required
+@POST_required
 def excluir(request,pk):
     collection_licitacao = db_client['licitacao']
-    if request.method == 'POST':
-        licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
-        if licitacao['status'] != 0:
-            messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' não pôde ser excluída')
-            return redirect('/gestor')
-        messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi excluída!')
-        collection_licitacao.delete_one({"_id":ObjectId(pk)})
+    licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
+    if licitacao['status'] != 0:
+        messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' não pôde ser excluída')
         return redirect('/gestor')
+    messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi excluída!')
+    collection_licitacao.delete_one({"_id":ObjectId(pk)})
+    return redirect('/gestor')
 
 @csrf_exempt
 @login_required
@@ -87,16 +88,16 @@ def enviarConstrucao(request, pk):
     return HttpResponse(modelo.render(context, request))
 @login_required
 @gestor_required
+@POST_required
 def salvarFormulario(request, pk):
-    if request.method == 'POST':
-        collection_licitacao = db_client['licitacao']
-        data = request.POST.copy()
-        data['status'] = 1
-        data['avaliada'] = 0
-        del data['csrfmiddlewaretoken']
-        licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
-        collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
-        messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi enviada!')
+    collection_licitacao = db_client['licitacao']
+    data = request.POST.copy()
+    data['status'] = 1
+    data['avaliada'] = 0
+    del data['csrfmiddlewaretoken']
+    licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)},{'status', 'tituloArquivo'})
+    collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':data},upsert=True)
+    messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' foi enviada!')
     return redirect('/gestor')
 
 @login_required
@@ -118,24 +119,15 @@ def enviarGeral(request):
         id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id']), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
     return redirect('/gestor')    
 
-    
-#sudo apt-get install libpangocairo-1.0-0
-import base64
-
-import weasyprint
-
-
-#pip install django-easy-pdf
-#django-easy-pdf>=0.2.0 and WeasyPrint>=0.34
 @csrf_exempt
 @login_required
 @gestor_required
+@POST_required
 def toPDF(request):
-    if request.method == 'POST':
-        data = json.loads(request.body.decode('utf-8'))
-        pdf = weasyprint.HTML(string=data['contentPDF']).write_pdf()
-        pdf = base64.b64encode(pdf)
-        #open(os.path.join(os.getcwd(),'construtor_licitacoes','tests','google.pdf'), 'wb').write(pdf)
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = "attachment; filename=sample_pdf.pdf"
-        return response
+    data = json.loads(request.body.decode('utf-8'))
+    pdf = weasyprint.HTML(string=data['contentPDF']).write_pdf()
+    pdf = base64.b64encode(pdf)
+    #open(os.path.join(os.getcwd(),'construtor_licitacoes','tests','google.pdf'), 'wb').write(pdf)
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = "attachment; filename=sample_pdf.pdf"
+    return response

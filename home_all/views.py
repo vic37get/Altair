@@ -7,6 +7,7 @@ from utils import authenticate, connectMongo, logged, login_required
 db_client = connectMongo('Altair')
 
 @login_required
+@logged
 def home(request):
     home = loader.get_template('home_all/home.html')
     return HttpResponse(home.render({}, request))
@@ -31,7 +32,7 @@ def loginAuth(request):
         if isExists:
             request.session['username'] =user['userID']
             request.session['email'] = user['email']
-            request.session['id'] = user['_id']
+            request.session['id'] = str(user['_id'])
             request.session['cargo'] = user['cargo']
             request.session['nome'] = user['nome']
             request.session['logged'] = True
