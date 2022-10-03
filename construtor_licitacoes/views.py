@@ -20,7 +20,7 @@ db_client = connectMongo('Altair')
 def nova_licitacao(request,pk):
     collection_licitacao = db_client['licitacao']
     id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id']),'comentarios':''})
-    return redirect('/construcao/editarLicitacao/'+str(id.inserted_id))
+    return redirect('/gestor/construcao/editarLicitacao/'+str(id.inserted_id))
 
 @login_required
 @gestor_required
