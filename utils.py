@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from django.http import HttpResponseNotFound
 
 def connectMongo(db_name):
     client = MongoClient('mongodb+srv://altair-admin-victor:ebgLlVUfbYr0EXfn@altair-nv.b4uqhas.mongodb.net/?retryWrites=true&w=majority&socketTimeoutMS=360000&connectTimeoutMS=360000')
@@ -66,6 +67,26 @@ def logged(f):
                     return redirect('/gestor')     
           else:
                return f(request, *args, **kwargs)
+     verifica.__doc__= f.__doc__
+     verifica.__name__= f.__name__
+     return verifica
+
+def POST_required(f):
+     def verifica(request, *args, **kwargs):
+          if request.method == 'POST':
+               return f(request, *args, **kwargs)   
+          else:
+               return HttpResponseNotFound('404')
+     verifica.__doc__= f.__doc__
+     verifica.__name__= f.__name__
+     return verifica
+
+def GET_required(f):
+     def verifica(request, *args, **kwargs):
+          if request.method == 'GET':
+               return f(request, *args, **kwargs)   
+          else:
+               return HttpResponseNotFound('404')
      verifica.__doc__= f.__doc__
      verifica.__name__= f.__name__
      return verifica
