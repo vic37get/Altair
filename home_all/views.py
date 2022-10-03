@@ -26,15 +26,17 @@ def loginAuth(request):
         #collection_usuario = db_client['usuario']
         dados_usuario = request.POST.copy()
         del dados_usuario['csrfmiddlewaretoken']
+        print('ggg\n')
         isExists,user = authenticate(dados_usuario['usuario'],dados_usuario['senha'])
         request.session['logged'] = False
         if isExists:
             request.session['username'] =user['userID']
             request.session['email'] = user['email']
-            request.session['id'] = user['_id']
+            request.session['id'] = str(user['_id'])
             request.session['cargo'] = user['cargo']
             request.session['nome'] = user['nome']
             request.session['logged'] = True
+            print('vv\n')
             if(request.session['cargo'] == 'Gestor'):
                 return redirect('/gestor')
             elif(request.session['cargo'] == 'Auditor'):
