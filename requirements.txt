@@ -8,3 +8,4 @@ gunicorn
 weasyprint==56.1
 regex==2022.8.17
 django-bootstrap-modal-forms==2.2.0
+django-mongo-sessions==0.0.4
