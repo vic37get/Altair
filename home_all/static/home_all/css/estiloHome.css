@@ -1,0 +1,69 @@
+:root {
+  --fonte: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --cor_principal: #1C3879;
+  --cor_principal_contraste: #607EAA;
+  --cor_fundo: rgb(235, 240, 255);
+  --cor_secundaria_fundo: #dfd8c5;
+  --cor_divs_contraste: rgb(225, 230, 255);
+  --cor_hover_cinza: rgb(126, 126, 126);
+  --cor_menu_lateral_direito: rgb(50, 54, 57);
+  --cor_divs: #F9F5EB;
+}
+* {
+  margin:0;
+  padding:0;
+}
+html{
+  height: 100% !important;
+  width: 100% !important;
+  overflow: auto;
+}
+body{
+  overflow: auto;
+  background-image: url(../assets/imagem_fundo.jpg) !important;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+footer {
+  z-index: 5;
+  background-color: var(--cor_principal);
+  position: absolute !important;
+  width: 100%;
+  height: fit-content;
+  bottom: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex: 0;
+}
+
+
+.formCadastro{
+    width: 25%;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    box-sizing: content-box;
+    margin: auto;
+    height: auto;
+    border-radius: 10px;
+}
+
+.logoAltair{
+  font-size: 85px;
+}
+
+#div_interna{
+  /*background-color: var(--cor_principal_contraste) !important;*/
+  background-image: url(https://wallpaperaccess.com/full/1506463.jpg) !important;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-top: 4rem !important;
+}
+
+.inputform{
+  background-color: var(--cor_divs_contraste);
+  border-color: rgb(179, 179, 179);
+}

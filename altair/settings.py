@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'construtor_licitacoes',
     'home_page',
-    'verificador_fraude'
+    'verificador_fraude',
+    'home_all',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +74,7 @@ ROOT_URLCONF = 'altair.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['home_page/templates/home_page/', 'verificador_fraude/templates/verificador_fraude'],
+        'DIRS': ['home_all/templates/home_all','home_page/templates/home_page/', 'verificador_fraude/templates/verificador_fraude'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -109,6 +114,16 @@ WSGI_APPLICATION = 'altair.wsgi.application'
         }
 }'''
 
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+#SESSION_SAVE_EVERY_REQUEST = True 
+
+SESSION_ENGINE = 'mongo_sessions.session'
+
+from utils import connectMongo
+MONGO_CLIENT = connectMongo('Altair')
+MONGO_SESSIONS_COLLECTION = 'mongo_sessions'
+#WSGI_APPLICATION = 'web.wsgi.application'
+MONGO_SESSIONS_TTL = 60 * 60 # one hour
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

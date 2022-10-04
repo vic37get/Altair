@@ -1,0 +1,67 @@
+{% extends 'home.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+{% include 'messages.html' %}
+<script>
+  setTimeout(function(){
+    if ($('#msg').length > 0) {
+      $('#msg').remove();
+    }
+  }, 3000)
+</script>
+<div class="bg-white formCadastro pt-4 pb-5 px-4 mb-5 mt-5">
+    <div class="logo text-center">
+      <i class="fa-brands fa-artstation logoAltair"></i>
+    </div>
+    <form action="{% url 'home_all:submeterCadastro' %}" method="post">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group col-md-6 w-100">
+
+            <label class="m-1 mt-2" for="nome">Nome</label>
+            <input name="nome" type="text" required class="form-control  inputform" placeholder="Nome completo">
+            
+            <label class="m-1 mt-2" for="usuario">Usuário</label>
+            <input name="usuario" type="text" required class="form-control  inputform" placeholder="Usuário">
+
+            <label class="m-1 mt-2" for="email">Email</label>
+            <input name="email" type="email" required class="form-control  inputform" placeholder="Email">
+
+            <label class="m-1 mt-2" for="TipoObjeto">Cargo</label>
+            <select name="cargo" class="form-select  inputform">
+              <option value="Auditor">Auditor</option>
+              <option value="Gestor">Gestor</option>
+            </select>
+
+            <label class="m-1 mt-2" for="Municipio">Senha</label>
+            <input id="senha" name="senha" type="password" class="form-control inputform" placeholder="Senha" required>
+
+            <label class="m-1 mt-2" for="Estado">Confirmação de senha</label>
+            <input id="confirm_senha" name="confirmacao senha" type="password" class="form-control inputform" placeholder="Confirmação de senha" required>
+
+          </div>
+        </div>
+        <div class="botoes_login text-center">
+          <!--<a href={% url 'home_page:index' %} class="btn btn-outline-dark colorButton mt-4">Enviar</a>-->
+          <button type="submit" class="btn btn-outline-dark colorButton mt-4 ">Criar conta</button>
+          <a href={% url 'home_all:login' %} class="btn btn-outline-dark colorButton bg-danger ms-1 mt-4">Cancelar</a>
+        </div>
+      </form>
+      <script>
+        var password = document.getElementById("senha")
+        , confirm_password = document.getElementById("confirm_senha");
+
+        function validatePassword(){
+          if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Senhas não coincidem");
+          } 
+          else {
+            confirm_password.setCustomValidity('');
+          }
+        }
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+      </script>
+</div>
+{% endblock %}

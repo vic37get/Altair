@@ -4,17 +4,20 @@ import json
 import bson.json_util as json_util
 from bson.binary import Binary
 from bson.objectid import ObjectId
+from django.contrib import messages
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.template import loader
-from utils import connectMongo
+from utils import aud_required, connectMongo, login_required,GET_required
 
 db_client = connectMongo('Altair')
 
+@login_required
+@aud_required
 def homeAud(request):
     template = loader.get_template('verificador_fraude/homeAud.html')
     collection_licitacao = db_client['licitacao']
-    licitacoes = collection_licitacao.find({})
+    licitacoes = collection_licitacao.find()
     def binarytoStr(element):
         element['base64'] = Binary(element['base64']).decode()
         return element
@@ -25,6 +28,19 @@ def homeAud(request):
     }
     return HttpResponse(template.render(context, request))
 
+@login_required
+def perfil(request):
+    context = {
+        'usuario': request.session['username'],
+        'email': request.session['email'],
+        'cargo': request.session['cargo'],
+        'nome':  request.session['nome'],
+    }
+    perfil = loader.get_template('verificador_fraude/perfil.html')
+    return HttpResponse(perfil.render(context, request))
+
+@login_required
+@aud_required
 def avaliar(request,pk):
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
@@ -35,6 +51,9 @@ def avaliar(request,pk):
     modelo = loader.get_template('verificador_fraude/avaliar.html')
     return HttpResponse(modelo.render(context, request))
 
+@login_required
+@aud_required
+@GET_required
 def filtroVerificador(request):
     collection_licitacao = db_client['licitacao']
     verificador = loader.get_template('verificador_fraude/homeAud.html')
@@ -58,8 +77,11 @@ def filtroVerificador(request):
     }
     return HttpResponse(verificador.render(context, request))
 
+@login_required
+@aud_required
+@GET_required
 def verificar(request,pk):
-    from logic import Tokeniza,Header
+    from logic import Header, Tokeniza
     collection_licitacao = db_client['licitacao']
     licitacao = collection_licitacao.find_one({"_id":ObjectId(pk)})
     tam = int(request.GET['tamanho'])
@@ -80,3 +102,17 @@ def verificar(request,pk):
     }
     modelo = loader.get_template('verificador_fraude/avaliar.html')
     return HttpResponse(modelo.render(context, request))
+
+@login_required
+@aud_required
+@GET_required
+def avalicao(request,pk):
+    collection_avaliacao = db_client['avaliacao']
+    collection_licitacao = db_client['licitacao']
+    data = request.GET.copy()
+    del data['csrfmiddlewaretoken']
+    data['_idLicitacao'] = pk
+    collection_avaliacao.insert_one(dict(data))
+    collection_licitacao.update_one({'_id':ObjectId(pk)},{'$set':{'avaliada':1,'comentarios':data['comentarios']}},upsert=True)
+    messages.info(request,'Avaliação registrada')
+    return redirect('/aud/avaliar/'+pk)
