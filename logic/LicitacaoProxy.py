@@ -106,10 +106,11 @@ class ProxyLicitacao(LicitacaoInterface.LicitacaoInterface):
             self.concatenaSecoes(
                 [Header.TIPOS['HABILITACAO'],candidatos_habilitacao],
                 [Header.TIPOS['JULGAMENTO'],candidatos_julgamento])
-        
+        '''
         for i in self.getSecao():
-            Header.VERBOSE.addInfoSecao(i)
-
+            #Header.VERBOSE.addInfoSecao(i)
+            ...
+        '''
         if Header.EXP_AVISO.search(self.getDados())[0]:
             self.setTipoValidade(Header.TIPOS['AVISO'])
             return

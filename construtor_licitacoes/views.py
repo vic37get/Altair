@@ -112,16 +112,25 @@ def enviar(request):
 @login_required
 @gestor_required
 def enviarGeral(request):
+    from logic import Header, Tokeniza
     if request.method == 'POST':
         collection_licitacao = db_client['licitacao']
         data = request.POST
         arquivo = request.FILES['arquivopdf'].read()
         #Lembrar de colocar o content no insert_one
         bytespdf = base64.b64encode(arquivo)
-        id_externo = collection_licitacao.insert_one({'interno':False,'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
-        content = extern_pdf_content(bytespdf,id_externo+'.pdf') 
-        collection_licitacao.update_one({'_id':ObjectId(id_externo)},{'$set':{'content':content}},upsert=True)
-    return redirect('/')  
+        id_externo = collection_licitacao.insert_one({'interno':False,'tituloArquivo':str(request.FILES['arquivopdf']),'id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
+        content = extern_pdf_content(bytespdf,str(id_externo.inserted_id)+'.pdf')
+        collection_licitacao.update_one({'_id':ObjectId(id_externo.inserted_id)},{'$set':{'content':content}},upsert=True)
+
+        licitacao = collection_licitacao.find_one({'_id':ObjectId(id_externo.inserted_id)})
+        isValido = Tokeniza.Main().verificarValidade(licitacao)
+        if not(isValido):
+            collection_licitacao.delete_one({'_id':ObjectId(id_externo.inserted_id)})
+            messages.info(request, 'A Licitação \''+licitacao['tituloArquivo']+'\' \nnão possui formato valido para o sistema')
+            return redirect('/gestor/construcao/enviar')
+            ...
+    return redirect('/')
 
 
 @csrf_exempt
