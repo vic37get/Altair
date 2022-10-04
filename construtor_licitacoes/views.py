@@ -13,6 +13,7 @@ from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from utils import connectMongo, gestor_required, login_required,POST_required,GET_required
 import base64,weasyprint
+from logic.convertPDF import b64tPDF,pdf2txt,DEFAULT_FOLDER_PDF,DEFAULT_FOLDER_TXT,base_dir,extern_pdf_content
 
 db_client = connectMongo('Altair')
 
@@ -115,9 +116,13 @@ def enviarGeral(request):
         collection_licitacao = db_client['licitacao']
         data = request.POST
         arquivo = request.FILES['arquivopdf'].read()
+        #Lembrar de colocar o content no insert_one
         bytespdf = base64.b64encode(arquivo)
-        id = collection_licitacao.insert_one({'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id']), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
-    return redirect('/gestor')    
+        id_externo = collection_licitacao.insert_one({'interno':False,'tituloArquivo':'Sem Título','id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
+        content = extern_pdf_content(bytespdf,id_externo+'.pdf') 
+        collection_licitacao.update_one({'_id':ObjectId(id_externo)},{'$set':{'content':content}},upsert=True)
+    return redirect('/')  
+
 
 @csrf_exempt
 @login_required
