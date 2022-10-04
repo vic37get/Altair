@@ -119,7 +119,7 @@ def enviarGeral(request):
         arquivo = request.FILES['arquivopdf'].read()
         #Lembrar de colocar o content no insert_one
         bytespdf = base64.b64encode(arquivo)
-        id_externo = collection_licitacao.insert_one({'interno':False,'tituloArquivo':str(request.FILES['arquivopdf']),'id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data']})
+        id_externo = collection_licitacao.insert_one({'interno':False,'tituloArquivo':str(request.FILES['arquivopdf']),'id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data'], 'id_author':str(request.session['id']),'comentarios':''})
         content = extern_pdf_content(bytespdf,str(id_externo.inserted_id)+'.pdf')
         collection_licitacao.update_one({'_id':ObjectId(id_externo.inserted_id)},{'$set':{'content':content}},upsert=True)
 
