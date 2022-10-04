@@ -12,6 +12,7 @@
   --cor_divs: #F9F5EB;
   --cor_status_pendente: #d2d227;
   --cor_status_submetido: rgb(15, 99, 15);
+  --cor_status_avaliado: rgba(8, 122, 160, 0.908);
 }
 
 * {
@@ -354,6 +355,12 @@ footer {
   padding: 1px;
   text-align: left;
   color: var(--cor_status_pendente);
+}
+
+.avaliado{
+  padding: 1px;
+  text-align: left;
+  color: var(--cor_status_avaliado);
 }
 
 .submetido{
