@@ -6,7 +6,7 @@
   --cor_fundo: rgb(230, 230, 230);
   --cor_status_pendente: #d2d227;
   --cor_status_submetido: rgb(15, 99, 15);
-  --cor_status_avaliado: rgb(247, 7, 7);
+  --cor_status_avaliado: rgba(6, 105, 137, 0.908);
 }
 
 #corpo_interno{
