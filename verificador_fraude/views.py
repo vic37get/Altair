@@ -88,7 +88,10 @@ def verificar(request,pk):
     if int(request.GET['tamanho']) <= 0:
         tam = 0
     Header.CONTEXTO_FIM,Header.CONTEXTO_INI = tam,tam
-    verificadorFraude = Tokeniza.Main().verificarAltair(licitacao)
+    if licitacao['interno']:
+        verificadorFraude = Tokeniza.Main().verificarAltair(licitacao)
+    else:
+        verificadorFraude = Tokeniza.Main().verificarAltairExt(licitacao)
     achados = []
     for i in verificadorFraude:
             if i.getConteudoAchado() != '':

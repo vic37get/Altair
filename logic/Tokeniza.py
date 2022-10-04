@@ -20,6 +20,22 @@ class Main:
         licitacao_Obj.setTipoValidade(Header.TIPOS['VALIDO'])
         return verificadorFraude.getAchados()
 
+    def verificarAltairExt(self,licitacao):
+        ProxyLic = LicitacaoProxy.ProxyLicitacao('',licitacao['tituloArquivo'],licitacao['content'])
+        ProxyLic.struct()
+        if ProxyLic.getTipoValidade() == Header.TIPOS['VALIDO']:
+            ...
+            verificadorFraude = Fraude.Fraude(ProxyLic)
+            return verificadorFraude.getAchados()
+
+    def verificarValidade(self,licitacao):
+        ProxyLic = LicitacaoProxy.ProxyLicitacao('',licitacao['tituloArquivo'],licitacao['content'])
+        ProxyLic.struct()
+        if ProxyLic.getTipoValidade() == Header.TIPOS['VALIDO']:
+            return True
+        else:
+            return False
+
     def all(self):
         '''
         #

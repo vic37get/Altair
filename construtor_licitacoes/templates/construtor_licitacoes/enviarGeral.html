@@ -2,7 +2,14 @@
 {%load static%}
 {%load tagger%}
 {% block content %}
-
+{% include 'messages.html' %}
+<script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 3000)
+</script>
 <div class="bg-white mt-2 pt-5 px-4 pb-5 box-folha formLic";>
     <form action="{% url 'construtor_licitacoes:enviarGeral' %}" enctype='multipart/form-data' method="post">
       {% csrf_token %}
