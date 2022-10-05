@@ -34,7 +34,7 @@ class PadraoLicitacao:
 
     def verificaOrdemSecoes(self):
         numerosecoes = []
-        for secao in self.proxylicitacao.getSecao():
+        for secao in self.proxylicitacao.getSecoes():
             try:
                 numero = int(secao.getNumeracao())
             except:

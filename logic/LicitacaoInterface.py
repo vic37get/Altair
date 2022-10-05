@@ -7,7 +7,7 @@ class LicitacaoInterface(ABC):
         pass
     
     @abstractmethod
-    def getSecao(self):
+    def getSecoes(self):
         pass
 
     @abstractmethod

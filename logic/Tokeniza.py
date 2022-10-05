@@ -31,7 +31,7 @@ class Main:
     def verificarValidade(self,licitacao):
         ProxyLic = LicitacaoProxy.ProxyLicitacao('',licitacao['tituloArquivo'],licitacao['content'])
         ProxyLic.struct()
-        for i in ProxyLic.getSecao():
+        for i in ProxyLic.getSecoes():
             print(i)
         if ProxyLic.getTipoValidade() == Header.TIPOS['VALIDO']:
             return True

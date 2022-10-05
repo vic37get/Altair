@@ -11,12 +11,12 @@ DEFAULT_FOLDER_TXT = 'temp_txt'
 
 def pdf2txt(base_dir,folder,file):
     text = ''
-    url = Path.joinpath(base_dir,folder,file)
-    url = str(url)
-    pdffileobj=open(url,'rb')
-    pdfreader=PyPDF2.PdfReader(pdffileobj)
-    for page in pdfreader.pages:
-        text += page.extract_text() + "\n"
+    caminho_do_arquivo = Path.joinpath(base_dir,folder,file)
+    caminho_do_arquivo = str(caminho_do_arquivo)
+    pdf_em_bytes=open(caminho_do_arquivo,'rb')
+    objeto_tipo_pdf=PyPDF2.PdfReader(pdf_em_bytes)
+    for pagina in objeto_tipo_pdf.pages:
+        text += pagina.extract_text() + "\n"
     try:
         with open(Path.joinpath(base_dir,DEFAULT_FOLDER_TXT,Path(str(file)).stem+'.txt'),'w') as file:
             for i in splitLine(text):

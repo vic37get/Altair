@@ -23,7 +23,7 @@ class Licitacao(LicitacaoInterface.LicitacaoInterface):
     def setSecoes(self,secoes):
         self.secoes = secoes
     
-    def getSecao(self):
+    def getSecoes(self):
         return self.secoes
 
     def addSecoes(self,secoes):
@@ -111,15 +111,15 @@ class Licitacao(LicitacaoInterface.LicitacaoInterface):
             self.addSecoes(secao)
 
     def setTipoSecoes(self):
-        for i in self.getSecao():
+        for i in self.getSecoes():
             self.secoes_principais[i.getTipo()] = True
 
     def pulaSumario(self):
         i = 0
-        while(i<len(self.getSecao())):
-            texto = self.getSecao()[i].getConteudo()
+        while(i<len(self.getSecoes())):
+            texto = self.getSecoes()[i].getConteudo()
             if len(texto.replace('\n','')) == 0:
-                self.getSecao().pop(i)
+                self.getSecoes().pop(i)
             else:
                 i+=1
 
@@ -147,7 +147,7 @@ class Licitacao(LicitacaoInterface.LicitacaoInterface):
 
     def getSecoesEmpty(self):
         secoesVazias = []
-        for i in self.getSecao():
+        for i in self.getSecoes():
             if i.isEmpty():
                 secoesVazias.append(i)
         return secoesVazias
