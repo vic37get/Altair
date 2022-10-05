@@ -24,7 +24,7 @@ db_client = connectMongo('Altair')
 @login_required
 @gestor_required
 def nova_licitacao(request,pk):
-    id = insertLic({'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id']),'comentarios':''})
+    id = insertLic({'interno':True,'base64': Binary(''.encode()),'tituloArquivo':'Sem Título', 'achados':[], 'avaliada':0, 'status':0, 'id_template': pk,'dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'),'id_author':str(request.session['id']),'comentarios':''})
     return redirect('/gestor/construcao/editarLicitacao/'+str(id.inserted_id))
 
 @login_required
