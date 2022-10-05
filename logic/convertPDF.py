@@ -1,15 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 31 19:07:32 2022
-
-@author: jasson.silva
-"""
-
 import os
+
 os.environ['TIKA_SERVER_JAR'] = 'https://repo1.maven.org/maven2/org/apache/tika/tika-server/1.19/tika-server-1.19.jar'
-from tika import parser
+import base64
+import os
 from pathlib import Path
-import base64,os
+
+from tika import parser
 
 base_dir = Path(__file__).resolve().parent.parent
 DEFAULT_FOLDER_PDF = 'temp_pdf'
@@ -72,17 +68,3 @@ def extern_pdf_content(data,name):
         return content
     else:
         return ''
-
-
-
-#print(settings.BASE_DIR)
-#print(output)
-#pdf2txt(data)
-
-
-
-
-
-
-
-
