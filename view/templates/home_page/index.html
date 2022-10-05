@@ -62,9 +62,10 @@
                 <i id="status{{licitacao|private:'_id'}}" class="status fa-solid fa-circle"></i>
                 <p id="Labelstatus{{licitacao|private:'_id'}}" class="nomeStatus"></p>
                 
-                <button id="modalButton{{licitacao|private:'_id'}}" type="button" class="btn btn-outline-info btn-sm float-right position-absolute end-0 me-1" data-bs-toggle="modal" data-bs-target="#feedbackAuditor" onclick="atualizaModal('{{licitacao.comentarios}}')" >
+                <button id="modalButton{{licitacao|private:'_id'}}" type="button" class="btn btn-outline-info btn-sm float-right position-absolute end-0 me-2" data-bs-toggle="modal" data-bs-target="#feedbackAuditor" onclick="atualizaModal('{{licitacao.comentarios}}','{{licitacao.indiciosApontados}}')" >
                     Feedback
-                  </button>
+                </button>
+
             </div>
             <div class="card-body p-4 text-center">
                 <i class="fa-solid fa-file-lines ico-size" ></i>
@@ -110,14 +111,18 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Feedback Auditor</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-pen-clip"></i> Feedback do Auditor</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <p id="modalContent"></p>
+            <h6>Indícios encontrados na licitação:</h6>
+            <span class="badge rounded-pill bg-danger"><span id="modalContent"></span></span>
+            <hr>
+            <h6>Avaliação do Auditor:</h6>
+            <p id="modalContent2"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>

@@ -4,15 +4,19 @@ import json
 import bson.json_util as json_util
 from bson.binary import Binary
 from bson.objectid import ObjectId
+from data.avaliacaoBD import insertAvalic
+from data.licitacaoBD import (deleteLic, findallLic, findLicByDataAndId,
+                              findLicsDados, findOneLic, insertLic,
+                              updateOneLic)
+from data.templatesBD import (findAllTemplates, findOneTemplate,
+                              findTemplateById)
+from data.usuarioBD import (findOneUser, findOneUserDirect, insertUser,
+                            searchAuthenticateUser, updateUser)
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
-from utils import aud_required, connectMongo, login_required, GET_required
-from data.licitacaoBD import insertLic, findallLic, findOneLic, findLicByDataAndId, findLicsDados, updateOneLic, deleteLic  
-from data.usuarioBD import insertUser, searchAuthenticateUser, findOneUser, findOneUserDirect, updateUser
-from data.templatesBD import findAllTemplates, findTemplateById, findOneTemplate
-from data.avaliacaoBD import insertAvalic
+from utils import GET_required, aud_required, connectMongo, login_required
 
 db_client = connectMongo('Altair')
 
@@ -144,6 +148,6 @@ def avalicao(request,pk):
     del data['csrfmiddlewaretoken']
     data['_idLicitacao'] = pk
     insertAvalic(dict(data))
-    updateOneLic(pk, {'avaliada': 1,'comentarios':data['comentarios']})
+    updateOneLic(pk, {'avaliada': 1,'comentarios':data['comentarios'], 'indiciosApontados':data['indiciosApontados']})
     messages.info(request,'Avaliação registrada')
     return redirect('/aud/avaliar/'+pk)
