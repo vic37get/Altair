@@ -33,9 +33,9 @@ class ProxyLicitacao(LicitacaoInterface.LicitacaoInterface):
     def getSecoesEmpty(self):
         return self._Licitacao.getSecoesEmpty()
 
-    def getSecoes(self):
+    def getSecao(self):
         if self._CACHE_SECOES == None:
-            self._CACHE_SECOES = self._Licitacao.getSecoes()
+            self._CACHE_SECOES = self._Licitacao.getSecao()
             return self._CACHE_SECOES
         else:
             return self._CACHE_SECOES
@@ -79,7 +79,7 @@ class ProxyLicitacao(LicitacaoInterface.LicitacaoInterface):
             secoes = Header.EXP_GERAL.search(self.getDados()[:busca_anexo.start()])[0]
             self._Licitacao.struct(secoes,self.getDados()[:busca_anexo.start()])
             self.pulaSumario()
-            if len(self.getSecoes())<3:
+            if len(self.getSecao())<3:
                 secoes = Header.EXP_GERAL.search(self.getDados()[busca_anexo.end():])[0]
                 self._Licitacao.struct(secoes,self.getDados()[busca_anexo.end():])
                 self.pulaSumario()
@@ -87,7 +87,7 @@ class ProxyLicitacao(LicitacaoInterface.LicitacaoInterface):
         self.setTipoSecoes()
 
         candidatos_objeto,candidatos_habilitacao,candidatos_julgamento = [],[],[]
-        for i in self.getSecoes():
+        for i in self.getSecao():
             if i.getTipo() == Header.TIPOS['OBJETO']:
                 candidatos_objeto.append(i)
             if i.getTipo() == Header.TIPOS['HABILITACAO']:
@@ -114,7 +114,7 @@ class ProxyLicitacao(LicitacaoInterface.LicitacaoInterface):
         if Header.EXP_AVISO.search(self.getDados())[0]:
             self.setTipoValidade(Header.TIPOS['AVISO'])
             return
-        if len(self.getSecoes()) == 0:
+        if len(self.getSecao()) == 0:
             self.setTipoValidade(Header.TIPOS['SEM_SECAO'])
             return
         if self.isValido():
