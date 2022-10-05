@@ -1,5 +1,7 @@
 import os
 
+import PyPDF2
+
 os.environ['TIKA_SERVER_JAR'] = 'https://repo1.maven.org/maven2/org/apache/tika/tika-server/1.19/tika-server-1.19.jar'
 import base64
 import os
@@ -13,9 +15,14 @@ DEFAULT_FOLDER_TXT = 'temp_txt'
 
 
 def pdf2txt(base_dir,folder,file):
+    text = ''
     url = Path.joinpath(base_dir,folder,file)
     url = str(url)
-    try:
+    pdffileobj=open(url,'rb')
+    pdfreader=PyPDF2.PdfReader(pdffileobj)
+    for page in pdfreader.pages:
+        text += page.extract_text() + "\n"
+    '''try:
         raw = parser.from_file(url)
         content = raw['content']
     except:
@@ -29,9 +36,10 @@ def pdf2txt(base_dir,folder,file):
             print('\nFracasso',0,'caracteres')
     except:
         print('\nFracasso: (NoneType)')
+    '''
     try:
         with open(Path.joinpath(base_dir,DEFAULT_FOLDER_TXT,Path(str(file)).stem+'.txt'),'w') as file:
-            for i in splitLine(content):
+            for i in splitLine(text):
                 file.writelines(i+'\n')
     except:
         ...

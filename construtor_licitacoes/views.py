@@ -1,23 +1,31 @@
+import base64
 import json
 from datetime import datetime
 from email import message
 from multiprocessing import context
+from pathlib import Path
 
 import bson.json_util as json_util
+import weasyprint
 from bson.binary import Binary
 from bson.objectid import ObjectId
+from data.avaliacaoBD import insertAvalic
+from data.licitacaoBD import (deleteLic, findallLic, findLicByDataAndId,
+                              findLicsDados, findOneLic, insertLic,
+                              updateOneLic)
+from data.templatesBD import (findAllTemplates, findOneTemplate,
+                              findTemplateById)
+from data.usuarioBD import (findOneUser, findOneUserDirect, insertUser,
+                            searchAuthenticateUser, updateUser)
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
-from utils import connectMongo, gestor_required, login_required,POST_required,GET_required
-import base64,weasyprint
-from logic.convertPDF import b64tPDF,pdf2txt,DEFAULT_FOLDER_PDF,DEFAULT_FOLDER_TXT,base_dir,extern_pdf_content
-from data.licitacaoBD import insertLic, findallLic, findOneLic, findLicByDataAndId, findLicsDados, updateOneLic, deleteLic  
-from data.usuarioBD import insertUser, searchAuthenticateUser, findOneUser, findOneUserDirect, updateUser
-from data.templatesBD import findAllTemplates, findTemplateById, findOneTemplate
-from data.avaliacaoBD import insertAvalic
+from logic.convertPDF import (DEFAULT_FOLDER_PDF, DEFAULT_FOLDER_TXT, b64tPDF,
+                              base_dir, extern_pdf_content, pdf2txt)
+from utils import (GET_required, POST_required, connectMongo, gestor_required,
+                   login_required)
 
 db_client = connectMongo('Altair')
 
@@ -114,7 +122,10 @@ def enviarGeral(request):
     data = request.POST
     arquivo = request.FILES['arquivopdf'].read()
     bytespdf = base64.b64encode(arquivo)
-    id_externo = insertLic({'interno':False,'tituloArquivo':str(request.FILES['arquivopdf']),'id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data'], 'id_author':str(request.session['id']),'comentarios':'', 'content': ''})
+    titulo_arquivo = str(request.FILES['arquivopdf'])
+    titulo_arquivo = titulo_arquivo.split('.')
+    titulo_arquivo = titulo_arquivo[0]
+    id_externo = insertLic({'interno':False,'tituloArquivo':titulo_arquivo,'id_template': '62fa7d2fa15dc0d036b941fd','dataCriação':datetime.now().strftime('%d/%m/%Y %H:%M'), 'dataModificacao':datetime.now().strftime('%d/%m/%Y %H:%M'), 'base64': bytespdf, 'status': 1, 'orgao': data['orgao'], 'municipio': data['municipio'], 'estado': data['estado'], 'tipo': data['tipo'],  'objeto': data['objeto'], 'data': data['data'], 'id_author':str(request.session['id']),'comentarios':'', 'content': ''})
     content = extern_pdf_content(bytespdf,str(id_externo.inserted_id)+'.pdf')
     updateOneLic(id_externo.inserted_id, {'content':content})
     licitacao = findOneLic(id_externo.inserted_id)
