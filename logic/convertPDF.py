@@ -1,15 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 31 19:07:32 2022
-
-@author: jasson.silva
-"""
-
+import base64
 import os
-os.environ['TIKA_SERVER_JAR'] = 'https://repo1.maven.org/maven2/org/apache/tika/tika-server/1.19/tika-server-1.19.jar'
-from tika import parser
 from pathlib import Path
-import base64,os
+
+import PyPDF2
 
 base_dir = Path(__file__).resolve().parent.parent
 DEFAULT_FOLDER_PDF = 'temp_pdf'
@@ -17,25 +10,16 @@ DEFAULT_FOLDER_TXT = 'temp_txt'
 
 
 def pdf2txt(base_dir,folder,file):
+    text = ''
     url = Path.joinpath(base_dir,folder,file)
     url = str(url)
-    try:
-        raw = parser.from_file(url)
-        content = raw['content']
-    except:
-        print('Não foi possivel converter ',url)
-        return False
-    try:
-        counter = content.replace(" ","")
-        if(len(counter)>0):
-            print('\nSucesso, tamanho arquivo:',len(counter),'caracteres')
-        else:
-            print('\nFracasso',0,'caracteres')
-    except:
-        print('\nFracasso: (NoneType)')
+    pdffileobj=open(url,'rb')
+    pdfreader=PyPDF2.PdfReader(pdffileobj)
+    for page in pdfreader.pages:
+        text += page.extract_text() + "\n"
     try:
         with open(Path.joinpath(base_dir,DEFAULT_FOLDER_TXT,Path(str(file)).stem+'.txt'),'w') as file:
-            for i in splitLine(content):
+            for i in splitLine(text):
                 file.writelines(i+'\n')
     except:
         ...
@@ -72,17 +56,3 @@ def extern_pdf_content(data,name):
         return content
     else:
         return ''
-
-
-
-#print(settings.BASE_DIR)
-#print(output)
-#pdf2txt(data)
-
-
-
-
-
-
-
-

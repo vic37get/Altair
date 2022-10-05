@@ -39,7 +39,9 @@ function statusLicitacao(licitacao,avaliado,id) {
         document.getElementById("modalButton"+id).style.visibility = "hidden";
 }
 
-  function atualizaModal(comentariosauditor){
-    document.getElementById("modalContent").innerHTML = comentariosauditor;
+  function atualizaModal(comentariosauditor, indicios_apontados){
+    document.getElementById("modalContent").innerHTML = indicios_apontados;
+    document.getElementById("modalContent2").innerHTML = comentariosauditor;
+    
 
   }

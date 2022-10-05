@@ -15,6 +15,7 @@ from pathlib import Path
 
 import django
 from django.utils.encoding import force_str
+
 django.utils.encoding.force_text = force_str
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'home_page',
     'verificador_fraude',
     'home_all',
+    'view',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +76,7 @@ ROOT_URLCONF = 'altair.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['home_all/templates/home_all','home_page/templates/home_page/', 'verificador_fraude/templates/verificador_fraude'],
+        'DIRS': ['view/templates/home_all','view/templates/home_page/', 'view/templates/verificador_fraude', 'view/templates/construtor_licitacoes'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,6 +122,7 @@ WSGI_APPLICATION = 'altair.wsgi.application'
 SESSION_ENGINE = 'mongo_sessions.session'
 
 from utils import connectMongo
+
 MONGO_CLIENT = connectMongo('Altair')
 MONGO_SESSIONS_COLLECTION = 'mongo_sessions'
 #WSGI_APPLICATION = 'web.wsgi.application'
