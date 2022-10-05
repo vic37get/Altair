@@ -80,7 +80,4 @@ class UrlTests(TestCase):
 
         resolver = resolve('/aud/avaliacao/<pk>')
         self.assertEqual(resolver.view_name, 'verificador_fraude:avaliacao')
-
-
-
         
