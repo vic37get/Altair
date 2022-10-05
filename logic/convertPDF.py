@@ -1,13 +1,8 @@
-import os
-
-import PyPDF2
-
-os.environ['TIKA_SERVER_JAR'] = 'https://repo1.maven.org/maven2/org/apache/tika/tika-server/1.19/tika-server-1.19.jar'
 import base64
 import os
 from pathlib import Path
 
-from tika import parser
+import PyPDF2
 
 base_dir = Path(__file__).resolve().parent.parent
 DEFAULT_FOLDER_PDF = 'temp_pdf'
@@ -22,21 +17,6 @@ def pdf2txt(base_dir,folder,file):
     pdfreader=PyPDF2.PdfReader(pdffileobj)
     for page in pdfreader.pages:
         text += page.extract_text() + "\n"
-    '''try:
-        raw = parser.from_file(url)
-        content = raw['content']
-    except:
-        print('Não foi possivel converter ',url)
-        return False
-    try:
-        counter = content.replace(" ","")
-        if(len(counter)>0):
-            print('\nSucesso, tamanho arquivo:',len(counter),'caracteres')
-        else:
-            print('\nFracasso',0,'caracteres')
-    except:
-        print('\nFracasso: (NoneType)')
-    '''
     try:
         with open(Path.joinpath(base_dir,DEFAULT_FOLDER_TXT,Path(str(file)).stem+'.txt'),'w') as file:
             for i in splitLine(text):
