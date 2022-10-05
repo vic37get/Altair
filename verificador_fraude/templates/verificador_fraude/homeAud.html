@@ -30,7 +30,6 @@
         <div class="col mb-4 cardAud">
             <div class="card cardlicAud">
                     <div class="d-flex flex-row tituloEditavel">
-                        <!-- titulo-->
                         <div class="BarraNameLic">
                             <div class="documentBarra align-middle">
                                 <a class="textoDocumento" download="{{licitacao.tituloArquivo}}.pdf" href="{{licitacao.base64}}">Documento <i class="fa-solid fa-file"></i></a>
@@ -50,7 +49,6 @@
                                 });
                             });
                         </script>
-                        <!-- algum dado a escolha {{licitacao.nome_arquivo}}-->
                 </div>
                 <div class="rodapeCard p-2 flex-column">
                     <div id="divobjeto{{licitacao|private:'_id'}}"class="objeto p-2">
@@ -61,7 +59,6 @@
                             div.innerHTML = texto
                         </script>
                     </div>
-                    <!--<i class="fa-solid fa-file-contract ico-size p-3"></i>-->
                     <div class="badges_status">
                         <div class="badge badge-2x rounded-pill text-dark tipolic"><i class="fa-solid fa-pen-fancy"></i> Tipo de Licitação: {{licitacao.tipo}} </div>
                         <div class="badge badge-2x rounded-pill bg-info text-dark"><i class="fa-solid fa-calendar-days"></i> Data de Abertura: {{licitacao.data}} </div>
@@ -87,7 +84,6 @@
                         </form>
                     </div>
                 </div>
-                <!-- Product actions-->
             </div>
         </div>
     {% endif %}

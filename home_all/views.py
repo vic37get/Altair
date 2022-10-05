@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
 from utils import authenticate, connectMongo, logged, login_required
-
-db_client = connectMongo('Altair')
+from data.licitacaoBD import insertLic, findallLic, findOneLic, findLicByDataAndId, findLicsDados, updateOneLic, deleteLic  
+from data.usuarioBD import insertUser, searchAuthenticateUser, findOneUser, findOneUserDirect, updateUser
+from data.templatesBD import findAllTemplates, findTemplateById, findOneTemplate
+from data.avaliacaoBD import insertAvalic
 
 @login_required
 @logged
@@ -24,7 +26,6 @@ def logout(request):
 
 def loginAuth(request):
     if request.method == "POST":
-        #collection_usuario = db_client['usuario']
         dados_usuario = request.POST.copy()
         del dados_usuario['csrfmiddlewaretoken']
         isExists,user = authenticate(dados_usuario['usuario'],dados_usuario['senha'])
@@ -51,15 +52,13 @@ def cadastro(request):
 
 def submeterCadastro(request):
     if request.method == "POST":
-        collection_usuario = db_client['usuario']
         dados_usuario = request.POST.copy()
         del dados_usuario['csrfmiddlewaretoken']
-        busca = collection_usuario.find_one({'userID': dados_usuario['usuario']})
+        busca = findOneUserDirect({'userID': dados_usuario['usuario']})
         if busca == None:
             messages.info(request, 'Usuário \''+dados_usuario['usuario']+'\' cadastrado com sucesso!')
-            collection_usuario.insert_one({'userID': dados_usuario['usuario'], 'nome':dados_usuario['nome'],'cargo': dados_usuario['cargo'],'email':dados_usuario['email'],'senha': dados_usuario['senha']})
-            return redirect('/')
+            insertUser({'userID': dados_usuario['usuario'], 'nome':dados_usuario['nome'],'cargo': dados_usuario['cargo'],'email':dados_usuario['email'],'senha': dados_usuario['senha']})
+            return redirect('/login')
         else:
             messages.info(request, 'Ação invalida, usuário: \''+busca['userID']+'\' já existe!')
-            print('Usuário já existe')
             return redirect('/cadastro')

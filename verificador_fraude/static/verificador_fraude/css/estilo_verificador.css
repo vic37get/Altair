@@ -183,8 +183,6 @@
     font-family: var(--fonte_principal);
 }
 
-/*barra de botoes
-*/
 .botoes{
     border-top: 1px solid var(--cor_bordas);
     padding: 8px;
@@ -222,7 +220,6 @@
     font-family: 'Lato', sans-serif;
     font-weight: 590;
 }
-
 .modal-dialog{
     max-width: 600px !important;
 }
@@ -245,4 +242,3 @@
     position: absolute;
     right: 0;
 }
-

@@ -8,8 +8,8 @@ urlpatterns = [
     path('', views.index,name='index'),
     path('templates',views.modelo,name='template'),
     path('perfil', views.perfil,name='perfil'),
-    path('enviar', views.enviar, name='enviar'),
-    path('aud', viewAud.homeAud, name='homeAud'),
-    path('cadastrar',views.submeterCadastro,name='submeterCadastro'),
+    path('alterarSenha', views.alterarSenha,name='alterarSenha'),
+    path('alteracaoDeSenha', views.alteracaoDeSenha,name='alteracaoDeSenha'),
     path('filtro',views.filtro,name='filtro'),
+    path('editarPerfil',views.editarPerfil,name='editarPerfil'),
 ]
