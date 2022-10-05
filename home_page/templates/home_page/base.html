@@ -60,6 +60,7 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa-solid fa-user"></i></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'home_page:perfil' %}">Perfil <i class="fa-solid fa-address-card"></i></a></li>
+                            <li><a class="dropdown-item" href="{% url 'home_page:alterarSenha' %}">Alterar senha <i class="fa-solid fa-lock"></i></a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{% url 'home_all:logout' %}">Sair <i class="fa-solid fa-door-open"></i></a></li>
                         </ul>
@@ -70,8 +71,6 @@
     </nav>
 
     <body id="main_body">
-        <!-- Navigation-->
-        <!-- Section-->
         <section class="py-5" id="corpo_principal">
             <div class="container px-4 px-lg-5 mt-5" id="corpo_interno" >   
                 {% block content %}

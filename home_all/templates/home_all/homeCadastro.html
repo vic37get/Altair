@@ -20,13 +20,22 @@
           <div class="form-group col-md-6 w-100">
 
             <label class="m-1 mt-2" for="nome">Nome</label>
-            <input name="nome" type="text" required class="form-control  inputform" placeholder="Nome completo">
-            
+            <div class="input-group mb-1">
+              <span class="input-group-text inputform" id="basic-addon1"><i class="fa-solid fa-pen"></i></span>
+              <input name="nome" type="text" required class="form-control  inputform" placeholder="Nome completo">
+            </div>
+
             <label class="m-1 mt-2" for="usuario">Usuário</label>
-            <input name="usuario" type="text" required class="form-control  inputform" placeholder="Usuário">
+            <div class="input-group mb-1">
+              <span class="input-group-text inputform" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+              <input name="usuario" type="text" required class="form-control  inputform" placeholder="Usuário">
+            </div>
 
             <label class="m-1 mt-2" for="email">Email</label>
-            <input name="email" type="email" required class="form-control  inputform" placeholder="Email">
+            <div class="input-group mb-1">
+              <span class="input-group-text inputform" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
+              <input name="email" type="email" required class="form-control  inputform" placeholder="Email">
+            </div>
 
             <label class="m-1 mt-2" for="TipoObjeto">Cargo</label>
             <select name="cargo" class="form-select  inputform">
@@ -35,7 +44,10 @@
             </select>
 
             <label class="m-1 mt-2" for="Municipio">Senha</label>
-            <input id="senha" name="senha" type="password" class="form-control inputform" placeholder="Senha" required>
+            <div class="input-group mb-1">
+              <span class="input-group-text inputform" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
+              <input id="senha" name="senha" type="password" class="form-control inputform" placeholder="Senha" required>
+            </div>
 
             <label class="m-1 mt-2" for="Estado">Confirmação de senha</label>
             <input id="confirm_senha" name="confirmacao senha" type="password" class="form-control inputform" placeholder="Confirmação de senha" required>
@@ -43,7 +55,6 @@
           </div>
         </div>
         <div class="botoes_login text-center">
-          <!--<a href={% url 'home_page:index' %} class="btn btn-outline-dark colorButton mt-4">Enviar</a>-->
           <button type="submit" class="btn btn-outline-dark colorButton mt-4 ">Criar conta</button>
           <a href={% url 'home_all:login' %} class="btn btn-outline-dark colorButton bg-danger ms-1 mt-4">Cancelar</a>
         </div>

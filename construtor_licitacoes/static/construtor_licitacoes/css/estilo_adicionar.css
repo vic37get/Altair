@@ -70,6 +70,7 @@ footer {
   padding: 0 !important;
   margin: 0 !important;
   flex: 0;
+  border-top: 1px solid white;
 }
 .row-cols-xl-4{
   padding: 5vh;
@@ -356,13 +357,11 @@ footer {
   text-align: left;
   color: var(--cor_status_pendente);
 }
-
 .avaliado{
   padding: 1px;
   text-align: left;
   color: var(--cor_status_avaliado);
 }
-
 .submetido{
   text-align: left;
   color: var(--cor_status_submetido);
@@ -397,4 +396,8 @@ input:disabled{
 
 .btn-vermelho:hover{
   background-color: #9c2330;
+}
+
+.div_dos_modelos{
+  height: 70% !important;
 }

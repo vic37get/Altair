@@ -12,12 +12,6 @@ class UrlTests(TestCase):
         resolver = resolve('/gestor/perfil')
         self.assertEqual(resolver.view_name, 'home_page:perfil')
 
-        resolver = resolve('/gestor/enviar')
-        self.assertEqual(resolver.view_name, 'home_page:enviar')
-
-        resolver = resolve('/gestor/cadastrar')
-        self.assertEqual(resolver.view_name, 'home_page:submeterCadastro')
-
         resolver = resolve('/gestor/filtro')
         self.assertEqual(resolver.view_name, 'home_page:filtro')
 
@@ -86,7 +80,4 @@ class UrlTests(TestCase):
 
         resolver = resolve('/aud/avaliacao/<pk>')
         self.assertEqual(resolver.view_name, 'verificador_fraude:avaliacao')
-
-
-
         
