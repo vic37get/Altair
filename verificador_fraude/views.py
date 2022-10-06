@@ -16,7 +16,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
-from utils import GET_required, aud_required, connectMongo, login_required
+from utils import GET_required, aud_required, connectMongo, login_required,POST_required
 
 db_client = connectMongo('Altair')
 
@@ -47,16 +47,16 @@ def perfil(request):
     return HttpResponse(perfil.render(context, request))
 
 @login_required
+@POST_required
 def editarPerfil(request):
-    if request.method == 'POST':
-        data = request.POST.copy()
-        del data['csrfmiddlewaretoken']
-        request.session['username'] = data['usuario']
-        request.session['email'] = data['email']
-        request.session['nome'] = data['nome']
-        usuario = findOneUser(request.session['id'])
-        updateUser(request.session['id'], data)
-        messages.info(request, 'Os dados do usuário \''+usuario['nome']+'\' foram alterados!')
+    data = request.POST.copy()
+    del data['csrfmiddlewaretoken']
+    request.session['username'] = data['userID']
+    request.session['email'] = data['email']
+    request.session['nome'] = data['nome']
+    usuario = findOneUser(request.session['id'])
+    updateUser(request.session['id'], data)
+    messages.info(request, 'Os dados do usuário \''+usuario['nome']+'\' foram alterados!')
     return redirect('/aud')
 
 @login_required
