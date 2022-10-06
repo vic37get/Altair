@@ -7,3 +7,7 @@ pdfkit==1.0.0
 gunicorn
 weasyprint==56.1
 regex==2022.8.17
+tika==1.24
+django-bootstrap-modal-forms==2.2.0
+django-mongo-sessions==0.0.4
+PyPDF2==2.11.0

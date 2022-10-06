@@ -96,7 +96,7 @@ class Licitacao(LicitacaoInterface.LicitacaoInterface):
         lista_secoes, conteudo_secao = self.findSectionAndTextBank(self, licitacao_id)
         for i in zip(lista_secoes, conteudo_secao):
             secao = i[0]
-            secao.verificaSecao.Secao()
+            secao.verificaSecao()
             self.addSecoes(secao)
 
     def struct(self,secoes,dados):
@@ -107,22 +107,22 @@ class Licitacao(LicitacaoInterface.LicitacaoInterface):
                 conteudo_secao[i] = conteudo_secao[i][:anexo_nofinal.start()]
         for i in zip(lista_secoes,conteudo_secao):
             secao = Secao.Secao(i[0].group(8),i[0].group(15),i[1],i[0].group(0))
-            secao.verificaSecao.Secao()
+            secao.verificaSecao()
             self.addSecoes(secao)
 
     def setTipoSecoes(self):
-        for i in self.getSecao.Secao():
+        for i in self.getSecao():
             self.secoes_principais[i.getTipo()] = True
-    
+
     def pulaSumario(self):
         i = 0
-        while(i<len(self.getSecao.Secao())):
-            texto = self.getSecao.Secao()[i].getConteudo()
+        while(i<len(self.getSecao())):
+            texto = self.getSecao()[i].getConteudo()
             if len(texto.replace('\n','')) == 0:
-                self.getSecao.Secao().pop(i)
+                self.getSecao().pop(i)
             else:
                 i+=1
-    
+
     def verificaSecoesObrigatorias(self):
         for i in Header.SECOES_OBRIGATORIAS:
             if not self.secoes_principais[i.getNome()]:
@@ -144,10 +144,10 @@ class Licitacao(LicitacaoInterface.LicitacaoInterface):
     
     def setTipoValidade(self,tipo):
         self._tipo = tipo
-    
+
     def getSecoesEmpty(self):
         secoesVazias = []
-        for i in self.getSecao.Secao():
+        for i in self.getSecao():
             if i.isEmpty():
                 secoesVazias.append(i)
         return secoesVazias

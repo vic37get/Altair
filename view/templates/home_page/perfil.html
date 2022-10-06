@@ -1,0 +1,54 @@
+{% extends 'homePerfilGestor.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+{% include 'messages.html' %}
+<script>
+  setTimeout(function(){
+    if ($('#msg').length > 0) {
+      $('#msg').remove();
+    }
+  }, 3000)
+</script>
+<div class="bg-white formCadastro pt-4 pb-5 px-4 mb-5 mt-5">
+    <div class="logo text-center">
+      <i class="fa-solid fa-user logoAltair"></i>
+    </div>
+    <form action="{% url 'home_page:editarPerfil' %}" method="post">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group col-md-6 w-100">
+
+            <label class="m-1 mt-2" for="nome">Nome</label>
+            <div class="input-group mb-1">
+              <span class="input-group-text inputform" id="basic-addon1"><i class="fa-solid fa-pen"></i></span>
+              <input name="nome" type="text" class="form-control  inputform" value="{{nome}}" placeholder="Nome completo">
+            </div>
+
+            <label class="m-1 mt-2" for="usuario">Usuário</label>
+            <div class="input-group mb-1">
+              <span class="input-group-text inputform" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+              <input name="usuario" type="text" class="form-control  inputform" value="{{usuario}}" placeholder="Usuário">
+            </div>
+
+            <label class="m-1 mt-2" for="email">Email</label>
+            <div class="input-group mb-1">
+              <span class="input-group-text inputform" id="basic-addon1"><i class="fa-solid fa-envelope"></i></span>
+              <input name="email" type="email" class="form-control  inputform" value="{{email}}" placeholder="Email">
+            </div>
+
+            <label class="m-1 mt-2" for="cargo">Cargo</label>
+            <div class="input-group mb-1">
+              <span class="input-group-text inputform" id="basic-addon1"><i class="fa-solid fa-briefcase"></i></span>
+              <input name="cargo" type="text" readonly class="form-control  inputform" value="{{cargo}}" placeholder="Cargo">
+            </div>
+
+          </div>
+        </div>
+        <div class="botoes_login text-center">
+          <button type="submit" class="btn btn-outline-dark colorButton mt-4 ">Salvar dados</button>
+          <a href={% url 'home_page:index' %} class="btn btn-outline-dark colorButton btn-vermelho ms-1 mt-4">Voltar</a>
+        </div>
+      </form>
+</div>
+{% endblock %}

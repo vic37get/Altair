@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+<div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-4 m-0 justify-content-center div_dos_modelos">
+    {% for template in templates%}
+    <div class="col mb-5 mt-5">
+        <div class="card h-100">
+
+            <div class="card-body p-4 text-center">
+                <i class="fa-regular fa-file-lines ico-size"></i>
+                <div class="text-center">
+                    <h5 class="fw-bolder">{{template.nome}}</h5>
+                </div>
+            </div>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <form action="{% url 'construtor_licitacoes:adicionar' template|private:'_id' %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-outline-dark colorButton" type="submit" value="Criar com esse modelo">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{%load static%}
+{%load tagger%}
+{% block content %}
+{% include 'messages.html' %}
+<script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 3000)
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<div class=" row gx-4 gx-lg-5 menu_index d-flex">
+    <div class="input-group rounded m-0 m-auto align-items-center justify-content-center">
+        <form class="input-group rounded m-0 m-auto barraDosFiltros" action="{% url 'home_page:filtro' %} " method="get">
+            {% csrf_token %}
+            <select name="template" class="form-select rounded filtroTipo me-3 border-secondary w-auto">
+                <option value=-1 selected>Todos os modelos</option>
+                <option value="CAPÍTULOS">Capítulos</option>
+                <option value="SEÇÕES">Seções</option>
+                <option value="NUMÉRICO">Numérico</option>
+            </select>
+            <select name="status" class="form-select rounded filtroTipo me-3 border-secondary w-auto">
+                <option value=-1 selected>Todas</option>
+                <option value=0>Pendentes</option>
+                <option value=1>Submetidas</option>
+            </select>
+            <input name="tipoArquivo" type="search" class="form-control rounded border-secondary" placeholder="Buscar uma Licitação..." aria-label="Pesquisar" aria-describedby="search-addon" />
+            <input class="btn colorButton rounded-2 border-1 border-dark text-white ms-1" type="submit" value="🔍 Buscar">
+        </form>
+    </div>
+</div>
+
+<div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 p-2 m-0 justify-content-center">
+    <div class="col mb-3 mt-5">
+        <div class="card h-100 cardNew">
+            <div class="card-body p-4 text-center">
+                <i class="fa-solid fa-file-circle-plus ico-size"></i><i class=""></i>
+                <div class="text-center">
+                    <h5 class="fw-bolder">Sem Título</h5>
+                </div>
+            </div>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <form class="my-1" action="{% url 'home_page:template' %} " method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-outline-dark colorButton buttonNew" type="submit" value="Nova Licitação">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var selectedValue = $('#aioConceptName').find(":selected").val();
+    </script>
+    {% for licitacao in licitacoes%}
+    <div class="col mb-3 mt-5">
+        <div class="card h-100">
+            <div class="licitacaoStatus m-2 d-flex flex-row" >
+                <i id="status{{licitacao|private:'_id'}}" class="status fa-solid fa-circle"></i>
+                <p id="Labelstatus{{licitacao|private:'_id'}}" class="nomeStatus"></p>
+                
+                <button id="modalButton{{licitacao|private:'_id'}}" type="button" class="btn btn-outline-info btn-sm float-right position-absolute end-0 me-2" data-bs-toggle="modal" data-bs-target="#feedbackAuditor" onclick="atualizaModal('{{licitacao.comentarios}}','{{licitacao.indiciosApontados}}')" >
+                    Feedback
+                </button>
+
+            </div>
+            <div class="card-body p-4 text-center">
+                <i class="fa-solid fa-file-lines ico-size" ></i>
+                <div class="text-center d-flex flex-column tituloEditavel">
+                    <input id="inputTitleHomePage{{licitacao|private:'_id'}}" class="fw-bolder text-center border-0 " value="{{licitacao.tituloArquivo}}"></input>
+                    Última modificação:<br>{{licitacao.dataModificacao}}
+                    <script>
+                        $("#inputTitleHomePage{{licitacao|private:'_id'}}").on('input', function() { 
+                            var titulo = {'tituloArquivo':$(this).val()}
+                            $.ajax({
+                                type: 'POST',
+                                url: '/gestor/construcao/editarTitulo',
+                                data: JSON.stringify({'json':titulo,'_id':"{{licitacao|private:'_id'}}"}),
+                                dataType : 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                cache: false,
+                            });
+                        });
+                        $(window).on('load', statusLicitacao("{{licitacao.status}}","{{licitacao.avaliada}}","{{licitacao|private:'_id'}}"));
+                    </script>
+                </div>
+            </div>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center d-flex justify-content-center">
+                    <form class="m-1" action="{% url 'construtor_licitacoes:editar' licitacao|private:'_id' %}" method="post">
+                        {% csrf_token %}
+                        <input id="editar{{licitacao|private:'_id'}}" class="btn btn-outline-dark colorButton" type="submit" value="Editar">
+                    </form>
+                    <form class="m-1" action="{% url 'construtor_licitacoes:excluir' licitacao|private:'_id' %}" method="post">
+                        {% csrf_token %}
+                        <input id="excluir{{licitacao|private:'_id'}}" class="btn btn-outline-dark colorButton btn-vermelho" type="submit" value="Excluir">
+                    </form>
+                    <script>
+                        $(window).on('load', switchLockEdit("{{licitacao.status}}","{{licitacao|private:'_id'}}"));
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <!-- Modal -->
+  <div class="modal fade" id="feedbackAuditor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-pen-clip"></i> Feedback do Auditor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h6>Indícios encontrados na licitação:</h6>
+            <span class="badge rounded-pill bg-danger"><span id="modalContent"></span></span>
+            <hr>
+            <h6>Avaliação do Auditor:</h6>
+            <p id="modalContent2"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+</div>
+{% endblock %}

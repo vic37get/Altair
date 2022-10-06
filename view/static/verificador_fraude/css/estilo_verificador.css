@@ -1,0 +1,244 @@
+:root {
+    --cor_hover_cinza: rgb(126, 126, 126);
+    --cor_menu_lateral_direito: rgb(50, 54, 57);
+    --cor_principal: #1C3879;
+    --cor_principal_contraste: #607EAA;
+    --cor_fundo: rgb(235, 240, 255);
+    --cor_hover: #19326d;
+    --cor_divs: #ffffff;
+    --cor_divs_contraste: rgb(225, 230, 255);
+    --cor_secundaria_fundo: #d4cebf;
+    --background_hover: rgb(185, 185, 185);
+    --cor_bordas: rgb(179, 179, 179);
+    --fonte_principal: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    --cor_secundaria_fundo: #dfd8c5;
+}
+
+.barra_botao_aud{
+    border-color: var(--cor_bordas);
+    background-color: var(--cor_divs_contraste);
+}
+
+.cardAud{
+    width: 80% !important;
+    padding: 0;
+    margin: 0;
+}
+
+.cardInterno{
+    height: 65% !important;
+}
+
+.rodapeCard{
+    margin: 0;
+    padding: 0;
+    background-color: var(--cor_divs);
+    height: 50% !important;
+}
+
+.previewAud{
+    width: 40% !important;
+    position: absolute;
+    right: 0 !important;
+    height: 100%;
+}
+
+.BarraNameLic{
+    width: 100%;
+    height: fit-content;
+    background-color: var(--cor_principal);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    font-size: 18px;
+}
+
+.cardlicAud{
+    border-bottom: 2px solid var(--cor_principal);
+    border-left: 2px solid var(--cor_principal);
+    border-right: 2px solid var(--cor_principal);
+}
+
+.documentBarra{
+    position: absolute;
+    right: 0 !important;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    text-shadow: none;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.textoDocumento{
+    color: var(--cor_principal);
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.documentBarra:hover{
+    background-color: var(--background_hover);
+}
+
+.textoDocumento:hover{
+    color: var(--cor_hover);
+}
+
+.objeto{
+    max-height: max-content;
+}
+
+.tipolic{
+    background-color: rgb(255, 103, 103);
+}
+
+.nomelic{
+    color: gold;
+    font-size: 17px;
+    width: fit-content;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.nomelic:hover{
+    color: gold;
+}
+
+.barraDosFiltros{
+    width: 100%;
+    padding: 0;
+}
+
+#embedavaliar{
+    width: 100%;
+    height: 100%;
+}
+
+.previewPdfAud{
+    padding: 1px;
+    margin-top: 58px;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+}
+
+.conteudos_interna{
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+    background-color: var(--cor_fundo);
+    height: 100%;
+    width: 60%;
+    padding: 0;
+}
+
+.BotaoVoltarAud{
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.SobreLic{
+    margin-top: 30px;
+    margin: 0 auto;
+    width: 95%;
+    
+}
+
+.TituloCard{
+    background-color: var(--cor_principal) !important;
+    color: white;
+    padding: 8px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.TituloCardTxt{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.ConteudoCard{
+    font-size: 16px;
+    border: 2px solid var(--cor_principal);
+    background-color: var(--cor_divs);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.TitulosInformacoesLic{
+    color: rgb(61, 61, 61);
+    font-size: 18px;
+    font-family: var(--fonte_principal);
+}
+
+.TextoInformacoesLic{
+    font-size: 15px;
+    font-family: var(--fonte_principal);
+}
+
+.botoes{
+    border-top: 1px solid var(--cor_bordas);
+    padding: 8px;
+    background-color: var(--cor_divs_contraste) !important;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.fonteicone{
+    font-size: 20px;
+}
+
+.TextoCard{
+    background-color: var(--cor_divs);
+    padding: 20px;
+}
+
+.Achados{
+    padding-top: 10px;
+}
+
+.table{
+    background-color: var(--cor_divs);
+    border: 1px solid var(--cor_bordas);
+    font-family: var(--fonte_principal);
+}
+
+.tituloTabela{
+    font-family: 'Lato', sans-serif;
+    color: rgb(49, 49, 49);
+    font-weight: bold;
+}
+
+.IndiciosEncontrados{
+    font-family: 'Lato', sans-serif;
+    font-weight: 590;
+}
+.modal-dialog{
+    max-width: 600px !important;
+}
+.radio{
+    font-size: larger;
+}
+.radio input{
+    width: 20px;
+    height: 20px;
+}
+.modal-body{
+    padding: 1.2rem !important;
+}
+
+.itens_menu{
+    position: relative;
+}
+
+.perfilMenu{
+    position: absolute;
+    right: 0;
+}

@@ -1,5 +1,4 @@
 activate_venv_altair.sh
-data/
 
 *.log
 *.pot

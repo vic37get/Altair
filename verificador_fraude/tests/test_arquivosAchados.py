@@ -17,7 +17,8 @@ class arquivosAchados(SimpleTestCase):
             arquivoAchado.setSecaoAchado(secao_teste)
             arquivoAchado.setTipoAchado(tipoAchado_teste)
         except:
-            print("erro ao setar informações, verifique se foram passadas corretamente")
+            #print("erro ao setar informações, verifique se foram passadas corretamente")
+            ...
 
         try:
             #testando getters
@@ -26,4 +27,5 @@ class arquivosAchados(SimpleTestCase):
             self.assertEquals(arquivoAchado.getConteudoAchado,conteudo_teste)
             self.assertEquals(arquivoAchado.getDescricaoAchado,descricao_teste)
         except:
-            print("Erro ao recuperar informações")
+            #print("Erro ao recuperar informações")
+            ...
