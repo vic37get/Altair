@@ -10,69 +10,69 @@ class Fraude:
         return self._Licitacao
 
     def verificaFraudeCompleta(self,expressao,tipo):
-        for j in self._Licitacao.getSecao():
-            if j.getTipo() == tipo:
-                achado = expressao.search(j.getConteudo())
-                if achado[1]:
-                    achado_obj = Achado.Achado(expressao.getNome(),j.getTitulo(),'','')
-                    achado_obj.setConteudoAchado.Achado(j.getConteudo())
-                    return achado_obj
+        for secao in self._Licitacao.getSecao():
+            if secao.getTipo() == tipo:
+                fraude_achada = expressao.search(secao.getConteudo())
+                if fraude_achada[1]:
+                    objeto_achado = Achado.Achado(expressao.getNome(),secao.getTitulo(),'','')
+                    objeto_achado.setConteudoAchado.Achado(secao.getConteudo())
+                    return objeto_achado
         return Achado.Achado(expressao.getNome(),None,'','')
 
     def verificaFraudeParcial(self,expressao,tipo):
-        for j in self._Licitacao.getSecao():
-            if j.getTipo() == tipo:
-                achado = expressao.search(j.getConteudo())
+        for secao in self._Licitacao.getSecao():
+            if secao.getTipo() == tipo:
+                fraude_achada = expressao.search(secao.getConteudo())
                 texto_achado = ''
-                if achado[1]:
-                    achado_obj = Achado.Achado(expressao.getNome(),j.getTitulo(),'',expressao.getDescricao())
-                    if achado[0].start()>Header.CONTEXTO_INI and len(j.getConteudo())> (achado[0].end()+Header.CONTEXTO_FIM):
-                        texto_achado = j.getConteudo()[achado[0].start()-Header.CONTEXTO_INI:achado[0].end()+Header.CONTEXTO_FIM]
-                    elif achado[0].start()<Header.CONTEXTO_INI and len(j.getConteudo())> (achado[0].end()+Header.CONTEXTO_FIM):
-                        texto_achado = j.getConteudo()[0:achado[0].end()+Header.CONTEXTO_FIM]
-                    elif achado[0].start()>Header.CONTEXTO_INI and len(j.getConteudo())< (achado[0].end()+Header.CONTEXTO_FIM):
-                        texto_achado = j.getConteudo()[achado[0].start()-Header.CONTEXTO_INI:]
+                if fraude_achada[1]:
+                    achado_obj = Achado.Achado(expressao.getNome(),secao.getTitulo(),'',expressao.getDescricao())
+                    if fraude_achada[0].start()>Header.CONTEXTO_INI and len(secao.getConteudo())> (fraude_achada[0].end()+Header.CONTEXTO_FIM):
+                        texto_achado = secao.getConteudo()[fraude_achada[0].start()-Header.CONTEXTO_INI:fraude_achada[0].end()+Header.CONTEXTO_FIM]
+                    elif fraude_achada[0].start()<Header.CONTEXTO_INI and len(secao.getConteudo())> (fraude_achada[0].end()+Header.CONTEXTO_FIM):
+                        texto_achado = secao.getConteudo()[0:fraude_achada[0].end()+Header.CONTEXTO_FIM]
+                    elif fraude_achada[0].start()>Header.CONTEXTO_INI and len(secao.getConteudo())< (fraude_achada[0].end()+Header.CONTEXTO_FIM):
+                        texto_achado = secao.getConteudo()[fraude_achada[0].start()-Header.CONTEXTO_INI:]
                     else:
-                        texto_achado = j.getConteudo()
+                        texto_achado = secao.getConteudo()
                     achado_obj.setConteudoAchado(texto_achado)
                     return achado_obj
         return Achado.Achado(expressao.getNome(),None,'','')
 
     def verificarLicitacaoCompleta(self):
-        achados = []
+        Todas_as_fraudes_achadas = []
         for i in Header.LISTA_TODOS:
-            c = False
+            isNotNull = False
             for key,valor in Header.TIPOS.items():
                 if key != Header.TIPOS['HABILITACAO']:
-                    achado = self.verificaFraudeCompleta(i,valor)
-                    if achado.getSecaoAchado.Achado() != None:
-                        achados.append(achado)
-                        c = True
+                    Fraudes_achadas = self.verificaFraudeCompleta(i,valor)
+                    if Fraudes_achadas.getSecaoAchado.Achado() != None:
+                        Todas_as_fraudes_achadas.append(Fraudes_achadas)
+                        isNotNull = True
                         break
-            if not c:
-                achados.append(Achado.Achado(i.getNome(),None,'',''))
+            if not isNotNull:
+                Todas_as_fraudes_achadas.append(Achado.Achado(i.getNome(),None,'',''))
             
         for j in Header.LISTA_HABILITACAO:
-            achados.append(self.verificaFraudeCompleta(j,Header.TIPOS['HABILITACAO']))
-        return achados
+            Todas_as_fraudes_achadas.append(self.verificaFraudeCompleta(j,Header.TIPOS['HABILITACAO']))
+        return Todas_as_fraudes_achadas
 
     def verificarLicitacaoParcial(self):
-        achados = []
+        Todas_as_fraudes_achadas = []
         for i in Header.LISTA_TODOS:
-            c = False
+            isNotNull = False
             for key,valor in Header.TIPOS.items():
                 if key != Header.TIPOS['HABILITACAO']:
-                    achado = self.verificaFraudeParcial(i,valor)
-                    if achado.getSecaoAchado() != None:
-                        achados.append(achado)
-                        c = True
+                    fraudes_achadas = self.verificaFraudeParcial(i,valor)
+                    if fraudes_achadas.getSecaoAchado() != None:
+                        Todas_as_fraudes_achadas.append(fraudes_achadas)
+                        isNotNull = True
                         break
-            if not c:
-                achados.append(Achado.Achado(i.getNome(),None,'',''))
+            if not isNotNull:
+                Todas_as_fraudes_achadas.append(Achado.Achado(i.getNome(),None,'',''))
             
         for j in Header.LISTA_HABILITACAO:
-            achados.append(self.verificaFraudeParcial(j,Header.TIPOS['HABILITACAO']))
-        return achados
+            Todas_as_fraudes_achadas.append(self.verificaFraudeParcial(j,Header.TIPOS['HABILITACAO']))
+        return Todas_as_fraudes_achadas
         
     def getAchadosCompleta(self):
         if self.achados == None:

@@ -32,7 +32,12 @@
                     <div class="d-flex flex-row tituloEditavel">
                         <div class="BarraNameLic">
                             <div class="documentBarra align-middle">
+                                {% if licitacao.interno == False %}
+                                <a class="textoDocumento" download="{{licitacao.tituloArquivo}}.pdf" href="data:application/pdf;base64,{{licitacao.base64}}">Documento <i class="fa-solid fa-file"></i></a>
+                                {% endif %}
+                                {% if licitacao.interno == True %}
                                 <a class="textoDocumento" download="{{licitacao.tituloArquivo}}.pdf" href="{{licitacao.base64}}">Documento <i class="fa-solid fa-file"></i></a>
+                                {% endif %}
                             </div>
                              <a class="nomelic"><i class="fa-solid fa-landmark"></i> Licitação/Órgão: </a>{{licitacao.tituloArquivo}} {{licitacao.orgao}} 
                         </div>
